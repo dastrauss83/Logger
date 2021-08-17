@@ -8,18 +8,22 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Image,
   Alert,
+  ScrollView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";
-import { storeCurrentUser } from "../../Pages/WelcomeScreen";
 import { useUserContext } from "../../UserContext";
 
 const SignUp = () => {
+  const [userName, onChangeUserName] = useState<string>("");
   const [email, onChangeEmail] = useState<string>("");
   const [password, onChangePassword] = useState<string>("");
   const { setCurrentUser } = useUserContext();
 
-  const handleSignUp = ({ navigation }: any) => {
+  const handleSignUp = async () => {
     if (email === "" || password === "")
       return Alert.alert(
         "Failed to Sign Up",
@@ -32,45 +36,77 @@ const SignUp = () => {
         "Please ensure your Password is more than 6 characters",
         [{ text: "Ok" }]
       );
-    firebase
+    if (userName.length > 14)
+      return Alert.alert(
+        "Failed to Sign Up",
+        "Please ensure your User Name is less than 15 characters",
+        [{ text: "Ok" }]
+      );
+    const response = await firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        setCurrentUser(userCredential.user);
-        storeCurrentUser(userCredential.user);
-      });
+      .createUserWithEmailAndPassword(email, password);
+    const firebaseUser = response.user;
+    const user: any = { ...firebaseUser };
+    user.customUserName = userName;
+    setCurrentUser({ uid: user.uid, customUserName: user.customUserName });
+    storeCurrentUser({ uid: user.uid, customUserName: user.customUserName });
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(`${user.uid}`)
+      .set({ uid: user.uid, customUserName: user.customUserName });
+    onChangeUserName("");
     onChangeEmail("");
     onChangePassword("");
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.screen}>
-        <Text style={{ top: 20, fontSize: 30, color: colors.first }}>
-          Sign up to shoot your shot!
-        </Text>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={onChangeEmail}
-            placeholder={"Email"}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={onChangePassword}
-            secureTextEntry={true}
-            placeholder={"Password"}
-          />
-          <TouchableOpacity onPress={handleSignUp} style={styles.loginButton}>
-            <Text style={styles.loginText}>Sign Up</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
+    <SafeAreaView style={{ backgroundColor: colors.second }}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView
+          style={styles.screen}
+          contentContainerStyle={{ alignItems: "center" }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View>
+            <Image
+              source={require("../../Assets/poo.png")}
+              style={styles.logo}
+            />
+          </View>
+          <Text style={{ top: 20, fontSize: 30, color: colors.first }}>
+            Join the Leader Boards!
+          </Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              value={userName}
+              onChangeText={onChangeUserName}
+              placeholder={"Username"}
+              autoCapitalize="none"
+            />
+            <TextInput
+              style={styles.input}
+              value={email}
+              onChangeText={onChangeEmail}
+              placeholder={"Email"}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            <TextInput
+              style={styles.input}
+              value={password}
+              onChangeText={onChangePassword}
+              secureTextEntry={true}
+              placeholder={"Password"}
+            />
+            <TouchableOpacity onPress={handleSignUp} style={styles.loginButton}>
+              <Text style={styles.loginText}>Sign Up</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 };
 
@@ -93,7 +129,6 @@ const styles = StyleSheet.create({
   },
   screen: {
     backgroundColor: colors.second,
-    alignItems: "center",
     width: "100%",
     height: "100%",
   },
@@ -112,5 +147,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     fontSize: 30,
     padding: 10,
+  },
+  logo: {
+    width: 200,
+    height: 200,
+    marginBottom: 40,
   },
 });

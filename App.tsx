@@ -8,7 +8,7 @@ import {
   View,
   Image,
 } from "react-native";
-import { storeCurrentUser, WelcomeScreen } from "./App/Pages/WelcomeScreen";
+import { WelcomeScreen } from "./App/Pages/WelcomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HomeScreen } from "./App/Pages/HomeScreen";
@@ -17,6 +17,7 @@ import { useState } from "react";
 import { UserContext } from "./App/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Menu from "./App/Components/Menu";
+import SignUp from "./App/Components/WelcomeScreen/SignUp";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -30,19 +31,32 @@ firebase.initializeApp(firebaseConfig);
 
 const Stack = createStackNavigator();
 
+export const storeCurrentUser = async (value: any) => {
+  const jsonValue = JSON.stringify(value);
+  await AsyncStorage.setItem("currentUser", jsonValue);
+};
+
 export default function App() {
-  const [currentUser, setCurrentUser] = useState<any>("noUser");
+  const [currentUser, setCurrentUser] = useState<any>({
+    customUserName: "noUser",
+  });
 
   useEffect(() => {
     const getUser = async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem("currentUser");
-        return jsonValue != null ? JSON.parse(jsonValue) : "noUser";
-      } catch (e) {
-        return;
+      let value: any;
+      const jsonValue = await AsyncStorage.getItem("currentUser");
+      if (jsonValue !== null) {
+        if (JSON.parse(jsonValue) === "noUser") {
+          value = {
+            customUserName: "noUser",
+          };
+        } else {
+          value = JSON.parse(jsonValue);
+        }
       }
+      setCurrentUser(value);
     };
-    setCurrentUser(getUser());
+    getUser();
   }, []);
 
   return (
@@ -52,14 +66,17 @@ export default function App() {
     >
       <NavigationContainer>
         <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-          {currentUser !== "noUser" && <Menu />}
+          {currentUser.customUserName !== "noUser" && <Menu />}
           <Stack.Navigator
             screenOptions={{
               headerShown: false,
             }}
           >
-            {currentUser === "noUser" ? (
-              <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            {currentUser.customUserName === "noUser" ? (
+              <>
+                <Stack.Screen name="Welcome" component={WelcomeScreen} />
+                <Stack.Screen name="SignUp" component={SignUp} />
+              </>
             ) : (
               <>
                 <Stack.Screen name="Home" component={HomeScreen} />

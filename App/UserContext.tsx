@@ -2,7 +2,9 @@ import { useContext } from "react";
 import { createContext } from "react";
 
 export const UserContext = createContext({
-  currentUser: "noUser",
+  currentUser: {
+    customUserName: "noUser",
+  },
   setCurrentUser: (e: any) => {},
 });
 

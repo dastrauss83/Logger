@@ -9,9 +9,10 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  ScrollView,
 } from "react-native";
+import { storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";
-import { storeCurrentUser } from "../../Pages/WelcomeScreen";
 import { useUserContext } from "../../UserContext";
 
 const LogIn = () => {
@@ -30,11 +31,22 @@ const LogIn = () => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        setCurrentUser(userCredential.user);
-        storeCurrentUser(userCredential.user);
+      .then(async (userCredential) => {
+        const userDoc = await firebase
+          .firestore()
+          .collection("users")
+          .doc(`${userCredential.user?.uid}`)
+          .get();
+        const userData: any = userDoc.data();
+        const user: any = { ...userCredential.user };
+        user.customUserName = userData.customUserName;
+        setCurrentUser({ uid: user.uid, customUserName: user.customUserName });
+        storeCurrentUser({
+          uid: user.uid,
+          customUserName: user.customUserName,
+        });
       })
-      .catch((error) => {
+      .catch(() => {
         Alert.alert(
           "Failed to Log In",
           "Please ensure you have entered your Email and Password correctly",
@@ -46,37 +58,39 @@ const LogIn = () => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.screen}>
-        <Text style={{ top: 20, fontSize: 30, color: colors.first }}>
-          Log In to an existing account
-        </Text>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={onChangeEmail}
-            placeholder={"Email"}
-            autoCompleteType="email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            textContentType="none"
-          />
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={onChangePassword}
-            secureTextEntry={true}
-            placeholder={"Password"}
-            autoCompleteType="password"
-            textContentType="none"
-          />
-          <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
-            <Text style={styles.loginText}>Log In</Text>
-          </TouchableOpacity>
-        </View>
+    <ScrollView
+      style={styles.screen}
+      contentContainerStyle={styles.screenContent}
+      keyboardShouldPersistTaps="handled"
+    >
+      <Text style={{ top: 20, fontSize: 30, color: colors.first }}>
+        Log In to an existing account
+      </Text>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={onChangeEmail}
+          placeholder={"Email"}
+          autoCompleteType="email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          textContentType="none"
+        />
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={onChangePassword}
+          secureTextEntry={true}
+          placeholder={"Password"}
+          autoCompleteType="password"
+          textContentType="none"
+        />
+        <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+          <Text style={styles.loginText}>Log In</Text>
+        </TouchableOpacity>
       </View>
-    </TouchableWithoutFeedback>
+    </ScrollView>
   );
 };
 
@@ -99,9 +113,11 @@ const styles = StyleSheet.create({
   },
   screen: {
     backgroundColor: colors.second,
-    alignItems: "center",
     width: "100%",
     height: "100%",
+  },
+  screenContent: {
+    alignItems: "center",
   },
   inputContainer: {
     width: "80%",

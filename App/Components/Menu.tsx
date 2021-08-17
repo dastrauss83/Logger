@@ -9,17 +9,17 @@ import {
   View,
   Modal,
 } from "react-native";
+import { storeCurrentUser } from "../../App";
 import colors from "../config/colors";
-import { storeCurrentUser } from "../Pages/WelcomeScreen";
 import { useUserContext } from "../UserContext";
 
 const Menu = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const { setCurrentUser } = useUserContext();
+  const { currentUser, setCurrentUser } = useUserContext();
 
   const logout = () => {
     firebase.auth().signOut();
-    setCurrentUser("noUser");
+    setCurrentUser({ customUserName: "noUser" });
     storeCurrentUser("noUser");
   };
   return (
@@ -27,6 +27,9 @@ const Menu = () => {
       onPress={() => setShowModal(true)}
       style={styles.logoContainer}
     >
+      <Text style={{ fontSize: 25, color: colors.first }}>
+        {currentUser.customUserName}
+      </Text>
       <Image source={require("../Assets/poo.png")} style={styles.logo} />
       <Modal animationType="slide" visible={showModal} transparent={true}>
         <View style={styles.modalContainer}>
@@ -67,6 +70,8 @@ const styles = StyleSheet.create({
     zIndex: 100,
     top: 40,
     right: 8,
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   buttonContainer: {

@@ -7,18 +7,12 @@ import {
   Text,
   TouchableWithoutFeedback,
   Keyboard,
+  TouchableOpacity,
 } from "react-native";
 import SignIn from "../Components/WelcomeScreen/SignIn";
 import colors from "../config/colors";
 import { createStackNavigator } from "@react-navigation/stack";
 import LogIn from "../Components/WelcomeScreen/LogIn";
-import SignUp from "../Components/WelcomeScreen/SignUp";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-export const storeCurrentUser = async (value: any) => {
-  const jsonValue = JSON.stringify(value);
-  await AsyncStorage.setItem("currentUser", jsonValue);
-};
 
 export const WelcomeScreen = () => {
   const Stack = createStackNavigator();
@@ -29,8 +23,19 @@ export const WelcomeScreen = () => {
       <SafeAreaView style={styles.background}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.logoContainer}>
-            <Image source={require("../Assets/poo.png")} style={styles.logo} />
-            <Text style={styles.introText}>Today could be your day!</Text>
+            <View>
+              <Image
+                source={require("../Assets/poo.png")}
+                style={styles.logo}
+              />
+            </View>
+            <View style={{ width: "80%" }}>
+              <TouchableOpacity
+                style={[styles.leaderBoardsButton, { width: "80%" }]}
+              >
+                <Text style={styles.leaderBoardsText}>Leader Boards</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </TouchableWithoutFeedback>
         <View style={styles.bottom}>
@@ -41,7 +46,6 @@ export const WelcomeScreen = () => {
           >
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="LogIn" component={LogIn} />
-            <Stack.Screen name="SignUp" component={SignUp} />
           </Stack.Navigator>
         </View>
       </SafeAreaView>
@@ -66,8 +70,9 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   logoContainer: {
+    flex: 1,
     height: "50%",
-    paddingTop: 80,
+    paddingTop: 20,
     alignItems: "center",
     width: "100%",
     backgroundColor: colors.first,
@@ -75,5 +80,18 @@ const styles = StyleSheet.create({
   introText: {
     fontSize: 30,
     color: colors.second,
+  },
+  leaderBoardsButton: {
+    width: "100%",
+    height: 70,
+    backgroundColor: colors.third,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
+  },
+  leaderBoardsText: {
+    fontSize: 25,
+    color: colors.first,
   },
 });

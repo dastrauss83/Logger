@@ -1,10 +1,20 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from "react-native";
 import colors from "../../config/colors";
 
 const SignIn = ({ navigation }: any) => {
   return (
-    <View style={styles.screen}>
+    <ScrollView
+      style={styles.screen}
+      contentContainerStyle={styles.screenContent}
+      keyboardShouldPersistTaps="handled"
+    >
       <Text style={{ top: 50, fontSize: 30, color: colors.first }}>
         Log In or Sign Up to get started
       </Text>
@@ -22,7 +32,7 @@ const SignIn = ({ navigation }: any) => {
           <Text style={styles.registerText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -62,8 +72,10 @@ const styles = StyleSheet.create({
   },
   screen: {
     backgroundColor: colors.second,
-    alignItems: "center",
     width: "100%",
     height: "100%",
+  },
+  screenContent: {
+    alignItems: "center",
   },
 });

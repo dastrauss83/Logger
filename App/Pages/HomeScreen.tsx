@@ -7,13 +7,16 @@ import {
   View,
 } from "react-native";
 import colors from "../config/colors";
+import { useUserContext } from "../UserContext";
 
 export const HomeScreen = () => {
+  const { currentUser } = useUserContext();
+
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.loginText}>Log In</Text>
+          <Text style={styles.loginText}>{currentUser.customUserName}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.registerButton}>
           <Text style={styles.registerText}>Sign Up</Text>
