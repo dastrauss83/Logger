@@ -13,6 +13,7 @@ import SignIn from "../Components/Welcome Screen/SignIn";
 import colors from "../config/colors";
 import { createStackNavigator } from "@react-navigation/stack";
 import LogIn from "../Components/Welcome Screen/LogIn";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 export const WelcomeScreen = () => {
   const Stack = createStackNavigator();
@@ -33,6 +34,12 @@ export const WelcomeScreen = () => {
               <TouchableOpacity
                 style={[styles.leaderBoardsButton, { width: "80%" }]}
               >
+                <Icon
+                  name="leaderboard"
+                  size={25}
+                  color={colors.first}
+                  style={{ marginRight: 10 }}
+                />
                 <Text style={styles.leaderBoardsText}>Leader Boards</Text>
               </TouchableOpacity>
             </View>
@@ -85,6 +92,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 70,
     backgroundColor: colors.third,
+    flexDirection: "row",
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",

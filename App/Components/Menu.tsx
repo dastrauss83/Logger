@@ -9,6 +9,8 @@ import {
   View,
   Modal,
 } from "react-native";
+import Icon from "react-native-vector-icons/AntDesign";
+import IconFeather from "react-native-vector-icons/Feather";
 import { storeCurrentUser } from "../../App";
 import colors from "../config/colors";
 import { useUserContext } from "../UserContext";
@@ -24,7 +26,7 @@ const Menu = () => {
   };
   return (
     <TouchableOpacity
-      onPress={() => setShowModal(true)}
+      onPress={() => setShowModal(!showModal)}
       style={styles.logoContainer}
     >
       <Text style={{ fontSize: 25, color: colors.first }}>
@@ -36,20 +38,39 @@ const Menu = () => {
           <View style={styles.modalView}>
             <TouchableOpacity
               style={[styles.buttonContainer, styles.logoutContainer]}
-              onPress={logout}
             >
-              <Text style={{ fontSize: 25, color: colors.first }}>Log Out</Text>
+              <IconFeather
+                name="settings"
+                size={25}
+                color={colors.first}
+                style={{ marginRight: 10 }}
+              />
+              <Text style={{ fontSize: 25, color: colors.first }}>
+                Account Settings
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.buttonContainer, styles.logoutContainer]}
               onPress={logout}
             >
+              <Icon
+                name="logout"
+                size={25}
+                color={colors.first}
+                style={{ marginRight: 10 }}
+              />
               <Text style={{ fontSize: 25, color: colors.first }}>Log Out</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.buttonContainer, styles.closeModal]}
               onPress={() => setShowModal(false)}
             >
+              <Icon
+                name="closecircleo"
+                size={25}
+                color={colors.first}
+                style={{ marginRight: 10 }}
+              />
               <Text style={{ fontSize: 25, color: colors.first }}>
                 Close Menu
               </Text>
@@ -83,6 +104,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: "80%",
     height: 70,
+    flexDirection: "row",
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",

@@ -5,23 +5,21 @@ import {
   Text,
   StyleSheet,
   View,
+  ScrollView,
 } from "react-native";
+import LogNewLog from "../Components/Home Screen/LogNewLog";
 import colors from "../config/colors";
 import { useUserContext } from "../UserContext";
 
 export const HomeScreen = () => {
-  const { currentUser } = useUserContext();
-
   return (
     <SafeAreaView style={styles.background}>
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.loginText}>{currentUser.customUserName}</Text>
+      <ScrollView style={styles.buttonsContainer}>
+        <LogNewLog />
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.registerButton}>
-          <Text style={styles.registerText}>Sign Up</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -37,15 +35,11 @@ const styles = StyleSheet.create({
     paddingTop: 100,
     width: "80%",
   },
-  registerText: {
+  buttonText: {
     fontSize: 25,
-    color: "white",
+    color: colors.first,
   },
-  loginText: {
-    fontSize: 25,
-    color: colors.second,
-  },
-  registerButton: {
+  button: {
     width: "100%",
     height: 70,
     backgroundColor: colors.third,
@@ -53,14 +47,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 20,
-  },
-  loginButton: {
-    width: "100%",
-    height: 70,
-    backgroundColor: colors.first,
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
+    marginBottom: 20,
   },
 });

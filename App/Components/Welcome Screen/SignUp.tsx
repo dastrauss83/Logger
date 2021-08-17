@@ -13,6 +13,7 @@ import {
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/AntDesign";
 import { storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
@@ -101,6 +102,12 @@ const SignUp = () => {
               placeholder={"Password"}
             />
             <TouchableOpacity onPress={handleSignUp} style={styles.loginButton}>
+              <Icon
+                name="adduser"
+                size={25}
+                color={colors.second}
+                style={{ marginRight: 10 }}
+              />
               <Text style={styles.loginText}>Sign Up</Text>
             </TouchableOpacity>
           </View>
@@ -117,6 +124,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 70,
     backgroundColor: colors.third,
+    flexDirection: "row",
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",

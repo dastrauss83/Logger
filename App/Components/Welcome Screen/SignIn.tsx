@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
 } from "react-native";
+import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../config/colors";
 
 const SignIn = ({ navigation }: any) => {
@@ -23,12 +24,24 @@ const SignIn = ({ navigation }: any) => {
           style={styles.loginButton}
           onPress={() => navigation.navigate("LogIn")}
         >
+          <Icon
+            name="login"
+            size={25}
+            color={colors.second}
+            style={{ marginRight: 10 }}
+          />
           <Text style={styles.loginText}>Log In</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate("SignUp")}
           style={styles.registerButton}
         >
+          <Icon
+            name="adduser"
+            size={25}
+            color={colors.second}
+            style={{ marginRight: 10 }}
+          />
           <Text style={styles.registerText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
@@ -47,6 +60,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 70,
     backgroundColor: colors.first,
+    flexDirection: "row",
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
@@ -65,6 +79,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 70,
     backgroundColor: colors.third,
+    flexDirection: "row",
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
