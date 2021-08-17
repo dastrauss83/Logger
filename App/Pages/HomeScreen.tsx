@@ -9,15 +9,17 @@ import {
 } from "react-native";
 import LogNewLog from "../Components/Home Screen/LogNewLog";
 import colors from "../config/colors";
-import { useUserContext } from "../UserContext";
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.background}>
       <ScrollView style={styles.buttonsContainer}>
         <LogNewLog />
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Sign Up</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("My Logs")}
+        >
+          <Text style={styles.buttonText}>My Logs</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>

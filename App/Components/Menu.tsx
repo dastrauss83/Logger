@@ -21,7 +21,7 @@ const Menu = () => {
 
   const logout = () => {
     firebase.auth().signOut();
-    setCurrentUser({ customUserName: "noUser" });
+    setCurrentUser({ customUserName: "noUser", uid: "" });
     storeCurrentUser("noUser");
   };
   return (

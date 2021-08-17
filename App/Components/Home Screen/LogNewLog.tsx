@@ -1,3 +1,4 @@
+import firebase from "firebase";
 import React from "react";
 import { useState } from "react";
 import {
@@ -13,11 +14,13 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../config/colors";
+import { useUserContext } from "../../UserContext";
 
 const LogNewLog = () => {
   const [showLog, setShowLog] = useState<boolean>(false);
   const [minutes, setMinutes] = useState<string>("");
   const [seconds, setSeconds] = useState<string>("");
+  const { currentUser } = useUserContext();
 
   const handleMinutes = (userMinutes: string) => {
     if (parseInt(userMinutes) > 30) {
@@ -41,6 +44,22 @@ const LogNewLog = () => {
     setSeconds(userSeconds);
   };
 
+  const handleSubmit = async () => {
+    setShowLog(false);
+    const userData: any = (
+      await firebase.firestore().collection("users").doc(currentUser.uid).get()
+    ).data();
+    const tempLogs = [...userData.logs];
+    tempLogs.push({ minutes: minutes, seconds: seconds });
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser.uid)
+      .update({ logs: tempLogs });
+    setMinutes("");
+    setSeconds("");
+  };
+
   return (
     <TouchableOpacity style={styles.button} onPress={() => setShowLog(true)}>
       <Icon
@@ -53,13 +72,24 @@ const LogNewLog = () => {
       <Modal animationType="slide" visible={showLog} transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
-            <ScrollView style={{ flex: 1, width: "100%" }}>
-              <View style={styles.submitClose}>
+            <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
+              <View style={styles.textContainer}>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: 30,
+                    color: colors.second,
+                  }}
+                >
+                  Enter the Time, Location, and even a Picture of your new Log!
+                </Text>
+              </View>
+              <View style={styles.timeEnterView}>
                 <TextInput
                   style={styles.input}
                   value={minutes}
                   onChangeText={(userMinutes) => handleMinutes(userMinutes)}
-                  placeholder={"Minutes"}
+                  placeholder={"Mins."}
                   keyboardType={"number-pad"}
                   textAlign="center"
                 />
@@ -67,7 +97,7 @@ const LogNewLog = () => {
                   style={styles.input}
                   value={seconds}
                   onChangeText={(userSeconds) => handleSeconds(userSeconds)}
-                  placeholder={"Seconds"}
+                  placeholder={"Secs."}
                   keyboardType={"number-pad"}
                   textAlign="center"
                 />
@@ -84,7 +114,7 @@ const LogNewLog = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.buttonContainer, styles.submit]}
-                  onPress={() => setShowLog(false)}
+                  onPress={handleSubmit}
                 >
                   <Icon name="upload" size={25} color={colors.first} />
                   <Text style={{ fontSize: 25, color: colors.first }}>
@@ -106,6 +136,15 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 25,
     color: colors.first,
+  },
+  textContainer: {
+    width: "80%",
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 30,
+    flexWrap: "wrap",
+    marginTop: 30,
   },
   button: {
     width: "100%",
@@ -135,8 +174,6 @@ const styles = StyleSheet.create({
     height: "75%",
   },
   modalView: {
-    paddingTop: 30,
-    paddingBottom: 30,
     width: "100%",
     height: "75%",
     backgroundColor: colors.first,
@@ -165,9 +202,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     width: "100%",
+    marginBottom: 30,
+  },
+  timeEnterView: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    width: "100%",
   },
   input: {
-    width: "40%",
+    width: "30%",
     height: 70,
     backgroundColor: colors.second,
     color: colors.first,

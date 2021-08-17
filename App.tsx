@@ -39,6 +39,7 @@ export const storeCurrentUser = async (value: any) => {
 export default function App() {
   const [currentUser, setCurrentUser] = useState<any>({
     customUserName: "noUser",
+    uid: "",
   });
 
   useEffect(() => {
@@ -49,6 +50,7 @@ export default function App() {
         if (JSON.parse(jsonValue) === "noUser") {
           value = {
             customUserName: "noUser",
+            uid: "",
           };
         } else {
           value = JSON.parse(jsonValue);
@@ -80,6 +82,7 @@ export default function App() {
             ) : (
               <>
                 <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="My Logs" component={HomeScreen} />
               </>
             )}
           </Stack.Navigator>
