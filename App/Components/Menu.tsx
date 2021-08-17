@@ -41,6 +41,12 @@ const Menu = () => {
               <Text style={{ fontSize: 25, color: colors.first }}>Log Out</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              style={[styles.buttonContainer, styles.logoutContainer]}
+              onPress={logout}
+            >
+              <Text style={{ fontSize: 25, color: colors.first }}>Log Out</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               style={[styles.buttonContainer, styles.closeModal]}
               onPress={() => setShowModal(false)}
             >
@@ -81,7 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 20,
-    marginBottom: 10,
+    marginBottom: 30,
   },
   modalContainer: {
     flex: 1,
@@ -89,7 +95,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
-    height: 300,
+    paddingTop: 30,
+    paddingBottom: 30,
     width: "80%",
     backgroundColor: colors.first,
     borderRadius: 20,
@@ -106,6 +113,6 @@ const styles = StyleSheet.create({
   },
   closeModal: {
     backgroundColor: colors.third,
-    bottom: 0,
+    marginBottom: 0,
   },
 });

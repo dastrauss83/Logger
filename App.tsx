@@ -17,7 +17,7 @@ import { useState } from "react";
 import { UserContext } from "./App/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Menu from "./App/Components/Menu";
-import SignUp from "./App/Components/WelcomeScreen/SignUp";
+import SignUp from "./App/Components/Welcome Screen/SignUp";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",

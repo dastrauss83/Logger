@@ -9,10 +9,10 @@ import {
   Keyboard,
   TouchableOpacity,
 } from "react-native";
-import SignIn from "../Components/WelcomeScreen/SignIn";
+import SignIn from "../Components/Welcome Screen/SignIn";
 import colors from "../config/colors";
 import { createStackNavigator } from "@react-navigation/stack";
-import LogIn from "../Components/WelcomeScreen/LogIn";
+import LogIn from "../Components/Welcome Screen/LogIn";
 
 export const WelcomeScreen = () => {
   const Stack = createStackNavigator();
