@@ -8,12 +8,38 @@ import {
   Modal,
   View,
   ScrollView,
+  TextInput,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../config/colors";
 
 const LogNewLog = () => {
   const [showLog, setShowLog] = useState<boolean>(false);
+  const [minutes, setMinutes] = useState<string>("");
+  const [seconds, setSeconds] = useState<string>("");
+
+  const handleMinutes = (userMinutes: string) => {
+    if (parseInt(userMinutes) > 30) {
+      setMinutes("");
+      return Alert.alert(
+        "Don't Lie...",
+        "Please enter a time under 30 minutes",
+        [{ text: "Ok" }]
+      );
+    }
+    setMinutes(userMinutes);
+  };
+
+  const handleSeconds = (userSeconds: string) => {
+    if (parseInt(userSeconds) > 59) {
+      setSeconds("");
+      return Alert.alert("Error", "Please enter under 60 seconds", [
+        { text: "Ok" },
+      ]);
+    }
+    setSeconds(userSeconds);
+  };
 
   return (
     <TouchableOpacity style={styles.button} onPress={() => setShowLog(true)}>
@@ -23,12 +49,29 @@ const LogNewLog = () => {
         color={colors.first}
         style={{ marginRight: 10 }}
       />
-
       <Text style={styles.buttonText}>Log New Log</Text>
       <Modal animationType="slide" visible={showLog} transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
             <ScrollView style={{ flex: 1, width: "100%" }}>
+              <View style={styles.submitClose}>
+                <TextInput
+                  style={styles.input}
+                  value={minutes}
+                  onChangeText={(userMinutes) => handleMinutes(userMinutes)}
+                  placeholder={"Minutes"}
+                  keyboardType={"number-pad"}
+                  textAlign="center"
+                />
+                <TextInput
+                  style={styles.input}
+                  value={seconds}
+                  onChangeText={(userSeconds) => handleSeconds(userSeconds)}
+                  placeholder={"Seconds"}
+                  keyboardType={"number-pad"}
+                  textAlign="center"
+                />
+              </View>
               <View style={styles.submitClose}>
                 <TouchableOpacity
                   style={[styles.buttonContainer, styles.closeModal]}
@@ -122,5 +165,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     width: "100%",
+  },
+  input: {
+    width: "40%",
+    height: 70,
+    backgroundColor: colors.second,
+    color: colors.first,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 30,
+    borderRadius: 20,
+    fontSize: 30,
+    padding: 10,
   },
 });
