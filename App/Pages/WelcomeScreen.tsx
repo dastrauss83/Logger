@@ -14,6 +14,7 @@ import colors from "../config/colors";
 import { createStackNavigator } from "@react-navigation/stack";
 import LogIn from "../Components/Welcome Screen/LogIn";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import MyButton from "../Components/Atoms/MyButton";
 
 export const WelcomeScreen = () => {
   const Stack = createStackNavigator();
@@ -30,18 +31,21 @@ export const WelcomeScreen = () => {
                 style={styles.logo}
               />
             </View>
-            <View style={{ width: "80%" }}>
-              <TouchableOpacity
-                style={[styles.leaderBoardsButton, { width: "80%" }]}
-              >
-                <Icon
-                  name="leaderboard"
-                  size={25}
-                  color={colors.first}
-                  style={{ marginRight: 10 }}
-                />
-                <Text style={styles.leaderBoardsText}>Leader Boards</Text>
-              </TouchableOpacity>
+            <View style={{ width: "100%" }}>
+              <MyButton
+                containerColor={colors.third}
+                textColor={colors.first}
+                text={"Leader Boards"}
+                icon={
+                  <Icon
+                    name="leaderboard"
+                    size={25}
+                    color={colors.first}
+                    style={{ marginRight: 10 }}
+                  />
+                }
+                onPress={() => console.log("poo")}
+              />
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -87,19 +91,5 @@ const styles = StyleSheet.create({
   introText: {
     fontSize: 30,
     color: colors.second,
-  },
-  leaderBoardsButton: {
-    width: "100%",
-    height: 70,
-    backgroundColor: colors.third,
-    flexDirection: "row",
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
-  },
-  leaderBoardsText: {
-    fontSize: 25,
-    color: colors.first,
   },
 });

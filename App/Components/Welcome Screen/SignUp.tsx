@@ -17,6 +17,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
+import MyButton from "../Atoms/MyButton";
 
 const SignUp = () => {
   const [userName, onChangeUserName] = useState<string>("");
@@ -101,15 +102,20 @@ const SignUp = () => {
               secureTextEntry={true}
               placeholder={"Password"}
             />
-            <TouchableOpacity onPress={handleSignUp} style={styles.loginButton}>
-              <Icon
-                name="adduser"
-                size={25}
-                color={colors.second}
-                style={{ marginRight: 10 }}
-              />
-              <Text style={styles.loginText}>Sign Up</Text>
-            </TouchableOpacity>
+            <MyButton
+              onPress={handleSignUp}
+              icon={
+                <Icon
+                  name="adduser"
+                  size={25}
+                  color={colors.first}
+                  style={{ marginRight: 10 }}
+                />
+              }
+              containerColor={colors.third}
+              textColor={colors.first}
+              text={"Sign Up"}
+            />
           </View>
         </ScrollView>
       </TouchableWithoutFeedback>
@@ -120,32 +126,17 @@ const SignUp = () => {
 export default SignUp;
 
 const styles = StyleSheet.create({
-  loginButton: {
-    width: "100%",
-    height: 70,
-    backgroundColor: colors.third,
-    flexDirection: "row",
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 30,
-    borderRadius: 20,
-  },
-  loginText: {
-    fontSize: 25,
-    color: colors.first,
-  },
   screen: {
     backgroundColor: colors.second,
     width: "100%",
     height: "100%",
   },
   inputContainer: {
-    width: "80%",
+    width: "100%",
     marginTop: 40,
   },
   input: {
-    width: "100%",
+    width: "80%",
     height: 70,
     backgroundColor: colors.first,
     alignSelf: "center",

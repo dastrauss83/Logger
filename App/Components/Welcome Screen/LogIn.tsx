@@ -13,6 +13,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
+import MyButton from "../Atoms/MyButton";
 
 const LogIn = () => {
   const [email, onChangeEmail] = useState<string>("");
@@ -85,15 +86,20 @@ const LogIn = () => {
           autoCompleteType="password"
           textContentType="none"
         />
-        <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
-          <Icon
-            name="login"
-            size={25}
-            color={colors.second}
-            style={{ marginRight: 10 }}
-          />
-          <Text style={styles.loginText}>Log In</Text>
-        </TouchableOpacity>
+        <MyButton
+          onPress={handleLogin}
+          containerColor={colors.first}
+          textColor={colors.second}
+          text={"Log In"}
+          icon={
+            <Icon
+              name="login"
+              size={25}
+              color={colors.second}
+              style={{ marginRight: 10 }}
+            />
+          }
+        />
       </View>
     </ScrollView>
   );
@@ -102,21 +108,6 @@ const LogIn = () => {
 export default LogIn;
 
 const styles = StyleSheet.create({
-  loginButton: {
-    width: "100%",
-    height: 70,
-    backgroundColor: colors.first,
-    flexDirection: "row",
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 30,
-    borderRadius: 20,
-  },
-  loginText: {
-    fontSize: 25,
-    color: colors.second,
-  },
   screen: {
     backgroundColor: colors.second,
     width: "100%",
@@ -126,11 +117,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   inputContainer: {
-    width: "80%",
+    width: "100%",
     marginTop: 40,
   },
   input: {
-    width: "100%",
+    width: "80%",
     height: 70,
     backgroundColor: colors.first,
     alignSelf: "center",

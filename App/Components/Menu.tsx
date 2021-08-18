@@ -14,6 +14,7 @@ import IconFeather from "react-native-vector-icons/Feather";
 import { storeCurrentUser } from "../../App";
 import colors from "../config/colors";
 import { useUserContext } from "../UserContext";
+import MyButton from "./Atoms/MyButton";
 
 const Menu = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -36,45 +37,49 @@ const Menu = () => {
       <Modal animationType="slide" visible={showModal} transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
-            <TouchableOpacity
-              style={[styles.buttonContainer, styles.logoutContainer]}
-            >
-              <IconFeather
-                name="settings"
-                size={25}
-                color={colors.first}
-                style={{ marginRight: 10 }}
-              />
-              <Text style={{ fontSize: 25, color: colors.first }}>
-                Account Settings
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.buttonContainer, styles.logoutContainer]}
+            <MyButton
+              onPress={() => console.log("poo")}
+              containerColor={colors.second}
+              textColor={colors.first}
+              text={"Account Settings"}
+              icon={
+                <IconFeather
+                  name="settings"
+                  size={25}
+                  color={colors.first}
+                  style={{ marginRight: 10 }}
+                />
+              }
+            />
+            <MyButton
               onPress={logout}
-            >
-              <Icon
-                name="logout"
-                size={25}
-                color={colors.first}
-                style={{ marginRight: 10 }}
-              />
-              <Text style={{ fontSize: 25, color: colors.first }}>Log Out</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.buttonContainer, styles.closeModal]}
+              containerColor={colors.second}
+              textColor={colors.first}
+              text={"Log Out"}
+              icon={
+                <Icon
+                  name="logout"
+                  size={25}
+                  color={colors.first}
+                  style={{ marginRight: 10 }}
+                />
+              }
+            />
+            <MyButton
               onPress={() => setShowModal(false)}
-            >
-              <Icon
-                name="closecircleo"
-                size={25}
-                color={colors.first}
-                style={{ marginRight: 10 }}
-              />
-              <Text style={{ fontSize: 25, color: colors.first }}>
-                Close Menu
-              </Text>
-            </TouchableOpacity>
+              containerColor={colors.third}
+              textColor={colors.first}
+              text={"Close Menu"}
+              style={{ marginBottom: 0 }}
+              icon={
+                <Icon
+                  name="closecircleo"
+                  size={25}
+                  color={colors.first}
+                  style={{ marginRight: 10 }}
+                />
+              }
+            />
           </View>
         </View>
       </Modal>
@@ -85,9 +90,6 @@ const Menu = () => {
 export default Menu;
 
 const styles = StyleSheet.create({
-  logoutContainer: {
-    backgroundColor: colors.second,
-  },
   logo: {
     width: 50,
     height: 50,
@@ -99,17 +101,6 @@ const styles = StyleSheet.create({
     right: 8,
     flexDirection: "row",
     alignItems: "center",
-  },
-
-  buttonContainer: {
-    width: "80%",
-    height: 70,
-    flexDirection: "row",
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
-    marginBottom: 30,
   },
   modalContainer: {
     flex: 1,

@@ -15,6 +15,7 @@ import {
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
+import MyButton from "../Atoms/MyButton";
 
 const LogNewLog = () => {
   const [showLog, setShowLog] = useState<boolean>(false);
@@ -45,12 +46,21 @@ const LogNewLog = () => {
   };
 
   const handleSubmit = async () => {
+    if (seconds === "" || minutes === "") {
+      return Alert.alert("Error", "Please enter minutes and seconds", [
+        { text: "Ok" },
+      ]);
+    }
     setShowLog(false);
     const userData: any = (
       await firebase.firestore().collection("users").doc(currentUser.uid).get()
     ).data();
     const tempLogs = [...userData.logs];
-    tempLogs.push({ minutes: minutes, seconds: seconds });
+    tempLogs.push({
+      minutes: minutes,
+      seconds: seconds,
+      time: firebase.firestore.Timestamp.now(),
+    });
     firebase
       .firestore()
       .collection("users")
@@ -58,17 +68,25 @@ const LogNewLog = () => {
       .update({ logs: tempLogs });
     setMinutes("");
     setSeconds("");
+    setShowLog(false);
   };
 
   return (
-    <TouchableOpacity style={styles.button} onPress={() => setShowLog(true)}>
-      <Icon
-        name="pluscircleo"
-        size={25}
-        color={colors.first}
-        style={{ marginRight: 10 }}
+    <>
+      <MyButton
+        onPress={() => setShowLog(true)}
+        containerColor={colors.third}
+        textColor={colors.first}
+        text={"Log New Log"}
+        icon={
+          <Icon
+            name="pluscircleo"
+            size={25}
+            color={colors.first}
+            style={{ marginRight: 10 }}
+          />
+        }
       />
-      <Text style={styles.buttonText}>Log New Log</Text>
       <Modal animationType="slide" visible={showLog} transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
@@ -126,7 +144,7 @@ const LogNewLog = () => {
           </View>
         </View>
       </Modal>
-    </TouchableOpacity>
+    </>
   );
 };
 

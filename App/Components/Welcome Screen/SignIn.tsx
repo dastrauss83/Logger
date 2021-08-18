@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../config/colors";
+import MyButton from "../Atoms/MyButton";
 
 const SignIn = ({ navigation }: any) => {
   return (
@@ -20,30 +21,34 @@ const SignIn = ({ navigation }: any) => {
         Log In or Sign Up to get started
       </Text>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={styles.loginButton}
+        <MyButton
           onPress={() => navigation.navigate("LogIn")}
-        >
-          <Icon
-            name="login"
-            size={25}
-            color={colors.second}
-            style={{ marginRight: 10 }}
-          />
-          <Text style={styles.loginText}>Log In</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+          containerColor={colors.first}
+          textColor={colors.second}
+          icon={
+            <Icon
+              name="login"
+              size={25}
+              color={colors.second}
+              style={{ marginRight: 10 }}
+            />
+          }
+          text={"Log In"}
+        />
+        <MyButton
           onPress={() => navigation.navigate("SignUp")}
-          style={styles.registerButton}
-        >
-          <Icon
-            name="adduser"
-            size={25}
-            color={colors.second}
-            style={{ marginRight: 10 }}
-          />
-          <Text style={styles.registerText}>Sign Up</Text>
-        </TouchableOpacity>
+          containerColor={colors.third}
+          textColor={colors.first}
+          text={"Sign Up"}
+          icon={
+            <Icon
+              name="adduser"
+              size={25}
+              color={colors.first}
+              style={{ marginRight: 10 }}
+            />
+          }
+        />
       </View>
     </ScrollView>
   );
@@ -54,36 +59,7 @@ export default SignIn;
 const styles = StyleSheet.create({
   buttonsContainer: {
     paddingTop: 100,
-    width: "80%",
-  },
-  loginButton: {
     width: "100%",
-    height: 70,
-    backgroundColor: colors.first,
-    flexDirection: "row",
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 30,
-    borderRadius: 20,
-  },
-  registerText: {
-    fontSize: 25,
-    color: colors.first,
-  },
-  loginText: {
-    fontSize: 25,
-    color: colors.second,
-  },
-  registerButton: {
-    width: "100%",
-    height: 70,
-    backgroundColor: colors.third,
-    flexDirection: "row",
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
   },
   screen: {
     backgroundColor: colors.second,
