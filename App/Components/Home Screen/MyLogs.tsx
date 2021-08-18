@@ -8,23 +8,24 @@ import LogCard from "./MyLogs/LogCard";
 
 const MyLogs = () => {
   const [userLogs, setUserLogs] = useState<any>(["poo"]);
+  const [refresh, setRefresh] = useState<boolean>(false);
   const { currentUser } = useUserContext();
 
+  const getUserLogs = async () => {
+    const response: any = (
+      await firebase.firestore().collection("users").doc(currentUser.uid).get()
+    ).data();
+    const tempUserLogs = response.logs;
+    setUserLogs(tempUserLogs);
+  };
+
   useEffect(() => {
-    const getUserLogs = async () => {
-      const response: any = (
-        await firebase
-          .firestore()
-          .collection("users")
-          .doc(currentUser.uid)
-          .get()
-      ).data();
-      const tempUserLogs = response.logs;
-      setUserLogs(tempUserLogs);
-      console.log(tempUserLogs);
-    };
     getUserLogs();
   }, []);
+
+  useEffect(() => {
+    getUserLogs();
+  }, [refresh]);
 
   return (
     <SafeAreaView>
@@ -35,7 +36,7 @@ const MyLogs = () => {
           >
             Log your first Log now!
           </Text>
-          <LogNewLog />
+          <LogNewLog refresh={refresh} setRefresh={setRefresh} />
         </View>
       ) : (
         <ScrollView
@@ -46,7 +47,13 @@ const MyLogs = () => {
           }}
         >
           {userLogs.map((log: any, index: number) => (
-            <LogCard log={log} key={index} />
+            <LogCard
+              log={log}
+              key={index}
+              index={index}
+              refresh={refresh}
+              setRefresh={setRefresh}
+            />
           ))}
         </ScrollView>
       )}

@@ -8,7 +8,12 @@ import FinalButtons from "./LogNewLog/FinalButtons";
 import PromptText from "./LogNewLog/PromptText";
 import Time from "./LogNewLog/Time";
 
-const LogNewLog = () => {
+type LogNewLogProp = {
+  setRefresh?: (e: boolean) => void;
+  refresh?: boolean;
+};
+
+const LogNewLog = ({ setRefresh, refresh }: LogNewLogProp) => {
   const [showLog, setShowLog] = useState<boolean>(false);
   const [minutes, setMinutes] = useState<string>("");
   const [seconds, setSeconds] = useState<string>("");
@@ -46,6 +51,8 @@ const LogNewLog = () => {
                 setMinutes={setMinutes}
                 setSeconds={setSeconds}
                 setShowLog={setShowLog}
+                setRefresh={setRefresh}
+                refresh={refresh}
               />
             </ScrollView>
           </View>

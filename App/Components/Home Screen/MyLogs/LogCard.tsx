@@ -1,12 +1,16 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import colors from "../../../config/colors";
+import MyLogsEndButtons from "./MyLogsEndButtons";
 
 type LogCardProps = {
   log: any;
+  index: number;
+  refresh?: boolean;
+  setRefresh?: (e: boolean) => void;
 };
 
-const LogCard = ({ log }: LogCardProps) => {
+const LogCard = ({ log, index, refresh, setRefresh }: LogCardProps) => {
   const timestampToString = (timestamp: any) => {
     if (!timestamp) return;
     let date = timestamp.toDate().toDateString();
@@ -25,19 +29,30 @@ const LogCard = ({ log }: LogCardProps) => {
     time = time.split(" ");
     time[0] = time[0].substr(0, time[0].length - 3);
     time = time.join(" ");
-    console.log(time);
-
     return `${date} at ${time}`;
   };
 
   return (
     <View style={styles.cardContainer}>
-      <Text style={styles.textCategory}>Date:</Text>
-      <Text style={styles.textContent}>{timestampToString(log.time)}</Text>
-      <Text style={styles.textCategory}>Duration:</Text>
-      <Text style={styles.textContent}>
-        {log.minutes} Minutes and {log.seconds} Seconds
-      </Text>
+      <View style={styles.attributeContainer}>
+        <Text style={styles.textCategory}>Date:</Text>
+        <Text style={styles.textContent}>{timestampToString(log.time)}</Text>
+      </View>
+      <View style={styles.attributeContainer}>
+        <Text style={styles.textCategory}>Duration:</Text>
+        <Text style={styles.textContent}>
+          {log.minutes} Minutes and {log.seconds} Seconds
+        </Text>
+      </View>
+      <View style={styles.attributeContainer}>
+        <Text style={styles.textCategory}>$ Earned:</Text>
+        <Text style={styles.textContent}>${log.earned}</Text>
+      </View>
+      <MyLogsEndButtons
+        index={index}
+        refresh={refresh}
+        setRefresh={setRefresh}
+      />
     </View>
   );
 };
@@ -46,7 +61,6 @@ export default LogCard;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    height: 200,
     width: "80%",
     padding: 15,
     backgroundColor: colors.second,
@@ -62,11 +76,20 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 15,
   },
-  textCategory: { fontSize: 25, color: colors.first, marginBottom: 5 },
+  textCategory: {
+    fontSize: 25,
+    color: colors.first,
+    marginTop: 5,
+  },
   textContent: {
     fontSize: 20,
     color: colors.first,
     textAlign: "center",
-    marginBottom: 5,
+    marginBottom: 10,
+    marginTop: 5,
+  },
+  attributeContainer: {
+    borderBottomColor: colors.first,
+    borderBottomWidth: 1,
   },
 });

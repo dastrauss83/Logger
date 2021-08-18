@@ -30,7 +30,7 @@ const Menu = () => {
       onPress={() => setShowModal(!showModal)}
       style={styles.logoContainer}
     >
-      <Text style={{ fontSize: 25, color: colors.second }}>
+      <Text style={{ fontSize: 25, color: colors.second, marginRight: 4 }}>
         {currentUser.customUserName}
       </Text>
       <Image source={require("../Assets/poo.png")} style={styles.logo} />

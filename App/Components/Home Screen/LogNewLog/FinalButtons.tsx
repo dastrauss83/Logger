@@ -2,6 +2,7 @@ import firebase from "firebase";
 import React from "react";
 import { Alert, StyleSheet, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
+import { firebaseUserCollection } from "../../../../App";
 import colors from "../../../config/colors";
 import { useUserContext } from "../../../UserContext";
 import MyButton from "../../Atoms/MyButton";
@@ -12,6 +13,8 @@ type FinalButtonsProps = {
   setMinutes: (minutes: string) => void;
   setSeconds: (seconds: string) => void;
   setShowLog: (bool: boolean) => void;
+  refresh?: boolean;
+  setRefresh?: (e: boolean) => void;
 };
 
 const FinalButtons = ({
@@ -20,24 +23,36 @@ const FinalButtons = ({
   setSeconds,
   setMinutes,
   setShowLog,
+  setRefresh,
+  refresh,
 }: FinalButtonsProps) => {
   const { currentUser } = useUserContext();
 
   const handleSubmit = async () => {
-    if (seconds === "" || minutes === "") {
+    if (seconds === "" && minutes === "") {
       return Alert.alert("Error", "Please enter minutes and seconds", [
         { text: "Ok" },
       ]);
     }
     setShowLog(false);
     const userData: any = (
-      await firebase.firestore().collection("users").doc(currentUser.uid).get()
+      await firebaseUserCollection.doc(currentUser.uid).get()
     ).data();
+    const earned = (
+      ((parseInt(minutes === "" ? "0" : minutes) * 60 +
+        parseInt(seconds === "" ? "0" : seconds)) *
+        parseInt(userData.rate)) /
+      60 /
+      60
+    )
+      .toFixed(2)
+      .toString();
     const tempLogs = [...userData.logs];
     tempLogs.push({
-      minutes: minutes,
-      seconds: seconds,
+      minutes: minutes === "" ? "0" : minutes,
+      seconds: seconds === "" ? "0" : seconds,
       time: firebase.firestore.Timestamp.now(),
+      earned: earned,
     });
     firebase
       .firestore()
@@ -47,7 +62,9 @@ const FinalButtons = ({
     setMinutes("");
     setSeconds("");
     setShowLog(false);
+    setRefresh && setRefresh(!refresh);
   };
+
   return (
     <View style={styles.submitClose}>
       <MyButton

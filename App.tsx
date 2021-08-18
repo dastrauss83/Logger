@@ -23,6 +23,8 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
+export const firebaseUserCollection = firebase.firestore().collection("users");
+
 const Stack = createStackNavigator();
 
 export const storeCurrentUser = async (value: any) => {
