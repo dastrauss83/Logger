@@ -1,19 +1,12 @@
 import firebase from "firebase";
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, Alert, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
 import MyButton from "../Atoms/MyButton";
+import MyInput from "../Atoms/MyInput";
 
 const LogIn = () => {
   const [email, onChangeEmail] = useState<string>("");
@@ -67,8 +60,7 @@ const LogIn = () => {
         Log In to an existing account
       </Text>
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
+        <MyInput
           value={email}
           onChangeText={onChangeEmail}
           placeholder={"Email"}
@@ -77,8 +69,7 @@ const LogIn = () => {
           autoCapitalize="none"
           textContentType="none"
         />
-        <TextInput
-          style={styles.input}
+        <MyInput
           value={password}
           onChangeText={onChangePassword}
           secureTextEntry={true}
@@ -119,17 +110,5 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "100%",
     marginTop: 40,
-  },
-  input: {
-    width: "80%",
-    height: 70,
-    backgroundColor: colors.first,
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 30,
-    borderRadius: 20,
-    fontSize: 30,
-    padding: 10,
   },
 });

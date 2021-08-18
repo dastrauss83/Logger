@@ -4,8 +4,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
   Image,
@@ -18,6 +16,7 @@ import { storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
 import MyButton from "../Atoms/MyButton";
+import MyInput from "../Atoms/MyInput";
 
 const SignUp = () => {
   const [userName, onChangeUserName] = useState<string>("");
@@ -80,23 +79,20 @@ const SignUp = () => {
             Join the Leader Boards!
           </Text>
           <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
+            <MyInput
               value={userName}
               onChangeText={onChangeUserName}
               placeholder={"Username"}
               autoCapitalize="none"
             />
-            <TextInput
-              style={styles.input}
+            <MyInput
               value={email}
               onChangeText={onChangeEmail}
               placeholder={"Email"}
               keyboardType="email-address"
               autoCapitalize="none"
             />
-            <TextInput
-              style={styles.input}
+            <MyInput
               value={password}
               onChangeText={onChangePassword}
               secureTextEntry={true}
@@ -134,18 +130,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "100%",
     marginTop: 40,
-  },
-  input: {
-    width: "80%",
-    height: 70,
-    backgroundColor: colors.first,
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 30,
-    borderRadius: 20,
-    fontSize: 30,
-    padding: 10,
   },
   logo: {
     width: 200,

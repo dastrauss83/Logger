@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  View,
   ScrollView,
 } from "react-native";
 import LogNewLog from "../Components/Home Screen/LogNewLog";
