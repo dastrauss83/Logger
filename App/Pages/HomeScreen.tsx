@@ -1,17 +1,11 @@
 import React from "react";
-import {
-  SafeAreaView,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import MyButton from "../Components/Atoms/MyButton";
 import LogNewLog from "../Components/Home Screen/LogNewLog";
 import colors from "../config/colors";
 
-export const HomeScreen = ({ navigation }: any) => {
+const HomeScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.background}>
       <ScrollView style={styles.buttonsContainer}>
@@ -34,6 +28,8 @@ export const HomeScreen = ({ navigation }: any) => {
     </SafeAreaView>
   );
 };
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   background: {

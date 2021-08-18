@@ -4,13 +4,14 @@ import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 import { WelcomeScreen } from "./App/Pages/WelcomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { HomeScreen } from "./App/Pages/HomeScreen";
+import HomeScreen from "./App/Pages/HomeScreen";
 import firebase from "firebase";
 import { useState } from "react";
 import { UserContext } from "./App/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Menu from "./App/Components/Menu";
 import SignUp from "./App/Components/Welcome Screen/SignUp";
+import MyLogs from "./App/Components/Home Screen/MyLogs";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -75,7 +76,7 @@ export default function App() {
             ) : (
               <>
                 <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="My Logs" component={HomeScreen} />
+                <Stack.Screen name="MyLogs" component={MyLogs} />
               </>
             )}
           </Stack.Navigator>

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 const MyLogs = () => {
   return (
     <View>
-      <Text></Text>
+      <Text>Poo</Text>
     </View>
   );
 };
