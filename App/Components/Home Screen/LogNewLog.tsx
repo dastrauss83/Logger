@@ -6,6 +6,7 @@ import colors from "../../config/colors";
 import MyButton from "../Atoms/MyButton";
 import FinalButtons from "./LogNewLog/FinalButtons";
 import PromptText from "./LogNewLog/PromptText";
+import Rate from "./LogNewLog/Rate";
 import Time from "./LogNewLog/Time";
 
 type LogNewLogProp = {
@@ -15,6 +16,8 @@ type LogNewLogProp = {
 
 const LogNewLog = ({ setRefresh, refresh }: LogNewLogProp) => {
   const [showLog, setShowLog] = useState<boolean>(false);
+  const [rate, setRate] = useState<string>("");
+  const [rateType, setRateType] = useState<string>("$/hr");
   const [minutes, setMinutes] = useState<string>("");
   const [seconds, setSeconds] = useState<string>("");
 
@@ -44,6 +47,12 @@ const LogNewLog = ({ setRefresh, refresh }: LogNewLogProp) => {
                 seconds={seconds}
                 setMinutes={setMinutes}
                 setSeconds={setSeconds}
+              />
+              <Rate
+                rate={rate}
+                setRate={setRate}
+                rateType={rateType}
+                setRateType={setRateType}
               />
               <FinalButtons
                 minutes={minutes}
