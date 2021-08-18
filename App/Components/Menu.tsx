@@ -30,7 +30,7 @@ const Menu = () => {
       onPress={() => setShowModal(!showModal)}
       style={styles.logoContainer}
     >
-      <Text style={{ fontSize: 25, color: colors.first }}>
+      <Text style={{ fontSize: 25, color: colors.second }}>
         {currentUser.customUserName}
       </Text>
       <Image source={require("../Assets/poo.png")} style={styles.logo} />
@@ -73,7 +73,7 @@ const Menu = () => {
               style={{ marginBottom: 0 }}
               icon={
                 <Icon
-                  name="closecircleo"
+                  name="back"
                   size={25}
                   color={colors.first}
                   style={{ marginRight: 10 }}

@@ -17,7 +17,7 @@ const LogNewLog = () => {
     <>
       <MyButton
         onPress={() => setShowLog(true)}
-        containerColor={colors.third}
+        containerColor={colors.second}
         textColor={colors.first}
         text={"Log New Log"}
         icon={

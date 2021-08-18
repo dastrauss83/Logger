@@ -61,13 +61,13 @@ const FinalButtons = ({
         text={"Close"}
         icon={
           <Icon
-            name="closecircleo"
+            name="back"
             size={25}
             color={colors.first}
             style={{ marginRight: 10 }}
           />
         }
-        style={{ width: "45%", marginBottom: 0 }}
+        style={{ width: "30%", marginBottom: 0 }}
       />
       <MyButton
         onPress={handleSubmit}
@@ -82,7 +82,7 @@ const FinalButtons = ({
             style={{ marginRight: 10 }}
           />
         }
-        style={{ width: "45%", marginBottom: 0 }}
+        style={{ width: "60%", marginBottom: 0 }}
       />
     </View>
   );
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   submitClose: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     width: "100%",
     marginBottom: 30,
   },

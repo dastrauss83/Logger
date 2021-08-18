@@ -6,6 +6,8 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import Icon from "react-native-vector-icons/AntDesign";
+import MyButton from "../Components/Atoms/MyButton";
 import LogNewLog from "../Components/Home Screen/LogNewLog";
 import colors from "../config/colors";
 
@@ -14,12 +16,20 @@ export const HomeScreen = ({ navigation }: any) => {
     <SafeAreaView style={styles.background}>
       <ScrollView style={styles.buttonsContainer}>
         <LogNewLog />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("My Logs")}
-        >
-          <Text style={styles.buttonText}>My Logs</Text>
-        </TouchableOpacity>
+        <MyButton
+          onPress={() => navigation.navigate("MyLogs")}
+          containerColor={colors.second}
+          textColor={colors.first}
+          text={"My Logs"}
+          icon={
+            <Icon
+              name="pluscircleo"
+              size={25}
+              color={colors.first}
+              style={{ marginRight: 10 }}
+            />
+          }
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -27,27 +37,13 @@ export const HomeScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: colors.second,
+    backgroundColor: colors.first,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
   buttonsContainer: {
-    paddingTop: 100,
+    paddingTop: 75,
     width: "100%",
-  },
-  buttonText: {
-    fontSize: 25,
-    color: colors.first,
-  },
-  button: {
-    width: "100%",
-    height: 70,
-    backgroundColor: colors.third,
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
-    marginBottom: 20,
   },
 });

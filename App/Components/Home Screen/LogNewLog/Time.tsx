@@ -1,8 +1,9 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View, Text } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import IconMaterial from "react-native-vector-icons/MaterialIcons";
 import colors from "../../../config/colors";
 import MyButton from "../../Atoms/MyButton";
 import MyInput from "../../Atoms/MyInput";
@@ -19,11 +20,19 @@ const Time = ({ minutes, seconds, setMinutes, setSeconds }: TimeProps) => {
   const [counter, setCounter] = useState<number>(0);
 
   useEffect(() => {
-    console.log(counter);
     let interval: any;
 
     if (activeCounter) {
       interval = setInterval(() => {
+        if (counter > 1800) {
+          setCounter(0);
+          setActiveCounter(false);
+          return Alert.alert(
+            "Don't Lie...",
+            "Please enter a time under 30 minutes",
+            [{ text: "Ok" }]
+          );
+        }
         const secondCounter = counter % 60;
         const minuteCounter = Math.floor(counter / 60);
         setSeconds(secondCounter.toString());
@@ -51,9 +60,7 @@ const Time = ({ minutes, seconds, setMinutes, setSeconds }: TimeProps) => {
         [{ text: "Ok" }]
       );
     }
-    if (userMinutes.length > 2) {
-      setMinutes(userMinutes.substr(1));
-    } else setMinutes(userMinutes);
+    setMinutes(userMinutes);
   };
 
   const handleSeconds = (userSeconds: string) => {
@@ -76,22 +83,15 @@ const Time = ({ minutes, seconds, setMinutes, setSeconds }: TimeProps) => {
     }
   };
 
+  const handleClear = () => {
+    setCounter(0);
+    setMinutes("");
+    setSeconds("");
+    activeCounter && setActiveCounter(false);
+  };
+
   return (
     <>
-      <MyButton
-        onPress={() => setActiveCounter(!activeCounter)}
-        containerColor={activeCounter ? "red" : colors.second}
-        textColor={colors.first}
-        text={activeCounter ? "Stop Timer" : "Start Timer"}
-        icon={
-          <Icon
-            name="ios-timer-outline"
-            size={25}
-            color={colors.first}
-            style={{ marginRight: 10 }}
-          />
-        }
-      />
       <View style={styles.timeEnterContainer}>
         <MyInput
           value={minutes}
@@ -99,15 +99,63 @@ const Time = ({ minutes, seconds, setMinutes, setSeconds }: TimeProps) => {
           placeholder={"Mins."}
           keyboardType={"number-pad"}
           textAlign="center"
-          style={styles.input}
+          style={[styles.input, { marginLeft: 60 }]}
         />
+
+        <Text
+          style={{
+            fontSize: 40,
+            color: colors.second,
+          }}
+        >
+          :
+        </Text>
         <MyInput
           value={seconds}
           onChangeText={(userSeconds: string) => handleSeconds(userSeconds)}
           placeholder={"Secs."}
           keyboardType={"number-pad"}
           textAlign="center"
-          style={styles.input}
+          style={[styles.input, { marginRight: 60 }]}
+        />
+      </View>
+      <View
+        style={[
+          styles.timeEnterContainer,
+          { borderBottomColor: colors.second, borderBottomWidth: 2 },
+        ]}
+      >
+        <MyButton
+          onPress={handleClear}
+          containerColor={
+            minutes === "" && seconds === "" ? colors.second : "red"
+          }
+          textColor={colors.first}
+          text={"Clear"}
+          style={{ width: "30%" }}
+          icon={
+            <IconMaterial
+              name="clear"
+              size={25}
+              color={colors.first}
+              style={{ marginRight: 10 }}
+            />
+          }
+        />
+        <MyButton
+          onPress={() => setActiveCounter(!activeCounter)}
+          containerColor={activeCounter ? "red" : colors.second}
+          textColor={colors.first}
+          text={activeCounter ? "Stop Timer" : "Start Timer"}
+          style={{ width: "60%" }}
+          icon={
+            <Icon
+              name="ios-timer-outline"
+              size={25}
+              color={colors.first}
+              style={{ marginRight: 10 }}
+            />
+          }
         />
       </View>
     </>
@@ -118,14 +166,14 @@ export default Time;
 
 const styles = StyleSheet.create({
   input: {
-    width: "30%",
+    width: "25%",
     backgroundColor: colors.second,
     color: colors.first,
   },
   timeEnterContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     width: "100%",
   },
 });
