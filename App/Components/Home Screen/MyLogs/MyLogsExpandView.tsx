@@ -1,0 +1,102 @@
+import React from "react";
+import { StyleSheet, Modal, View, Text, ScrollView } from "react-native";
+import MyButton from "../../Atoms/MyButton";
+import Icon from "react-native-vector-icons/AntDesign";
+import colors from "../../../config/colors";
+
+type MyLogsExpandViewProps = {
+  showLog: boolean;
+  setShowLog: (e: boolean) => void;
+  log: any;
+};
+
+const MyLogsExpandView = ({
+  showLog,
+  setShowLog,
+  log,
+}: MyLogsExpandViewProps) => {
+  return (
+    <Modal animationType="fade" visible={showLog} transparent={true}>
+      <View style={styles.modalContainer}>
+        <View style={styles.modalView}>
+          <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
+            <View style={styles.attributeContainer}>
+              <Text style={styles.textCategory}>Date:</Text>
+              <Text style={styles.textContent}>Date</Text>
+            </View>
+            <View style={styles.attributeContainer}>
+              <Text style={styles.textCategory}>Duration:</Text>
+              <Text style={styles.textContent}>
+                {log.minutes} Minutes and {log.seconds} Seconds
+              </Text>
+            </View>
+            <View style={styles.attributeContainer}>
+              <Text style={styles.textCategory}>$ Earned:</Text>
+              <Text style={styles.textContent}>${log.earned}</Text>
+            </View>
+            <MyButton
+              onPress={() => {
+                setShowLog(false);
+              }}
+              containerColor={colors.third}
+              textColor={colors.first}
+              text={"Close"}
+              icon={
+                <Icon
+                  name="back"
+                  size={25}
+                  color={colors.first}
+                  style={{ marginRight: 10 }}
+                />
+              }
+              style={{ marginBottom: 0 }}
+            />
+          </ScrollView>
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+export default MyLogsExpandView;
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+    width: "100%",
+  },
+  modalView: {
+    padding: 15,
+    height: "85%",
+    width: "90%",
+    backgroundColor: colors.first,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  textCategory: {
+    fontSize: 25,
+    color: colors.second,
+    marginTop: 5,
+  },
+  textContent: {
+    fontSize: 20,
+    color: colors.second,
+    textAlign: "center",
+    marginBottom: 10,
+    marginTop: 5,
+  },
+  attributeContainer: {
+    borderBottomColor: colors.second,
+    borderBottomWidth: 1,
+  },
+});

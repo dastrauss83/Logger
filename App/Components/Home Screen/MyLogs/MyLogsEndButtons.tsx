@@ -1,23 +1,27 @@
 import firebase from "firebase";
-import React from "react";
+import React, { useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { firebaseUserCollection } from "../../../../App";
 import colors from "../../../config/colors";
 import { useUserContext } from "../../../UserContext";
 import MyButton from "../../Atoms/MyButton";
+import MyLogsExpandView from "./MyLogsExpandView";
 
 type MyLogEndsButtonsProps = {
   index: number;
+  log: any;
   refresh?: boolean;
   setRefresh?: (e: boolean) => void;
 };
 
 const MyLogsEndButtons = ({
   index,
+  log,
   refresh,
   setRefresh,
 }: MyLogEndsButtonsProps) => {
+  const [showLog, setShowLog] = useState<boolean>(false);
   const { currentUser } = useUserContext();
 
   const handleDelete = () => {
@@ -39,39 +43,43 @@ const MyLogsEndButtons = ({
       },
     ]);
   };
+
   return (
-    <View style={styles.buttonContainer}>
-      <MyButton
-        onPress={handleDelete}
-        containerColor={"red"}
-        textColor={colors.first}
-        text={"Delete"}
-        icon={
-          <Icon
-            name="back"
-            size={25}
-            color={colors.first}
-            style={{ marginRight: 10 }}
-          />
-        }
-        style={styles.button}
-      />
-      <MyButton
-        onPress={handleDelete}
-        containerColor={colors.third}
-        textColor={colors.first}
-        text={"Expand"}
-        icon={
-          <Icon
-            name="upload"
-            size={25}
-            color={colors.first}
-            style={{ marginRight: 10 }}
-          />
-        }
-        style={styles.button}
-      />
-    </View>
+    <>
+      <View style={styles.buttonContainer}>
+        <MyButton
+          onPress={handleDelete}
+          containerColor={"red"}
+          textColor={colors.first}
+          text={"Delete"}
+          icon={
+            <Icon
+              name="back"
+              size={25}
+              color={colors.first}
+              style={{ marginRight: 10 }}
+            />
+          }
+          style={styles.button}
+        />
+        <MyButton
+          onPress={() => setShowLog(true)}
+          containerColor={colors.third}
+          textColor={colors.first}
+          text={"Expand"}
+          icon={
+            <Icon
+              name="upload"
+              size={25}
+              color={colors.first}
+              style={{ marginRight: 10 }}
+            />
+          }
+          style={styles.button}
+        />
+      </View>
+      <MyLogsExpandView setShowLog={setShowLog} showLog={showLog} log={log} />
+    </>
   );
 };
 

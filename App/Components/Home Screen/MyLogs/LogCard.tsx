@@ -52,6 +52,7 @@ const LogCard = ({ log, index, refresh, setRefresh }: LogCardProps) => {
         index={index}
         refresh={refresh}
         setRefresh={setRefresh}
+        log={log}
       />
     </View>
   );
