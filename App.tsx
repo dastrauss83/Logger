@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Menu from "./App/Components/Menu";
 import SignUp from "./App/Components/Welcome Screen/SignUp";
 import MyLogs from "./App/Components/Home Screen/MyLogs";
+import AccountSettings from "./App/Pages/AccountSettings";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -79,6 +80,10 @@ export default function App() {
               <>
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="MyLogs" component={MyLogs} />
+                <Stack.Screen
+                  name="AccountSettings"
+                  component={AccountSettings}
+                />
               </>
             )}
           </Stack.Navigator>

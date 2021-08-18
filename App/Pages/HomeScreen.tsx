@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import IconFeather from "react-native-vector-icons/Feather";
 import MyButton from "../Components/Atoms/MyButton";
 import LogNewLog from "../Components/Home Screen/LogNewLog";
 import colors from "../config/colors";
@@ -18,6 +19,20 @@ const HomeScreen = ({ navigation }: any) => {
           icon={
             <Icon
               name="poop"
+              size={25}
+              color={colors.first}
+              style={{ marginRight: 10 }}
+            />
+          }
+        />
+        <MyButton
+          onPress={() => navigation.navigate("AccountSettings")}
+          containerColor={colors.third}
+          textColor={colors.first}
+          text={"Account Settings"}
+          icon={
+            <IconFeather
+              name="settings"
               size={25}
               color={colors.first}
               style={{ marginRight: 10 }}

@@ -10,13 +10,12 @@ import {
   Modal,
 } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
-import IconFeather from "react-native-vector-icons/Feather";
 import { storeCurrentUser } from "../../App";
 import colors from "../config/colors";
 import { useUserContext } from "../UserContext";
 import MyButton from "./Atoms/MyButton";
 
-const Menu = () => {
+const Menu = ({ navigation }: any) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { currentUser, setCurrentUser } = useUserContext();
 
@@ -37,20 +36,6 @@ const Menu = () => {
       <Modal animationType="slide" visible={showModal} transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
-            <MyButton
-              onPress={() => console.log("poo")}
-              containerColor={colors.second}
-              textColor={colors.first}
-              text={"Account Settings"}
-              icon={
-                <IconFeather
-                  name="settings"
-                  size={25}
-                  color={colors.first}
-                  style={{ marginRight: 10 }}
-                />
-              }
-            />
             <MyButton
               onPress={logout}
               containerColor={colors.second}

@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../config/colors";
 import MyButton from "../Atoms/MyButton";

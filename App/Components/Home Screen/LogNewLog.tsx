@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { StyleSheet, Text, Modal, View, ScrollView, Alert } from "react-native";
+import { StyleSheet, Modal, View, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../config/colors";
 import MyButton from "../Atoms/MyButton";
