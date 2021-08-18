@@ -10,7 +10,7 @@ type FinalButtonsProps = {
   minutes: string;
   seconds: string;
   setMinutes: (minutes: string) => void;
-  setSeconds: (minutes: string) => void;
+  setSeconds: (seconds: string) => void;
   setShowLog: (bool: boolean) => void;
 };
 
@@ -51,7 +51,11 @@ const FinalButtons = ({
   return (
     <View style={styles.submitClose}>
       <MyButton
-        onPress={() => setShowLog(false)}
+        onPress={() => {
+          setShowLog(false);
+          setMinutes("");
+          setSeconds("");
+        }}
         containerColor={colors.third}
         textColor={colors.first}
         text={"Close"}
