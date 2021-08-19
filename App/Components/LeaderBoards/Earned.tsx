@@ -12,6 +12,10 @@ const Earned = () => {
     for (let i = 0; i < logs.length; i++) {
       earned = earned + parseFloat(logs[i].earned);
     }
+    return earned;
+  };
+
+  const refinedEarned = (earned: number) => {
     return `$ ${earned}`;
   };
 
@@ -19,9 +23,17 @@ const Earned = () => {
     const getBoard = async () => {
       const res = await firebaseUserCollection.get();
       const tempBoard = res.docs.map((doc) => {
-        return [doc.data().customUserName, totalEarned(doc.data().logs)];
+        return [
+          doc.data().customUserName,
+          totalEarned(doc.data().logs),
+          doc.id,
+        ];
       });
-      setBoard(tempBoard);
+      tempBoard.sort();
+      const refinedBoard = tempBoard.map((array: any, index: number) => {
+        return [array[0], refinedEarned(array[1]), array[2], index];
+      });
+      setBoard(refinedBoard);
     };
     getBoard();
   }, []);

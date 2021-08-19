@@ -16,9 +16,14 @@ const Quantity = () => {
           `${doc.data().logs.length} ${
             doc.data().logs.length === 1 ? "Log" : "Logs"
           }`,
+          doc.id,
         ];
       });
-      setBoard(tempBoard);
+      tempBoard.sort();
+      const refinedBoard = tempBoard.map((array: any, index: number) => {
+        return [...array, index];
+      });
+      setBoard(refinedBoard);
     };
     getBoard();
   }, []);

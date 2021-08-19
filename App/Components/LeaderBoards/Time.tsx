@@ -13,18 +13,30 @@ const Time = () => {
       time =
         time + parseFloat(logs[i].minutes) * 60 + parseFloat(logs[i].seconds);
     }
+    return time;
+  };
+
+  const refinedTime = (time: any) => {
     const seconds = time % 60;
     const minutes = Math.floor(time / 60);
-    return `${minutes} : ${seconds} Mins.`;
+    return `${
+      minutes.toString().length === 1 ? `0${minutes}` : `${minutes}`
+    } : ${
+      seconds.toString().length === 1 ? `0${seconds}` : `${seconds} Mins.`
+    }`;
   };
 
   useEffect(() => {
     const getBoard = async () => {
       const res = await firebaseUserCollection.get();
       const tempBoard = res.docs.map((doc) => {
-        return [doc.data().customUserName, totalTime(doc.data().logs)];
+        return [doc.data().customUserName, totalTime(doc.data().logs), doc.id];
       });
-      setBoard(tempBoard);
+      tempBoard.sort();
+      const sortedBoard = tempBoard.map((array: any, index: number) => {
+        return [array[0], refinedTime(array[1]), array[2], index];
+      });
+      setBoard(sortedBoard);
     };
     getBoard();
   }, []);
