@@ -17,7 +17,6 @@ type LogNewLogProp = {
 const LogNewLog = ({ setRefresh, refresh }: LogNewLogProp) => {
   const [showLog, setShowLog] = useState<boolean>(false);
   const [rate, setRate] = useState<string>("");
-  const [rateType, setRateType] = useState<string>("$/hr");
   const [minutes, setMinutes] = useState<string>("");
   const [seconds, setSeconds] = useState<string>("");
 
@@ -48,12 +47,7 @@ const LogNewLog = ({ setRefresh, refresh }: LogNewLogProp) => {
                 setMinutes={setMinutes}
                 setSeconds={setSeconds}
               />
-              <Rate
-                rate={rate}
-                setRate={setRate}
-                rateType={rateType}
-                setRateType={setRateType}
-              />
+              <Rate rate={rate} setRate={setRate} />
               <FinalButtons
                 minutes={minutes}
                 seconds={seconds}

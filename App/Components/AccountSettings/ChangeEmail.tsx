@@ -1,34 +1,25 @@
+import firebase from "firebase";
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, View } from "react-native";
+import { Alert, Modal, StyleSheet, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
-import { firebaseUserCollection, storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";
-import { useUserContext } from "../../UserContext";
 import MyButton from "../Atoms/MyButton";
 import MyInput from "../Atoms/MyInput";
-import firebase from "firebase";
 
-const ChangeUsername = () => {
-  const [usernameModal, setUsernameModal] = useState<boolean>(false);
-  const [newUsername, setNewUsername] = useState<string>("");
-  const { currentUser } = useUserContext();
+const ChangeEmail = () => {
+  const [emailModal, setEmailModal] = useState<boolean>(false);
+  const [newEmail, setNewEmail] = useState<string>("");
 
-  const handleChangeUsername = () => {
+  const handleChangeEmail = () => {
     Alert.alert(
       "Are You Sure?",
-      "Are you sure you want to change your User Name?",
+      "Are you sure you want to change your Email?",
       [
         { text: "Cancel" },
         {
           text: "Yes",
           onPress: async () => {
-            await firebaseUserCollection.doc(currentUser.uid).update({
-              customUserName: newUsername,
-            });
-            storeCurrentUser({
-              uid: currentUser.uid,
-              customUserName: newUsername,
-            });
+            firebase.auth().currentUser?.updateEmail(newEmail);
           },
         },
       ]
@@ -38,10 +29,10 @@ const ChangeUsername = () => {
   return (
     <>
       <MyButton
-        onPress={() => setUsernameModal(true)}
+        onPress={() => setEmailModal(true)}
         containerColor={colors.second}
         textColor={colors.first}
-        text={"Change User Name"}
+        text={"Change Email"}
         icon={
           <Icon
             name="user"
@@ -51,17 +42,17 @@ const ChangeUsername = () => {
           />
         }
       />
-      <Modal animationType="slide" visible={usernameModal} transparent={true}>
+      <Modal animationType="slide" visible={emailModal} transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
             <MyInput
-              placeholder={"New User Name"}
-              value={newUsername}
-              onChangeText={setNewUsername}
+              placeholder={"New Email"}
+              value={newEmail}
+              onChangeText={setNewEmail}
               style={{ backgroundColor: colors.second, color: colors.first }}
             />
             <MyButton
-              onPress={handleChangeUsername}
+              onPress={handleChangeEmail}
               containerColor={colors.second}
               textColor={colors.first}
               text={"Change"}
@@ -75,7 +66,7 @@ const ChangeUsername = () => {
               }
             />
             <MyButton
-              onPress={() => setUsernameModal(false)}
+              onPress={() => setEmailModal(false)}
               containerColor={colors.third}
               textColor={colors.first}
               text={"Close Menu"}
@@ -96,7 +87,7 @@ const ChangeUsername = () => {
   );
 };
 
-export default ChangeUsername;
+export default ChangeEmail;
 
 const styles = StyleSheet.create({
   modalContainer: {

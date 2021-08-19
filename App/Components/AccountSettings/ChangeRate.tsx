@@ -1,67 +1,53 @@
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, View } from "react-native";
-import Icon from "react-native-vector-icons/AntDesign";
-import { firebaseUserCollection, storeCurrentUser } from "../../../App";
+import { Modal, StyleSheet, View } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { firebaseUserCollection } from "../../../App";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
 import MyButton from "../Atoms/MyButton";
 import MyInput from "../Atoms/MyInput";
-import firebase from "firebase";
 
-const ChangeUsername = () => {
-  const [usernameModal, setUsernameModal] = useState<boolean>(false);
-  const [newUsername, setNewUsername] = useState<string>("");
+const ChangeRate = () => {
+  const [rateModal, setRateModal] = useState<boolean>(false);
+  const [newRate, setNewRate] = useState<string>("");
   const { currentUser } = useUserContext();
 
-  const handleChangeUsername = () => {
-    Alert.alert(
-      "Are You Sure?",
-      "Are you sure you want to change your User Name?",
-      [
-        { text: "Cancel" },
-        {
-          text: "Yes",
-          onPress: async () => {
-            await firebaseUserCollection.doc(currentUser.uid).update({
-              customUserName: newUsername,
-            });
-            storeCurrentUser({
-              uid: currentUser.uid,
-              customUserName: newUsername,
-            });
-          },
-        },
-      ]
-    );
+  const handleChangeRate = async () => {
+    await firebaseUserCollection.doc(currentUser.uid).update({
+      rate: newRate,
+    });
+    setRateModal(false);
+    setNewRate("");
   };
 
   return (
     <>
       <MyButton
-        onPress={() => setUsernameModal(true)}
-        containerColor={colors.second}
+        onPress={() => setRateModal(true)}
+        containerColor={colors.third}
         textColor={colors.first}
-        text={"Change User Name"}
+        text={"Change Rate"}
         icon={
           <Icon
-            name="user"
+            name="dollar"
             size={25}
             color={colors.first}
             style={{ marginRight: 10 }}
           />
         }
       />
-      <Modal animationType="slide" visible={usernameModal} transparent={true}>
+      <Modal animationType="slide" visible={rateModal} transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
             <MyInput
-              placeholder={"New User Name"}
-              value={newUsername}
-              onChangeText={setNewUsername}
+              placeholder={"New Rate"}
+              value={newRate}
+              onChangeText={setNewRate}
               style={{ backgroundColor: colors.second, color: colors.first }}
+              keyboardType={"number-pad"}
             />
             <MyButton
-              onPress={handleChangeUsername}
+              onPress={handleChangeRate}
               containerColor={colors.second}
               textColor={colors.first}
               text={"Change"}
@@ -75,7 +61,7 @@ const ChangeUsername = () => {
               }
             />
             <MyButton
-              onPress={() => setUsernameModal(false)}
+              onPress={() => setRateModal(false)}
               containerColor={colors.third}
               textColor={colors.first}
               text={"Close Menu"}
@@ -96,7 +82,7 @@ const ChangeUsername = () => {
   );
 };
 
-export default ChangeUsername;
+export default ChangeRate;
 
 const styles = StyleSheet.create({
   modalContainer: {

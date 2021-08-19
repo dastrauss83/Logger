@@ -1,34 +1,25 @@
+import firebase from "firebase";
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, View } from "react-native";
+import { Alert, Modal, StyleSheet, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
-import { firebaseUserCollection, storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";
-import { useUserContext } from "../../UserContext";
 import MyButton from "../Atoms/MyButton";
 import MyInput from "../Atoms/MyInput";
-import firebase from "firebase";
 
-const ChangeUsername = () => {
-  const [usernameModal, setUsernameModal] = useState<boolean>(false);
-  const [newUsername, setNewUsername] = useState<string>("");
-  const { currentUser } = useUserContext();
+const ChangePassword = () => {
+  const [passwordModal, setPasswordModal] = useState<boolean>(false);
+  const [newPassword, setNewPassword] = useState<string>("");
 
-  const handleChangeUsername = () => {
+  const handleChangePassword = () => {
     Alert.alert(
       "Are You Sure?",
-      "Are you sure you want to change your User Name?",
+      "Are you sure you want to change your Password?",
       [
         { text: "Cancel" },
         {
           text: "Yes",
           onPress: async () => {
-            await firebaseUserCollection.doc(currentUser.uid).update({
-              customUserName: newUsername,
-            });
-            storeCurrentUser({
-              uid: currentUser.uid,
-              customUserName: newUsername,
-            });
+            firebase.auth().currentUser?.updatePassword(newPassword);
           },
         },
       ]
@@ -38,10 +29,10 @@ const ChangeUsername = () => {
   return (
     <>
       <MyButton
-        onPress={() => setUsernameModal(true)}
+        onPress={() => setPasswordModal(true)}
         containerColor={colors.second}
         textColor={colors.first}
-        text={"Change User Name"}
+        text={"Change Password"}
         icon={
           <Icon
             name="user"
@@ -51,17 +42,18 @@ const ChangeUsername = () => {
           />
         }
       />
-      <Modal animationType="slide" visible={usernameModal} transparent={true}>
+      <Modal animationType="slide" visible={passwordModal} transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
             <MyInput
-              placeholder={"New User Name"}
-              value={newUsername}
-              onChangeText={setNewUsername}
+              placeholder={"New Password"}
+              value={newPassword}
+              onChangeText={setNewPassword}
               style={{ backgroundColor: colors.second, color: colors.first }}
+              secureTextEntry={true}
             />
             <MyButton
-              onPress={handleChangeUsername}
+              onPress={handleChangePassword}
               containerColor={colors.second}
               textColor={colors.first}
               text={"Change"}
@@ -75,7 +67,7 @@ const ChangeUsername = () => {
               }
             />
             <MyButton
-              onPress={() => setUsernameModal(false)}
+              onPress={() => setPasswordModal(false)}
               containerColor={colors.third}
               textColor={colors.first}
               text={"Close Menu"}
@@ -96,7 +88,7 @@ const ChangeUsername = () => {
   );
 };
 
-export default ChangeUsername;
+export default ChangePassword;
 
 const styles = StyleSheet.create({
   modalContainer: {

@@ -7,6 +7,9 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { firebaseUserCollection, storeCurrentUser } from "../../App";
 import firebase from "firebase";
 import ChangeUsername from "../Components/AccountSettings/ChangeUsername";
+import ChangePassword from "../Components/AccountSettings/ChangePassword";
+import ChangeEmail from "../Components/AccountSettings/ChangeEmail";
+import ChangeRate from "../Components/AccountSettings/ChangeRate";
 
 const AccountSettings = () => {
   const { currentUser, setCurrentUser } = useUserContext();
@@ -33,7 +36,10 @@ const AccountSettings = () => {
   return (
     <SafeAreaView style={styles.background}>
       <ScrollView style={styles.buttonsContainer}>
+        <ChangeRate />
         <ChangeUsername />
+        <ChangeEmail />
+        <ChangePassword />
         <MyButton
           onPress={handleDelete}
           containerColor={"red"}
