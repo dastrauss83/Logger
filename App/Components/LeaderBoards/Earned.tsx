@@ -1,12 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import { firebaseUserCollection } from "../../../App";
 import colors from "../../config/colors";
+import Board from "./Board";
 
 const Earned = () => {
-  const [board, setBoard] = useState([]);
+  const [board, setBoard] = useState<any>([]);
+
+  const totalEarned = (logs: any) => {
+    let earned = 0;
+    for (let i = 0; i < logs.length; i++) {
+      earned = earned + parseFloat(logs[i].earned);
+    }
+    return `$ ${earned}`;
+  };
 
   useEffect(() => {
-    const getBoard = async () => {};
+    const getBoard = async () => {
+      const res = await firebaseUserCollection.get();
+      const tempBoard = res.docs.map((doc) => {
+        return [doc.data().customUserName, totalEarned(doc.data().logs)];
+      });
+      setBoard(tempBoard);
+    };
     getBoard();
   }, []);
 
@@ -21,7 +37,17 @@ const Earned = () => {
           <Text style={styles.headerText}>$ Earned</Text>
         </View>
       </View>
-      <ScrollView style={styles.container}></ScrollView>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={{
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {board.map((array: any, index: number) => (
+          <Board array={array} key={index} />
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -58,11 +84,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderBottomColor: colors.third,
-    borderBottomWidth: 1,
+    borderBottomWidth: 5,
   },
   userCateogry: {
     borderRightColor: colors.third,
     borderRightWidth: 1,
   },
-  headerText: { fontSize: 20, color: colors.second, marginBottom: 5 },
+  headerText: { fontSize: 25, color: colors.third, marginBottom: 5 },
 });
