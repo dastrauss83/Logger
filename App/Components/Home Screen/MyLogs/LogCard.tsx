@@ -10,28 +10,28 @@ type LogCardProps = {
   setRefresh?: (e: boolean) => void;
 };
 
-const LogCard = ({ log, index, refresh, setRefresh }: LogCardProps) => {
-  const timestampToString = (timestamp: any) => {
-    if (!timestamp) return;
-    let date = timestamp.toDate().toDateString();
-    date = date.split(" ");
-    date[0] = date[0].split("");
-    date[0].push(",");
-    date[0] = date[0].join("");
-    date[1] = date[1].split("");
-    date[1].push(".");
-    date[1] = date[1].join("");
-    date[2] = date[2].split("");
-    date[2].push(",");
-    date[2] = date[2].join("");
-    date = date.join(" ");
-    let time = timestamp.toDate().toLocaleTimeString("en-US");
-    time = time.split(" ");
-    time[0] = time[0].substr(0, time[0].length - 3);
-    time = time.join(" ");
-    return `${date} at ${time}`;
-  };
+export const timestampToString = (timestamp: any) => {
+  if (!timestamp) return;
+  let date = timestamp.toDate().toDateString();
+  date = date.split(" ");
+  date[0] = date[0].split("");
+  date[0].push(",");
+  date[0] = date[0].join("");
+  date[1] = date[1].split("");
+  date[1].push(".");
+  date[1] = date[1].join("");
+  date[2] = date[2].split("");
+  date[2].push(",");
+  date[2] = date[2].join("");
+  date = date.join(" ");
+  let time = timestamp.toDate().toLocaleTimeString("en-US");
+  time = time.split(" ");
+  time[0] = time[0].substr(0, time[0].length - 3);
+  time = time.join(" ");
+  return `${date} at ${time}`;
+};
 
+const LogCard = ({ log, index, refresh, setRefresh }: LogCardProps) => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.attributeContainer}>

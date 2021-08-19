@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../config/colors";
 import MyButton from "../Atoms/MyButton";
 import FinalButtons from "./LogNewLog/FinalButtons";
+import Picture from "./LogNewLog/Picture";
 import PromptText from "./LogNewLog/PromptText";
 import Rate from "./LogNewLog/Rate";
 import Time from "./LogNewLog/Time";
@@ -50,6 +51,7 @@ const LogNewLog = ({ setRefresh, refresh, style }: LogNewLogProp) => {
                 setSeconds={setSeconds}
               />
               <Rate rate={rate} setRate={setRate} />
+              <Picture />
               <FinalButtons
                 minutes={minutes}
                 seconds={seconds}

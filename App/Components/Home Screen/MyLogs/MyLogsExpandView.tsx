@@ -3,6 +3,7 @@ import { StyleSheet, Modal, View, Text, ScrollView } from "react-native";
 import MyButton from "../../Atoms/MyButton";
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../../config/colors";
+import { timestampToString } from "./LogCard";
 
 type MyLogsExpandViewProps = {
   showLog: boolean;
@@ -22,7 +23,9 @@ const MyLogsExpandView = ({
           <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
             <View style={styles.attributeContainer}>
               <Text style={styles.textCategory}>Date:</Text>
-              <Text style={styles.textContent}>Date</Text>
+              <Text style={styles.textContent}>
+                {timestampToString(log.time)}
+              </Text>
             </View>
             <View style={styles.attributeContainer}>
               <Text style={styles.textCategory}>Duration:</Text>
