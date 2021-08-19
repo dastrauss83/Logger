@@ -4,8 +4,9 @@ import MyButton from "../Components/Atoms/MyButton";
 import colors from "../config/colors";
 import { useUserContext } from "../UserContext";
 import Icon from "react-native-vector-icons/AntDesign";
-import { firebaseUserCollection } from "../../App";
+import { firebaseUserCollection, storeCurrentUser } from "../../App";
 import firebase from "firebase";
+import ChangeUsername from "../Components/AccountSettings/ChangeUsername";
 
 const AccountSettings = () => {
   const { currentUser, setCurrentUser } = useUserContext();
@@ -23,10 +24,8 @@ const AccountSettings = () => {
             .catch(() =>
               Alert.alert("Error", "Unable to Delete User", [{ text: "Ok" }])
             );
-          setCurrentUser({
-            customUserName: "noUser",
-            uid: "",
-          });
+          setCurrentUser({ customUserName: "noUser", uid: "" });
+          storeCurrentUser("noUser");
         },
       },
     ]);
@@ -34,6 +33,7 @@ const AccountSettings = () => {
   return (
     <SafeAreaView style={styles.background}>
       <ScrollView style={styles.buttonsContainer}>
+        <ChangeUsername />
         <MyButton
           onPress={handleDelete}
           containerColor={"red"}

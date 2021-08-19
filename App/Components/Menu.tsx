@@ -15,7 +15,7 @@ import colors from "../config/colors";
 import { useUserContext } from "../UserContext";
 import MyButton from "./Atoms/MyButton";
 
-const Menu = ({ navigation }: any) => {
+const Menu = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { currentUser, setCurrentUser } = useUserContext();
 

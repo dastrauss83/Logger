@@ -55,7 +55,12 @@ const SignUp = () => {
       .firestore()
       .collection("users")
       .doc(`${user.uid}`)
-      .set({ uid: user.uid, customUserName: user.customUserName });
+      .set({
+        uid: user.uid,
+        customUserName: user.customUserName,
+        logs: [],
+        rate: "",
+      });
     onChangeUserName("");
     onChangeEmail("");
     onChangePassword("");
