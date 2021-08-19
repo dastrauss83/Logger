@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Earned from "../Components/LeaderBoards/Earned";
+import Quantity from "../Components/LeaderBoards/Quantity";
+import Time from "../Components/LeaderBoards/Time";
 import colors from "../config/colors";
 
 export type LeaderBoards = "$ Earned" | "Quantity" | "Time";
@@ -32,8 +34,8 @@ const LeaderBoards = () => {
         />
       </View>
       {board === "$ Earned" && <Earned />}
-      {board === "Quantity" && <Text>quant</Text>}
-      {board === "Time" && <Text>time</Text>}
+      {board === "Quantity" && <Quantity />}
+      {board === "Time" && <Time />}
     </SafeAreaView>
   );
 };

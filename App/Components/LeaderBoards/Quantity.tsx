@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import colors from "../../config/colors";
 
-const Earned = () => {
-  const [board, setBoard] = useState([]);
-
-  useEffect(() => {
-    const getBoard = async () => {};
-    getBoard();
-  }, []);
-
+const Quantity = () => {
   return (
     <SafeAreaView style={styles.background}>
-      <Text style={styles.topText}>All Time Leaders by $ Earned</Text>
+      <Text style={styles.topText}>All Time Leaders by Quantity</Text>
       <View style={styles.header}>
         <View style={[styles.headerCategory, styles.userCateogry]}>
           <Text style={styles.headerText}>User</Text>
         </View>
         <View style={styles.headerCategory}>
-          <Text style={styles.headerText}>$ Earned</Text>
+          <Text style={styles.headerText}>Quantity</Text>
         </View>
       </View>
       <ScrollView style={styles.container}></ScrollView>
@@ -26,7 +19,7 @@ const Earned = () => {
   );
 };
 
-export default Earned;
+export default Quantity;
 
 const styles = StyleSheet.create({
   background: {
