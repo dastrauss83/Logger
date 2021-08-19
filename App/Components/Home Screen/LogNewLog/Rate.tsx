@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import colors from "../../../config/colors";
 import { useUserContext } from "../../../UserContext";
@@ -11,7 +11,6 @@ type RateProps = {
 };
 
 const Rate = ({ rate, setRate }: RateProps) => {
-  const [rateModal, setRateModal] = useState<boolean>(false);
   const { currentUser } = useUserContext();
 
   useEffect(() => {

@@ -1,6 +1,5 @@
 import firebase from "firebase";
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -12,12 +11,12 @@ import {
 import Icon from "react-native-vector-icons/AntDesign";
 import { storeCurrentUser } from "../../App";
 import colors from "../config/colors";
-import { useUserContext } from "../UserContext";
 import MyButton from "./Atoms/MyButton";
 
-const Menu = () => {
+const Menu = ({ currentUser, setCurrentUser }: any) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const { currentUser, setCurrentUser } = useUserContext();
+
+  useEffect(() => {}, [currentUser]);
 
   const logout = () => {
     firebase.auth().signOut();

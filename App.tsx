@@ -65,7 +65,9 @@ export default function App() {
     >
       <NavigationContainer>
         <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-          {currentUser.customUserName !== "noUser" && <Menu />}
+          {currentUser.customUserName !== "noUser" && (
+            <Menu currentUser={currentUser} setCurrentUser={setCurrentUser} />
+          )}
           <Stack.Navigator
             screenOptions={{
               headerShown: false,
@@ -80,10 +82,13 @@ export default function App() {
               <>
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="MyLogs" component={MyLogs} />
-                <Stack.Screen
+                <Stack.Screen name="AccountSettings">
+                  {() => <AccountSettings setCurrentUser={setCurrentUser} />}
+                </Stack.Screen>
+                {/* <Stack.Screen
                   name="AccountSettings"
                   component={AccountSettings}
-                />
+                /> */}
               </>
             )}
           </Stack.Navigator>

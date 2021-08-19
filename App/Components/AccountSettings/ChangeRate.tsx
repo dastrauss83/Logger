@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, StyleSheet, View } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/AntDesign";
+import IconFont from "react-native-vector-icons/FontAwesome";
 import { firebaseUserCollection } from "../../../App";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
@@ -28,7 +29,7 @@ const ChangeRate = () => {
         textColor={colors.first}
         text={"Change Rate"}
         icon={
-          <Icon
+          <IconFont
             name="dollar"
             size={25}
             color={colors.first}
@@ -52,8 +53,8 @@ const ChangeRate = () => {
               textColor={colors.first}
               text={"Change"}
               icon={
-                <Icon
-                  name="user"
+                <IconFont
+                  name="dollar"
                   size={25}
                   color={colors.first}
                   style={{ marginRight: 10 }}

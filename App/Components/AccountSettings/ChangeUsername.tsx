@@ -6,9 +6,8 @@ import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
 import MyButton from "../Atoms/MyButton";
 import MyInput from "../Atoms/MyInput";
-import firebase from "firebase";
 
-const ChangeUsername = () => {
+const ChangeUsername = ({ setCurrentUser }: any) => {
   const [usernameModal, setUsernameModal] = useState<boolean>(false);
   const [newUsername, setNewUsername] = useState<string>("");
   const { currentUser } = useUserContext();
@@ -26,6 +25,12 @@ const ChangeUsername = () => {
               customUserName: newUsername,
             });
             storeCurrentUser({
+              uid: currentUser.uid,
+              customUserName: newUsername,
+            });
+            setUsernameModal(false);
+            setNewUsername("");
+            setCurrentUser({
               uid: currentUser.uid,
               customUserName: newUsername,
             });
