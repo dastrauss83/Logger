@@ -13,6 +13,7 @@ import Menu from "./App/Components/Menu";
 import SignUp from "./App/Components/Welcome Screen/SignUp";
 import MyLogs from "./App/Components/Home Screen/MyLogs";
 import AccountSettings from "./App/Pages/AccountSettings";
+import LeaderBoards from "./App/Pages/LeaderBoards";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -85,12 +86,9 @@ export default function App() {
                 <Stack.Screen name="AccountSettings">
                   {() => <AccountSettings setCurrentUser={setCurrentUser} />}
                 </Stack.Screen>
-                {/* <Stack.Screen
-                  name="AccountSettings"
-                  component={AccountSettings}
-                /> */}
               </>
             )}
+            <Stack.Screen name="LeaderBoards" component={LeaderBoards} />
           </Stack.Navigator>
         </UserContext.Provider>
       </NavigationContainer>

@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import IconMaterial from "react-native-vector-icons/MaterialIcons";
 import IconFeather from "react-native-vector-icons/Feather";
 import MyButton from "../Components/Atoms/MyButton";
 import LogNewLog from "../Components/Home Screen/LogNewLog";
@@ -10,6 +11,20 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.background}>
       <ScrollView style={styles.buttonsContainer}>
+        <MyButton
+          containerColor={colors.third}
+          textColor={colors.first}
+          text={"Leader Boards"}
+          icon={
+            <IconMaterial
+              name="leaderboard"
+              size={25}
+              color={colors.first}
+              style={{ marginRight: 10 }}
+            />
+          }
+          onPress={() => navigation.navigate("LeaderBoards")}
+        />
         <LogNewLog />
         <MyButton
           onPress={() => navigation.navigate("MyLogs")}

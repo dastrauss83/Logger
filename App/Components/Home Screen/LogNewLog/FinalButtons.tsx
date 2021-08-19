@@ -10,6 +10,7 @@ import MyButton from "../../Atoms/MyButton";
 type FinalButtonsProps = {
   minutes: string;
   seconds: string;
+  rate: string;
   setMinutes: (minutes: string) => void;
   setSeconds: (seconds: string) => void;
   setShowLog: (bool: boolean) => void;
@@ -22,6 +23,7 @@ const FinalButtons = ({
   minutes,
   setSeconds,
   setMinutes,
+  rate,
   setShowLog,
   setRefresh,
   refresh,
@@ -41,7 +43,7 @@ const FinalButtons = ({
     const earned = (
       ((parseInt(minutes === "" ? "0" : minutes) * 60 +
         parseInt(seconds === "" ? "0" : seconds)) *
-        parseInt(userData.rate)) /
+        parseInt(userData.rate || rate)) /
       60 /
       60
     )

@@ -40,7 +40,11 @@ const MyLogs = () => {
         </View>
       ) : (
         <ScrollView
-          style={{ width: "100%", height: "100%", paddingTop: 40 }}
+          style={{
+            width: "100%",
+            height: "100%",
+            paddingTop: 40,
+          }}
           contentContainerStyle={{
             alignItems: "center",
             justifyContent: "center",
@@ -55,6 +59,13 @@ const MyLogs = () => {
               setRefresh={setRefresh}
             />
           ))}
+          <LogNewLog
+            refresh={refresh}
+            setRefresh={setRefresh}
+            style={{
+              marginBottom: 50,
+            }}
+          />
         </ScrollView>
       )}
     </SafeAreaView>

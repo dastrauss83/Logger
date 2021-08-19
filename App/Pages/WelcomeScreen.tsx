@@ -4,10 +4,8 @@ import {
   SafeAreaView,
   View,
   Image,
-  Text,
   TouchableWithoutFeedback,
   Keyboard,
-  TouchableOpacity,
 } from "react-native";
 import SignIn from "../Components/Welcome Screen/SignIn";
 import colors from "../config/colors";
@@ -16,7 +14,7 @@ import LogIn from "../Components/Welcome Screen/LogIn";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MyButton from "../Components/Atoms/MyButton";
 
-export const WelcomeScreen = () => {
+export const WelcomeScreen = ({ navigation }: any) => {
   const Stack = createStackNavigator();
 
   return (
@@ -44,7 +42,7 @@ export const WelcomeScreen = () => {
                     style={{ marginRight: 10 }}
                   />
                 }
-                onPress={() => console.log("poo")}
+                onPress={() => navigation.navigate("LeaderBoards")}
               />
             </View>
           </View>

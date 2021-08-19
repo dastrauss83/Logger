@@ -10,11 +10,12 @@ import Rate from "./LogNewLog/Rate";
 import Time from "./LogNewLog/Time";
 
 type LogNewLogProp = {
+  style?: any;
   setRefresh?: (e: boolean) => void;
   refresh?: boolean;
 };
 
-const LogNewLog = ({ setRefresh, refresh }: LogNewLogProp) => {
+const LogNewLog = ({ setRefresh, refresh, style }: LogNewLogProp) => {
   const [showLog, setShowLog] = useState<boolean>(false);
   const [rate, setRate] = useState<string>("");
   const [minutes, setMinutes] = useState<string>("");
@@ -27,6 +28,7 @@ const LogNewLog = ({ setRefresh, refresh }: LogNewLogProp) => {
         containerColor={colors.second}
         textColor={colors.first}
         text={"Log New Log"}
+        style={[style]}
         icon={
           <Icon
             name="pluscircleo"
@@ -51,6 +53,7 @@ const LogNewLog = ({ setRefresh, refresh }: LogNewLogProp) => {
               <FinalButtons
                 minutes={minutes}
                 seconds={seconds}
+                rate={rate}
                 setMinutes={setMinutes}
                 setSeconds={setSeconds}
                 setShowLog={setShowLog}
