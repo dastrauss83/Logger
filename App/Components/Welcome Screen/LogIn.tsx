@@ -56,7 +56,7 @@ const LogIn = () => {
       contentContainerStyle={styles.screenContent}
       keyboardShouldPersistTaps="handled"
     >
-      <Text style={{ top: 20, fontSize: 30, color: colors.first }}>
+      <Text style={{ top: 20, fontSize: 30, color: colors.second }}>
         Log In to an existing account
       </Text>
       <View style={styles.inputContainer}>
