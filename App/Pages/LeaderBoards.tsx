@@ -9,7 +9,7 @@ import colors from "../config/colors";
 export type LeaderBoards = "$ Earned" | "Quantity" | "Time";
 
 const LeaderBoards = () => {
-  const [board, setBoard] = useState<LeaderBoards>("$ Earned");
+  const [board, setBoard] = useState<LeaderBoards>("Time");
 
   const handlePress = () => {
     return null;
@@ -17,6 +17,11 @@ const LeaderBoards = () => {
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.topButtons}>
+        <Button
+          onPress={() => setBoard("Time")}
+          title={"Time"}
+          color={colors.third}
+        />
         <Button
           onPress={() => setBoard("$ Earned")}
           title={"$ Earned"}
@@ -27,15 +32,10 @@ const LeaderBoards = () => {
           title={"Quantity"}
           color={colors.third}
         />
-        <Button
-          onPress={() => setBoard("Time")}
-          title={"Time"}
-          color={colors.third}
-        />
       </View>
+      {board === "Time" && <Time />}
       {board === "$ Earned" && <Earned />}
       {board === "Quantity" && <Quantity />}
-      {board === "Time" && <Time />}
     </SafeAreaView>
   );
 };

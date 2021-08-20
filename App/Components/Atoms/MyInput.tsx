@@ -13,7 +13,7 @@ type MyInputProps = {
   secureTextEntry?: any;
   textAlign?: any;
   style?: any;
-  placeholderTextColor: any;
+  placeholderTextColor?: any;
 };
 
 const MyInput = ({

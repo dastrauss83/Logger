@@ -51,16 +51,12 @@ const SignUp = () => {
     user.customUserName = userName;
     setCurrentUser({ uid: user.uid, customUserName: user.customUserName });
     storeCurrentUser({ uid: user.uid, customUserName: user.customUserName });
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(`${user.uid}`)
-      .set({
-        uid: user.uid,
-        customUserName: user.customUserName,
-        logs: [],
-        rate: "",
-      });
+    firebase.firestore().collection("users").doc(`${user.uid}`).set({
+      uid: user.uid,
+      customUserName: user.customUserName,
+      logs: [],
+      rate: "",
+    });
     onChangeUserName("");
     onChangeEmail("");
     onChangePassword("");

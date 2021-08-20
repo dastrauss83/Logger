@@ -8,7 +8,7 @@
     "splash": {
       "image": "./App/Assets/poo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FBFEFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -20,7 +20,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./App/Assets/poo.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#FBFEFF"
       }
     },
     "web": {
