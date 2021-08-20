@@ -42,7 +42,7 @@ export const WelcomeScreen = ({ navigation }: any) => {
                     style={{ marginRight: 10 }}
                   />
                 }
-                onPress={() => navigation.navigate("LeaderBoards")}
+                onPress={() => navigation.navigate("LeaderBoardsNotSignedIn")}
               />
             </View>
           </View>

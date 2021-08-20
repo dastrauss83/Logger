@@ -22,6 +22,7 @@ import MyLogs from "./App/Components/Home Screen/MyLogs";
 import AccountSettings from "./App/Pages/AccountSettings";
 import LeaderBoards from "./App/Pages/LeaderBoards";
 import * as Updates from "expo-updates";
+import LeaderBoardsNotSignedIn from "./App/Pages/LeaderBoardsNotSignedIn";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -67,19 +68,6 @@ export default function App() {
     getUser();
   }, []);
 
-  const handleAppStateChange = (nextAppState: AppStateStatus) => {
-    if (nextAppState === "active") {
-      setTimeout(checkForUpdates, 5000);
-    }
-  };
-
-  useEffect(() => {
-    if (process.env.NODE_ENV !== "development") {
-      AppState.addEventListener("change", handleAppStateChange);
-      setTimeout(checkForUpdates, 5000);
-    }
-  }, []);
-
   const checkForUpdates = async () => {
     Updates.checkForUpdateAsync().then(async (update) => {
       if (update.isAvailable) {
@@ -97,6 +85,19 @@ export default function App() {
       }
     });
   };
+
+  const handleAppStateChange = (nextAppState: AppStateStatus) => {
+    if (nextAppState === "active") {
+      setTimeout(checkForUpdates, 5000);
+    }
+  };
+
+  useEffect(() => {
+    if (process.env.NODE_ENV !== "development") {
+      AppState.addEventListener("change", handleAppStateChange);
+      setTimeout(checkForUpdates, 5000);
+    }
+  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -117,6 +118,10 @@ export default function App() {
               <>
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
                 <Stack.Screen name="SignUp" component={SignUp} />
+                <Stack.Screen
+                  name="LeaderBoardsNotSignedIn"
+                  component={LeaderBoardsNotSignedIn}
+                />
               </>
             ) : (
               <>
@@ -125,9 +130,9 @@ export default function App() {
                 <Stack.Screen name="AccountSettings">
                   {() => <AccountSettings setCurrentUser={setCurrentUser} />}
                 </Stack.Screen>
+                <Stack.Screen name="LeaderBoards" component={LeaderBoards} />
               </>
             )}
-            <Stack.Screen name="LeaderBoards" component={LeaderBoards} />
           </Stack.Navigator>
         </UserContext.Provider>
       </NavigationContainer>
