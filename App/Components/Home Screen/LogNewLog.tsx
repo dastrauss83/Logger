@@ -21,7 +21,7 @@ const LogNewLog = ({ setRefresh, refresh, style }: LogNewLogProp) => {
   const [minutes, setMinutes] = useState<string>("");
   const [seconds, setSeconds] = useState<string>("");
   const [rate, setRate] = useState<string>("");
-  const [picture, setPicture] = useState<any>();
+  const [picture, setPicture] = useState<any>("");
 
   return (
     <>

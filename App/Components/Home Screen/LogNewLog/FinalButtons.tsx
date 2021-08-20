@@ -48,28 +48,35 @@ const FinalButtons = ({
     });
   };
 
+  const awaitAlert = async () => {
+    if (rate === "") {
+      return new Promise((resolve, reject) =>
+        Alert.alert(
+          "Notice",
+          "If you do not enter a rate it will be set at 0. In Account Settings you can save a rate.",
+          [
+            {
+              text: "Set a rate",
+              onPress: () => {
+                resolve("set");
+              },
+            },
+            { text: "Use $0/hr", onPress: () => resolve("0") },
+          ]
+        )
+      );
+    }
+  };
+
   const handleSubmit = async () => {
     if (seconds === "" && minutes === "") {
       return Alert.alert("Error", "Please enter minutes and seconds", [
         { text: "Ok" },
       ]);
     }
-    if (rate === "") {
-      return Alert.alert(
-        "Notice",
-        "If you do not enter a rate it will be set at 0. In Account Settings you can save a rate.",
-        [
-          {
-            text: "Set a rate",
-            onPress: () => {
-              return;
-            },
-          },
-          { text: "Use $0/hr" },
-        ]
-      );
-    }
-    setShowLog(false);
+
+    const rateResponse = await awaitAlert();
+    if (rateResponse === "set") return;
 
     const userData: any = (
       await firebaseUserCollection.doc(currentUser.uid).get()
@@ -86,14 +93,19 @@ const FinalButtons = ({
       .toString();
 
     let blob: any;
-    blob = await getPictureBlob(picture);
-    const filename = picture.substring(picture.lastIndexOf("/") + 1);
-    await firebase.storage().ref(filename).put(blob);
-    const photoURL: string = await firebase
-      .storage()
-      .ref()
-      .child(filename)
-      .getDownloadURL();
+    let photoURL: string;
+    if (picture !== "") {
+      blob = await getPictureBlob(picture);
+      const filename = picture.substring(picture.lastIndexOf("/") + 1);
+      await firebase.storage().ref(filename).put(blob);
+      photoURL = await firebase
+        .storage()
+        .ref()
+        .child(filename)
+        .getDownloadURL();
+    } else {
+      photoURL = "";
+    }
 
     const tempLogs = [...userData.logs];
     tempLogs.push({

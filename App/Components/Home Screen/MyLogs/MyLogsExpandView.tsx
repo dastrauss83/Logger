@@ -37,14 +37,19 @@ const MyLogsExpandView = ({
               <Text style={styles.textCategory}>$ Earned:</Text>
               <Text style={styles.textContent}>${log.earned}</Text>
             </View>
-            <View
-              style={[
-                styles.attributeContainer,
-                { justifyContent: "center", alignItems: "center" },
-              ]}
-            >
-              <Image source={{ uri: `${log.picture}` }} style={styles.image} />
-            </View>
+            {log.picture !== "" && (
+              <View
+                style={[
+                  styles.attributeContainer,
+                  { justifyContent: "center", alignItems: "center" },
+                ]}
+              >
+                <Image
+                  source={{ uri: `${log.picture}` }}
+                  style={styles.image}
+                />
+              </View>
+            )}
             <MyButton
               onPress={() => {
                 setShowLog(false);

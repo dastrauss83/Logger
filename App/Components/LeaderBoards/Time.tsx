@@ -19,11 +19,9 @@ const Time = () => {
   const refinedTime = (time: any) => {
     const seconds = time % 60;
     const minutes = Math.floor(time / 60);
-    return `${
-      minutes.toString().length === 1 ? `0${minutes}` : `${minutes} `
-    } : ${
-      seconds.toString().length === 1 ? `0${seconds}` : `${seconds} Mins.`
-    }`;
+    return `${minutes.toString().length === 1 ? `0${minutes}` : `${minutes}`}:${
+      seconds.toString().length === 1 ? `0${seconds}` : `${seconds}`
+    } Mins.`;
   };
 
   useEffect(() => {
