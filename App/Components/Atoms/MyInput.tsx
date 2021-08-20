@@ -13,6 +13,7 @@ type MyInputProps = {
   secureTextEntry?: any;
   textAlign?: any;
   style?: any;
+  placeholderTextColor: any;
 };
 
 const MyInput = ({
@@ -26,6 +27,7 @@ const MyInput = ({
   secureTextEntry,
   textAlign,
   style,
+  placeholderTextColor,
 }: MyInputProps) => {
   return (
     <TextInput
@@ -39,6 +41,7 @@ const MyInput = ({
       autoCapitalize={autoCapitalize || "sentences"}
       textAlign={textAlign || "left"}
       textContentType={textContentType || "none"}
+      placeholderTextColor={placeholderTextColor || "#C7C7CD"}
     />
   );
 };

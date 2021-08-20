@@ -68,6 +68,8 @@ const LogIn = () => {
           keyboardType="email-address"
           autoCapitalize="none"
           textContentType="none"
+          style={[styles.input]}
+          placeholderTextColor={"lightgrey"}
         />
         <MyInput
           value={password}
@@ -76,17 +78,19 @@ const LogIn = () => {
           placeholder={"Password"}
           autoCompleteType="password"
           textContentType="none"
+          style={[styles.input]}
+          placeholderTextColor={"lightgrey"}
         />
         <MyButton
           onPress={handleLogin}
-          containerColor={colors.first}
-          textColor={colors.second}
+          containerColor={colors.second}
+          textColor={colors.first}
           text={"Log In"}
           icon={
             <Icon
               name="login"
               size={25}
-              color={colors.second}
+              color={colors.first}
               style={{ marginRight: 10 }}
             />
           }
@@ -100,7 +104,7 @@ export default LogIn;
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: colors.second,
+    backgroundColor: colors.first,
     width: "100%",
     height: "100%",
   },
@@ -110,5 +114,9 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "100%",
     marginTop: 40,
+  },
+  input: {
+    backgroundColor: colors.second,
+    color: colors.first,
   },
 });

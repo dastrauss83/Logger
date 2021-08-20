@@ -11,19 +11,19 @@ const SignIn = ({ navigation }: any) => {
       contentContainerStyle={styles.screenContent}
       keyboardShouldPersistTaps="handled"
     >
-      <Text style={{ top: 50, fontSize: 30, color: colors.first }}>
+      <Text style={{ top: 50, fontSize: 30, color: colors.second }}>
         Log In or Sign Up to get started
       </Text>
       <View style={styles.buttonsContainer}>
         <MyButton
           onPress={() => navigation.navigate("LogIn")}
-          containerColor={colors.first}
-          textColor={colors.second}
+          containerColor={colors.second}
+          textColor={colors.first}
           icon={
             <Icon
               name="login"
               size={25}
-              color={colors.second}
+              color={colors.first}
               style={{ marginRight: 10 }}
             />
           }
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   screen: {
-    backgroundColor: colors.second,
+    backgroundColor: colors.first,
     width: "100%",
     height: "100%",
   },

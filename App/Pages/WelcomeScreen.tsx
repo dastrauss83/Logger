@@ -19,7 +19,7 @@ export const WelcomeScreen = ({ navigation }: any) => {
 
   return (
     <>
-      <SafeAreaView style={{ flex: 0, backgroundColor: colors.first }} />
+      <SafeAreaView style={{ flex: 0, backgroundColor: colors.second }} />
       <SafeAreaView style={styles.background}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.logoContainer}>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: colors.second,
+    backgroundColor: colors.first,
   },
   bottom: {
     height: "50%",
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     alignItems: "center",
     width: "100%",
-    backgroundColor: colors.first,
+    backgroundColor: colors.second,
   },
   introText: {
     fontSize: 30,
