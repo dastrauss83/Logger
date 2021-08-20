@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Image, ImageBackground } from "react-native";
+import { StyleSheet, View, ImageBackground } from "react-native";
+import IconMaterial from "react-native-vector-icons/MaterialIcons";
 import MyButton from "../../Atoms/MyButton";
 import colors from "../../../config/colors";
 import CameraModal from "./CameraModal";
@@ -19,20 +20,41 @@ const Picture = ({ picture, setPicture }: PictureProps) => {
       {pictureTaken ? (
         <>
           <ImageBackground source={{ uri: picture }} style={styles.picture} />
-          <MyButton
-            containerColor={colors.second}
-            textColor={colors.first}
-            text={"Retake"}
-            onPress={() => setCameraModal(true)}
-            icon={
-              <Icon
-                name="camera"
-                size={25}
-                color={colors.first}
-                style={{ marginRight: 10 }}
-              />
-            }
-          />
+          <View style={styles.buttonsContainer}>
+            <MyButton
+              onPress={() => {
+                setPictureTaken(false);
+                setPicture("");
+              }}
+              containerColor={colors.third}
+              textColor={colors.first}
+              text={"Clear"}
+              style={{ width: "30%" }}
+              icon={
+                <IconMaterial
+                  name="clear"
+                  size={25}
+                  color={colors.first}
+                  style={{ marginRight: 10 }}
+                />
+              }
+            />
+            <MyButton
+              containerColor={colors.second}
+              textColor={colors.first}
+              text={"Retake"}
+              onPress={() => setCameraModal(true)}
+              style={{ width: "60%" }}
+              icon={
+                <Icon
+                  name="camera"
+                  size={25}
+                  color={colors.first}
+                  style={{ marginRight: 10 }}
+                />
+              }
+            />
+          </View>
         </>
       ) : (
         <MyButton
@@ -75,5 +97,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 15,
     borderRadius: 20,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    width: "100%",
   },
 });

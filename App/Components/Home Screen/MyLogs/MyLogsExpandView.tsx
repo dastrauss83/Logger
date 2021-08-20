@@ -4,6 +4,7 @@ import MyButton from "../../Atoms/MyButton";
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../../config/colors";
 import { timestampToString } from "./LogCard";
+import MapView, { Marker } from "react-native-maps";
 
 type MyLogsExpandViewProps = {
   showLog: boolean;
@@ -48,6 +49,26 @@ const MyLogsExpandView = ({
                   source={{ uri: `${log.picture}` }}
                   style={styles.image}
                 />
+              </View>
+            )}
+            {log.location !== "" && (
+              <View
+                style={[
+                  styles.attributeContainer,
+                  { justifyContent: "center", alignItems: "center" },
+                ]}
+              >
+                <MapView
+                  initialRegion={{
+                    latitude: log.location?.latitude,
+                    longitude: log.location?.longitude,
+                    latitudeDelta: 0.01,
+                    longitudeDelta: 0.01,
+                  }}
+                  style={styles.map}
+                >
+                  <Marker coordinate={log.location} />
+                </MapView>
               </View>
             )}
             <MyButton
@@ -120,5 +141,12 @@ const styles = StyleSheet.create({
     height: 250,
     marginTop: 15,
     marginBottom: 15,
+  },
+  map: {
+    width: 300,
+    height: 300,
+    marginBottom: 15,
+    marginTop: 15,
+    borderRadius: 20,
   },
 });

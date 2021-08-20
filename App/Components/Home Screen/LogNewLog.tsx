@@ -73,6 +73,9 @@ const LogNewLog = ({ setRefresh, refresh, style }: LogNewLogProp) => {
                 rate={rate}
                 picture={picture}
                 coordinate={coordinate}
+                setCoordinate={setCoordinate}
+                location={location}
+                setLocation={setLocation}
                 setShowLog={setShowLog}
                 setRefresh={setRefresh}
                 refresh={refresh}

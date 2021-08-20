@@ -13,6 +13,9 @@ type FinalButtonsProps = {
   rate: string;
   picture: any;
   coordinate: any;
+  setCoordinate: (e: any) => void;
+  location: boolean;
+  setLocation: (e: boolean) => void;
   setMinutes: (minutes: string) => void;
   setSeconds: (seconds: string) => void;
   setShowLog: (bool: boolean) => void;
@@ -22,12 +25,15 @@ type FinalButtonsProps = {
 
 const FinalButtons = ({
   seconds,
-  minutes,
   setSeconds,
+  minutes,
   setMinutes,
   rate,
   picture,
   coordinate,
+  setCoordinate,
+  location,
+  setLocation,
   setShowLog,
   setRefresh,
   refresh,
@@ -116,24 +122,37 @@ const FinalButtons = ({
       time: firebase.firestore.Timestamp.now(),
       earned: earned,
       picture: photoURL,
+      location: location ? coordinate : "",
     });
 
     firebaseUserCollection.doc(currentUser.uid).update({ logs: tempLogs });
 
+    setCoordinate({
+      latitude: 40.78555,
+      longitude: -73.962,
+    });
+    setLocation(false);
     setMinutes("");
     setSeconds("");
     setShowLog(false);
     setRefresh && setRefresh(!refresh);
   };
 
+  const handleClose = () => {
+    setLocation(false);
+    setShowLog(false);
+    setMinutes("");
+    setSeconds("");
+    setCoordinate({
+      latitude: 40.78555,
+      longitude: -73.962,
+    });
+  };
+
   return (
     <View style={styles.submitClose}>
       <MyButton
-        onPress={() => {
-          setShowLog(false);
-          setMinutes("");
-          setSeconds("");
-        }}
+        onPress={handleClose}
         containerColor={colors.third}
         textColor={colors.first}
         text={"Close"}
