@@ -15,10 +15,11 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
+import Back from "../Atoms/Back";
 import MyButton from "../Atoms/MyButton";
 import MyInput from "../Atoms/MyInput";
 
-const SignUp = () => {
+const SignUp = ({ navigation }: any) => {
   const [userName, onChangeUserName] = useState<string>("");
   const [email, onChangeEmail] = useState<string>("");
   const [password, onChangePassword] = useState<string>("");
@@ -64,6 +65,7 @@ const SignUp = () => {
 
   return (
     <SafeAreaView style={{ backgroundColor: colors.second }}>
+      <Back navigation={navigation} color={colors.first} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView
           style={styles.screen}

@@ -5,10 +5,11 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
+import Back from "../Atoms/Back";
 import MyButton from "../Atoms/MyButton";
 import MyInput from "../Atoms/MyInput";
 
-const LogIn = () => {
+const LogIn = ({ navigation }: any) => {
   const [email, onChangeEmail] = useState<string>("");
   const [password, onChangePassword] = useState<string>("");
 
@@ -56,7 +57,8 @@ const LogIn = () => {
       contentContainerStyle={styles.screenContent}
       keyboardShouldPersistTaps="handled"
     >
-      <Text style={{ top: 20, fontSize: 30, color: colors.second }}>
+      <Back navigation={navigation} style={{ top: 5 }} />
+      <Text style={{ top: 35, fontSize: 30, color: colors.second }}>
         Log In to an existing account
       </Text>
       <View style={styles.inputContainer}>

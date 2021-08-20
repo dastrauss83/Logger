@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
+import Back from "../Atoms/Back";
 import LogNewLog from "./LogNewLog";
 import LogCard from "./MyLogs/LogCard";
 
-const MyLogs = () => {
+const MyLogs = ({ navigation }: any) => {
   const [userLogs, setUserLogs] = useState<any>(["poo"]);
   const [refresh, setRefresh] = useState<boolean>(false);
   const { currentUser } = useUserContext();
@@ -29,6 +30,7 @@ const MyLogs = () => {
 
   return (
     <SafeAreaView>
+      <Back navigation={navigation} />
       {userLogs.length < 1 ? (
         <View style={styles.screen}>
           <Text

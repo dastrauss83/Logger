@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     position: "absolute",
     zIndex: 100,
-    top: 40,
+    top: 30,
     right: 8,
     flexDirection: "row",
     alignItems: "center",
