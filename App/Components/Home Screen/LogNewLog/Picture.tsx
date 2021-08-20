@@ -5,10 +5,14 @@ import colors from "../../../config/colors";
 import CameraModal from "./CameraModal";
 import Icon from "react-native-vector-icons/Entypo";
 
-const Picture = () => {
+type PictureProps = {
+  picture: any;
+  setPicture: any;
+};
+
+const Picture = ({ picture, setPicture }: PictureProps) => {
   const [cameraModal, setCameraModal] = useState<boolean>(false);
   const [pictureTaken, setPictureTaken] = useState<boolean>(false);
-  const [picture, setPicture] = useState<any>();
 
   return (
     <View style={styles.container}>

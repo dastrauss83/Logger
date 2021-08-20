@@ -16,13 +16,13 @@ const DeleteAccount = () => {
       {
         text: "Yes",
         onPress: async () => {
-          await firebaseUserCollection.doc(currentUser.uid).delete();
           await firebase
             .auth()
             .currentUser?.delete()
-            .catch(() =>
-              Alert.alert("Error", "Unable to Delete User", [{ text: "Ok" }])
-            );
+            .catch(() => {
+              Alert.alert("Error", "Unable to Delete User", [{ text: "Ok" }]);
+            });
+          await firebaseUserCollection.doc(currentUser.uid).delete();
           setCurrentUser({ customUserName: "noUser", uid: "" });
           storeCurrentUser("noUser");
         },

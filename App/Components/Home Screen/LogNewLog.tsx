@@ -18,9 +18,10 @@ type LogNewLogProp = {
 
 const LogNewLog = ({ setRefresh, refresh, style }: LogNewLogProp) => {
   const [showLog, setShowLog] = useState<boolean>(false);
-  const [rate, setRate] = useState<string>("");
   const [minutes, setMinutes] = useState<string>("");
   const [seconds, setSeconds] = useState<string>("");
+  const [rate, setRate] = useState<string>("");
+  const [picture, setPicture] = useState<any>();
 
   return (
     <>
@@ -51,13 +52,14 @@ const LogNewLog = ({ setRefresh, refresh, style }: LogNewLogProp) => {
                 setSeconds={setSeconds}
               />
               <Rate rate={rate} setRate={setRate} />
-              <Picture />
+              <Picture picture={picture} setPicture={setPicture} />
               <FinalButtons
                 minutes={minutes}
-                seconds={seconds}
-                rate={rate}
                 setMinutes={setMinutes}
+                seconds={seconds}
                 setSeconds={setSeconds}
+                rate={rate}
+                picture={picture}
                 setShowLog={setShowLog}
                 setRefresh={setRefresh}
                 refresh={refresh}

@@ -30,8 +30,7 @@ const CameraModal = ({
 
   const handlePic = async () => {
     const photo: any = await camera.takePictureAsync();
-    console.log(photo);
-    setPicture(photo.uri);
+    setPicture(`${photo.uri}`);
     setCameraModal(false);
     setPictureTaken(true);
   };

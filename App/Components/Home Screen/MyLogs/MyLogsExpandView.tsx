@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Modal, View, Text, ScrollView } from "react-native";
+import { StyleSheet, Modal, View, Text, ScrollView, Image } from "react-native";
 import MyButton from "../../Atoms/MyButton";
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../../config/colors";
@@ -36,6 +36,14 @@ const MyLogsExpandView = ({
             <View style={styles.attributeContainer}>
               <Text style={styles.textCategory}>$ Earned:</Text>
               <Text style={styles.textContent}>${log.earned}</Text>
+            </View>
+            <View
+              style={[
+                styles.attributeContainer,
+                { justifyContent: "center", alignItems: "center" },
+              ]}
+            >
+              <Image source={{ uri: `${log.picture}` }} style={styles.image} />
             </View>
             <MyButton
               onPress={() => {
@@ -101,5 +109,11 @@ const styles = StyleSheet.create({
   attributeContainer: {
     borderBottomColor: colors.second,
     borderBottomWidth: 1,
+  },
+  image: {
+    width: 250,
+    height: 250,
+    marginTop: 15,
+    marginBottom: 15,
   },
 });

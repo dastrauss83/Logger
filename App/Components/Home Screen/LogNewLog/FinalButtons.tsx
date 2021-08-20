@@ -11,6 +11,7 @@ type FinalButtonsProps = {
   minutes: string;
   seconds: string;
   rate: string;
+  picture: any;
   setMinutes: (minutes: string) => void;
   setSeconds: (seconds: string) => void;
   setShowLog: (bool: boolean) => void;
@@ -24,11 +25,28 @@ const FinalButtons = ({
   setSeconds,
   setMinutes,
   rate,
+  picture,
   setShowLog,
   setRefresh,
   refresh,
 }: FinalButtonsProps) => {
   const { currentUser } = useUserContext();
+
+  const getPictureBlob = (uri: string) => {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+  };
 
   const handleSubmit = async () => {
     if (seconds === "" && minutes === "") {
@@ -36,31 +54,58 @@ const FinalButtons = ({
         { text: "Ok" },
       ]);
     }
+    if (rate === "") {
+      return Alert.alert(
+        "Notice",
+        "If you do not enter a rate it will be set at 0. In Account Settings you can save a rate.",
+        [
+          {
+            text: "Set a rate",
+            onPress: () => {
+              return;
+            },
+          },
+          { text: "Use $0/hr" },
+        ]
+      );
+    }
     setShowLog(false);
+
     const userData: any = (
       await firebaseUserCollection.doc(currentUser.uid).get()
     ).data();
+
     const earned = (
       ((parseInt(minutes === "" ? "0" : minutes) * 60 +
         parseInt(seconds === "" ? "0" : seconds)) *
-        parseInt(userData.rate || rate)) /
+        parseInt(rate || "0")) /
       60 /
       60
     )
       .toFixed(2)
       .toString();
+
+    let blob: any;
+    blob = await getPictureBlob(picture);
+    const filename = picture.substring(picture.lastIndexOf("/") + 1);
+    await firebase.storage().ref(filename).put(blob);
+    const photoURL: string = await firebase
+      .storage()
+      .ref()
+      .child(filename)
+      .getDownloadURL();
+
     const tempLogs = [...userData.logs];
     tempLogs.push({
       minutes: minutes === "" ? "0" : minutes,
       seconds: seconds === "" ? "0" : seconds,
       time: firebase.firestore.Timestamp.now(),
       earned: earned,
+      picture: photoURL,
     });
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(currentUser.uid)
-      .update({ logs: tempLogs });
+
+    firebaseUserCollection.doc(currentUser.uid).update({ logs: tempLogs });
+
     setMinutes("");
     setSeconds("");
     setShowLog(false);
