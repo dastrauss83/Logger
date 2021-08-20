@@ -9,6 +9,7 @@ import Picture from "./LogNewLog/Picture";
 import PromptText from "./LogNewLog/PromptText";
 import Rate from "./LogNewLog/Rate";
 import Time from "./LogNewLog/Time";
+import Map from "./LogNewLog/Map";
 
 type LogNewLogProp = {
   style?: any;
@@ -22,6 +23,11 @@ const LogNewLog = ({ setRefresh, refresh, style }: LogNewLogProp) => {
   const [seconds, setSeconds] = useState<string>("");
   const [rate, setRate] = useState<string>("");
   const [picture, setPicture] = useState<any>("");
+  const [location, setLocation] = useState<boolean>(false);
+  const [coordinate, setCoordinate] = useState<any>({
+    latitude: 40.78555,
+    longitude: -73.962,
+  });
 
   return (
     <>
@@ -53,6 +59,12 @@ const LogNewLog = ({ setRefresh, refresh, style }: LogNewLogProp) => {
               />
               <Rate rate={rate} setRate={setRate} />
               <Picture picture={picture} setPicture={setPicture} />
+              <Map
+                location={location}
+                setLocation={setLocation}
+                coordinate={coordinate}
+                setCoordinate={setCoordinate}
+              />
               <FinalButtons
                 minutes={minutes}
                 setMinutes={setMinutes}
@@ -60,6 +72,7 @@ const LogNewLog = ({ setRefresh, refresh, style }: LogNewLogProp) => {
                 setSeconds={setSeconds}
                 rate={rate}
                 picture={picture}
+                coordinate={coordinate}
                 setShowLog={setShowLog}
                 setRefresh={setRefresh}
                 refresh={refresh}

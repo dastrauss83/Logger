@@ -128,7 +128,7 @@ const Time = ({ minutes, seconds, setMinutes, setSeconds }: TimeProps) => {
         <MyButton
           onPress={handleClear}
           containerColor={
-            minutes === "" && seconds === "" ? colors.second : "red"
+            minutes === "" && seconds === "" ? colors.third : "red"
           }
           textColor={colors.first}
           text={"Clear"}

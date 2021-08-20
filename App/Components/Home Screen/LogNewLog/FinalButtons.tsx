@@ -12,6 +12,7 @@ type FinalButtonsProps = {
   seconds: string;
   rate: string;
   picture: any;
+  coordinate: any;
   setMinutes: (minutes: string) => void;
   setSeconds: (seconds: string) => void;
   setShowLog: (bool: boolean) => void;
@@ -26,6 +27,7 @@ const FinalButtons = ({
   setMinutes,
   rate,
   picture,
+  coordinate,
   setShowLog,
   setRefresh,
   refresh,
@@ -108,7 +110,7 @@ const FinalButtons = ({
     }
 
     const tempLogs = [...userData.logs];
-    tempLogs.push({
+    tempLogs.unshift({
       minutes: minutes === "" ? "0" : minutes,
       seconds: seconds === "" ? "0" : seconds,
       time: firebase.firestore.Timestamp.now(),

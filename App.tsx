@@ -1,6 +1,13 @@
 import "react-native-gesture-handler";
 import React, { useEffect } from "react";
-import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
+import {
+  Alert,
+  AppState,
+  AppStateStatus,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+} from "react-native";
 import { WelcomeScreen } from "./App/Pages/WelcomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -14,6 +21,7 @@ import SignUp from "./App/Components/Welcome Screen/SignUp";
 import MyLogs from "./App/Components/Home Screen/MyLogs";
 import AccountSettings from "./App/Pages/AccountSettings";
 import LeaderBoards from "./App/Pages/LeaderBoards";
+import * as Updates from "expo-updates";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -58,6 +66,37 @@ export default function App() {
     };
     getUser();
   }, []);
+
+  const handleAppStateChange = (nextAppState: AppStateStatus) => {
+    if (nextAppState === "active") {
+      setTimeout(checkForUpdates, 5000);
+    }
+  };
+
+  useEffect(() => {
+    if (process.env.NODE_ENV !== "development") {
+      AppState.addEventListener("change", handleAppStateChange);
+      setTimeout(checkForUpdates, 5000);
+    }
+  }, []);
+
+  const checkForUpdates = async () => {
+    Updates.checkForUpdateAsync().then(async (update) => {
+      if (update.isAvailable) {
+        Updates.fetchUpdateAsync().then(async () => {
+          await new Promise((resolve) =>
+            Alert.alert(
+              "Required update",
+              "your app will briefly restart",
+              [{ text: "OK", onPress: () => resolve(true) }],
+              { cancelable: false }
+            )
+          );
+          await Updates.reloadAsync();
+        });
+      }
+    });
+  };
 
   return (
     <KeyboardAvoidingView
