@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Logger - Poop Competitively",
-    "slug": "Poop Tracker",
+    "slug": "https://github.com/dastrauss83/Poop_Tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./App/Assets/poo.png",
@@ -15,7 +15,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "io.dastrauss83.PoopTracker"
     },
     "android": {
       "adaptiveIcon": {
