@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Logger - Poop Competitively",
-    "slug": "https://github.com/dastrauss83/Logger",
+    "slug": "Logger",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./App/Assets/poo.png",
