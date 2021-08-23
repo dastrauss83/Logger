@@ -42,6 +42,58 @@ const InteractWithGroup = ({
     );
   };
 
+  const handleLeave = async () => {
+    const userIndex = group.usersID.indexOf(currentUser.uid);
+    const tempUsersID = [...group.usersID];
+    tempUsersID.splice(userIndex, 1);
+    const tempUsersCustomUserName = [...group.usersCustomUserName];
+    tempUsersCustomUserName.splice(userIndex, 1);
+    await firebaseGroupCollection.doc(group.id).update({
+      usersID: tempUsersID,
+      usersCustomUserName: tempUsersCustomUserName,
+    });
+    setCardModal(false);
+    setRefresh && setRefresh(!refresh);
+  };
+
+  const handleJoin = async () => {
+    const tempRequestedsID = [...group.requestedsID];
+    tempRequestedsID.push(currentUser.uid);
+    await firebaseGroupCollection.doc(group.id).update({
+      requestedsID: tempRequestedsID,
+    });
+    Alert.alert(
+      "Request Received",
+      "The admin has been notified and will either accept or deny your join request",
+      [
+        {
+          text: "Ok",
+          onPress: async () => setCardModal(false),
+        },
+      ]
+    );
+    setRefresh && setRefresh(!refresh);
+  };
+
+  const handleCancelRequest = async () => {
+    Alert.alert("Are you sure?", "Your join request will be retracted", [
+      { text: "No" },
+      {
+        text: "Yes",
+        onPress: async () => {
+          const userIndex = group.requestedsID.indexOf(currentUser.uid);
+          const tempRequestedsID = [...group.requestedsID];
+          tempRequestedsID.splice(userIndex, 1);
+          await firebaseGroupCollection.doc(group.id).update({
+            requestedsID: tempRequestedsID,
+          });
+          setRefresh && setRefresh(!refresh);
+          setCardModal(false);
+        },
+      },
+    ]);
+  };
+
   if (group.adminID === currentUser.uid) {
     return (
       <MyButton
@@ -61,13 +113,13 @@ const InteractWithGroup = ({
     );
   }
 
-  if (group.usersID.indexOf(currentUser.uid) !== 1) {
+  if (group.usersID.includes(currentUser.uid)) {
     return (
       <MyButton
         containerColor={"red"}
         textColor={colors.first}
         text={"Leave Group"}
-        onPress={() => console.log("Leave")}
+        onPress={handleLeave}
         icon={
           <IconAnt
             name="back"
@@ -81,15 +133,15 @@ const InteractWithGroup = ({
   }
 
   if (
-    group.usersID.indexOf(currentUser.uid) === -1 &&
-    group.requestedsID.indexOf(currentUser.uid) === -1
+    !group.usersID.includes(currentUser.uid) &&
+    !group.requestedsID.includes(currentUser.uid)
   ) {
     return (
       <MyButton
         containerColor={colors.second}
         textColor={colors.first}
         text={"Join Group"}
-        onPress={() => console.log("Join")}
+        onPress={handleJoin}
         icon={
           <IconAnt
             name="pluscircleo"
@@ -102,13 +154,13 @@ const InteractWithGroup = ({
     );
   }
 
-  if (group.requestedsID.indexOf(currentUser.uid) === -1) {
+  if (group.requestedsID.includes(currentUser.uid)) {
     return (
       <MyButton
         containerColor={colors.third}
         textColor={colors.first}
-        text={"Pending..."}
-        onPress={() => console.log("pending")}
+        text={"Pending Approval..."}
+        onPress={handleCancelRequest}
         icon={
           <Icon
             name="clock"

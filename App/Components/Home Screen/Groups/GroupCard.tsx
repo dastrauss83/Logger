@@ -71,6 +71,7 @@ const GroupCard = ({ group, refresh, setRefresh }: GroupCardProps) => {
                           color: colors.second,
                           width: "80%",
                         }}
+                        key={name}
                       >
                         {name}
                       </Text>
