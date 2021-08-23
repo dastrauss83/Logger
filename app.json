@@ -4,7 +4,7 @@
     "slug": "Logger",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./App/Assets/icon.jpg",
+    "icon": "./App/Assets/icon.png",
     "splash": {
       "image": "./App/Assets/poo.png",
       "resizeMode": "contain",
