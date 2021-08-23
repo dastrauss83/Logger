@@ -41,6 +41,34 @@ const HomeScreen = ({ navigation }: any) => {
           }
         />
         <MyButton
+          onPress={() => navigation.navigate("MyGroups")}
+          containerColor={colors.second}
+          textColor={colors.first}
+          text={"My Groups"}
+          icon={
+            <IconMaterial
+              name="group"
+              size={25}
+              color={colors.first}
+              style={{ marginRight: 10 }}
+            />
+          }
+        />
+        <MyButton
+          onPress={() => navigation.navigate("AllGroups")}
+          containerColor={colors.second}
+          textColor={colors.first}
+          text={"All Groups"}
+          icon={
+            <IconMaterial
+              name="groups"
+              size={25}
+              color={colors.first}
+              style={{ marginRight: 10 }}
+            />
+          }
+        />
+        <MyButton
           onPress={() => navigation.navigate("AccountSettings")}
           containerColor={colors.third}
           textColor={colors.first}

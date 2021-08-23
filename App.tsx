@@ -24,6 +24,7 @@ import LeaderBoards from "./App/Pages/LeaderBoards";
 import * as Updates from "expo-updates";
 import LeaderBoardsNotSignedIn from "./App/Pages/LeaderBoardsNotSignedIn";
 import OtherUserLogs from "./App/Components/Home Screen/OtherUserLogs";
+import AllGroups from "./App/Pages/AllGroups";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -36,6 +37,9 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const firebaseUserCollection = firebase.firestore().collection("users");
+export const firebaseGroupCollection = firebase
+  .firestore()
+  .collection("groups");
 
 const Stack = createStackNavigator();
 
@@ -133,6 +137,7 @@ export default function App() {
                 </Stack.Screen>
                 <Stack.Screen name="LeaderBoards" component={LeaderBoards} />
                 <Stack.Screen name="OtherUserLogs" component={OtherUserLogs} />
+                <Stack.Screen name="AllGroups" component={AllGroups} />
               </>
             )}
           </Stack.Navigator>

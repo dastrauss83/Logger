@@ -114,8 +114,4 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 50,
   },
-  closeModal: {
-    backgroundColor: colors.third,
-    marginBottom: 0,
-  },
 });
