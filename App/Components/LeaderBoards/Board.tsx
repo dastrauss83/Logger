@@ -1,8 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
+import { useNavigation } from "@react-navigation/native";
 
 type BoardProps = {
   array: any;
@@ -10,10 +11,25 @@ type BoardProps = {
 
 const Board = ({ array }: BoardProps) => {
   const { currentUser } = useUserContext();
+  const navigation = useNavigation<any>();
+
+  const handleUserPress = () => {
+    if (currentUser.uid === array[2]) {
+      navigation.navigate("MyLogs");
+    } else {
+      navigation.navigate("OtherUserLogs", {
+        userID: array[2],
+        customUserName: array[0],
+      });
+    }
+  };
 
   return (
     <View style={styles.header}>
-      <View style={[styles.headerCategory, styles.userCateogry]}>
+      <TouchableOpacity
+        style={[styles.headerCategory, styles.userCateogry]}
+        onPress={handleUserPress}
+      >
         <Text
           style={[
             styles.headerText,
@@ -39,7 +55,7 @@ const Board = ({ array }: BoardProps) => {
           )}
           {` ${array[0]}`}
         </Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.headerCategory}>
         <Text
           style={[

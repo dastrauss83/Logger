@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { min } from "react-native-reanimated";
 import colors from "../../../config/colors";
 import MyLogsEndButtons from "./MyLogsEndButtons";
 
@@ -48,12 +49,14 @@ const LogCard = ({ log, index, refresh, setRefresh }: LogCardProps) => {
         <Text style={styles.textCategory}>$ Earned:</Text>
         <Text style={styles.textContent}>${log.earned}</Text>
       </View>
-      <MyLogsEndButtons
-        index={index}
-        refresh={refresh}
-        setRefresh={setRefresh}
-        log={log}
-      />
+      {refresh !== undefined && (
+        <MyLogsEndButtons
+          index={index}
+          refresh={refresh}
+          setRefresh={setRefresh}
+          log={log}
+        />
+      )}
     </View>
   );
 };

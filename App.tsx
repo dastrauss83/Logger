@@ -23,7 +23,7 @@ import AccountSettings from "./App/Pages/AccountSettings";
 import LeaderBoards from "./App/Pages/LeaderBoards";
 import * as Updates from "expo-updates";
 import LeaderBoardsNotSignedIn from "./App/Pages/LeaderBoardsNotSignedIn";
-import Back from "./App/Components/Atoms/Back";
+import OtherUserLogs from "./App/Components/Home Screen/OtherUserLogs";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -132,6 +132,7 @@ export default function App() {
                   {() => <AccountSettings setCurrentUser={setCurrentUser} />}
                 </Stack.Screen>
                 <Stack.Screen name="LeaderBoards" component={LeaderBoards} />
+                <Stack.Screen name="OtherUserLogs" component={OtherUserLogs} />
               </>
             )}
           </Stack.Navigator>

@@ -23,7 +23,6 @@ const Quantity = () => {
       tempBoard.sort((a, b) => {
         return b[3] - a[3];
       });
-      console.log(tempBoard);
       const refinedBoard = tempBoard.map((array: any, index: number) => {
         return [array[0], array[1], array[2], index];
       });
