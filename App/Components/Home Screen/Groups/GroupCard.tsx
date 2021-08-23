@@ -9,9 +9,11 @@ import InteractWithGroup from "./GroupCard/InteractWithGroup";
 
 type GroupCardProps = {
   group: group;
+  refresh?: boolean;
+  setRefresh?: (e: boolean) => void;
 };
 
-const GroupCard = ({ group }: GroupCardProps) => {
+const GroupCard = ({ group, refresh, setRefresh }: GroupCardProps) => {
   const [cardModal, setCardModal] = useState<boolean>(false);
 
   return (
@@ -35,22 +37,26 @@ const GroupCard = ({ group }: GroupCardProps) => {
           <View style={styles.modalView}>
             <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
               <View style={styles.wrapper}>
-                <InteractWithGroup group={group} />
+                <InteractWithGroup
+                  group={group}
+                  setCardModal={setCardModal}
+                  refresh={refresh}
+                  setRefresh={setRefresh}
+                />
               </View>
               <View style={styles.wrapper}>
                 <View style={styles.admin}>
+                  <Text style={styles.title}>Group Admin:</Text>
                   <Text
                     style={{
                       textAlign: "center",
                       fontSize: 30,
                       color: colors.second,
                       width: "80%",
-                      fontStyle: "italic",
                     }}
                   >
-                    Group Admin:
+                    {group.adminCustomUserName}
                   </Text>
-                  <Text style={styles.title}>{group.adminCustomUserName}</Text>
                 </View>
               </View>
               <View style={styles.wrapper}>

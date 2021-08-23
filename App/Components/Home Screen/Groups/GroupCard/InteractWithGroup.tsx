@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import IconAnt from "react-native-vector-icons/AntDesign";
 import IconMaterial from "react-native-vector-icons/MaterialIcons";
@@ -7,13 +7,40 @@ import colors from "../../../../config/colors";
 import { group } from "../../../../Pages/AllGroups";
 import { useUserContext } from "../../../../UserContext";
 import MyButton from "../../../Atoms/MyButton";
+import { firebaseGroupCollection } from "../../../../../App";
 
 type InteractWithGroupProps = {
   group: group;
+  setCardModal: (e: boolean) => void;
+  refresh?: boolean;
+  setRefresh?: (e: boolean) => void;
 };
 
-const InteractWithGroup = ({ group }: InteractWithGroupProps) => {
+const InteractWithGroup = ({
+  group,
+  setCardModal,
+  refresh,
+  setRefresh,
+}: InteractWithGroupProps) => {
   const { currentUser } = useUserContext();
+
+  const handleDelete = () => {
+    Alert.alert(
+      "Are you sure?",
+      "This group will be deleted and all of the members will be removed",
+      [
+        { text: "No" },
+        {
+          text: "Delete",
+          onPress: async () => {
+            await firebaseGroupCollection.doc(group.id).delete();
+            setRefresh && setRefresh(!refresh);
+            setCardModal(false);
+          },
+        },
+      ]
+    );
+  };
 
   if (group.adminID === currentUser.uid) {
     return (
@@ -21,7 +48,7 @@ const InteractWithGroup = ({ group }: InteractWithGroupProps) => {
         containerColor={"red"}
         textColor={colors.first}
         text={"Delete Group"}
-        onPress={() => console.log("Delete")}
+        onPress={handleDelete}
         icon={
           <IconMaterial
             name="delete"

@@ -11,26 +11,37 @@ type FinalButtonsProps = {
   groupName: string;
   setGroupName: (e: string) => void;
   setNewGroupModal: (e: boolean) => void;
+  refresh?: boolean;
+  setRefresh?: (e: boolean) => void;
 };
 
 const FinalButtons = ({
   groupName,
   setGroupName,
   setNewGroupModal,
+  refresh,
+  setRefresh,
 }: FinalButtonsProps) => {
   const { currentUser } = useUserContext();
 
   const handleSubmit = async () => {
-    await firebaseGroupCollection.doc().set({
-      adminID: currentUser.uid,
-      adminCustomUserName: currentUser.customUserName,
-      name: groupName,
-      usersID: [currentUser.uid],
-      usersCustomUserName: [currentUser.customUserName],
-      requestedsID: [],
-    });
+    await firebaseGroupCollection
+      .add({
+        adminID: currentUser.uid,
+        adminCustomUserName: currentUser.customUserName,
+        name: groupName,
+        usersID: [currentUser.uid],
+        usersCustomUserName: [currentUser.customUserName],
+        requestedsID: [],
+      })
+      .then(async (docRef) => {
+        await firebaseGroupCollection.doc(docRef.id).update({
+          id: docRef.id,
+        });
+      });
     setNewGroupModal(false);
     setGroupName("");
+    setRefresh && setRefresh(!refresh);
   };
 
   return (

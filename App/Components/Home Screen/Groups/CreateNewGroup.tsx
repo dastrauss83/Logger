@@ -7,7 +7,12 @@ import FinalButtons from "./CreateNewGroup/FinalButtons";
 import GroupName from "./CreateNewGroup/GroupName";
 import PromptText from "./CreateNewGroup/PromptText";
 
-const CreateNewGroup = () => {
+type CreateNewGroupProps = {
+  refresh?: boolean;
+  setRefresh?: (e: boolean) => void;
+};
+
+const CreateNewGroup = ({ refresh, setRefresh }: CreateNewGroupProps) => {
   const [newGroupModal, setNewGroupModal] = useState<boolean>(false);
   const [groupName, setGroupName] = useState<string>("");
 
@@ -37,6 +42,8 @@ const CreateNewGroup = () => {
                 setNewGroupModal={setNewGroupModal}
                 groupName={groupName}
                 setGroupName={setGroupName}
+                refresh={refresh}
+                setRefresh={setRefresh}
               />
             </ScrollView>
           </View>
