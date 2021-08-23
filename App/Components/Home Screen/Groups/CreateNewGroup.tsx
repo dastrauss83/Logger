@@ -3,9 +3,9 @@ import { StyleSheet, Modal, View, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../../config/colors";
 import MyButton from "../../Atoms/MyButton";
-import FinalButtons from "./FinalButtons";
-import GroupName from "./GroupName";
-import PromptText from "./PromptText";
+import FinalButtons from "./CreateNewGroup/FinalButtons";
+import GroupName from "./CreateNewGroup/GroupName";
+import PromptText from "./CreateNewGroup/PromptText";
 
 const CreateNewGroup = () => {
   const [newGroupModal, setNewGroupModal] = useState<boolean>(false);

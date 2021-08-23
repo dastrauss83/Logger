@@ -2,10 +2,10 @@ import firebase from "firebase";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
-import { firebaseGroupCollection } from "../../../../App";
-import colors from "../../../config/colors";
-import { useUserContext } from "../../../UserContext";
-import MyButton from "../../Atoms/MyButton";
+import { firebaseGroupCollection } from "../../../../../App";
+import colors from "../../../../config/colors";
+import { useUserContext } from "../../../../UserContext";
+import MyButton from "../../../Atoms/MyButton";
 
 type FinalButtonsProps = {
   groupName: string;
@@ -27,6 +27,7 @@ const FinalButtons = ({
       name: groupName,
       usersID: [currentUser.uid],
       usersCustomUserName: [currentUser.customUserName],
+      requestedsID: [],
     });
     setNewGroupModal(false);
     setGroupName("");

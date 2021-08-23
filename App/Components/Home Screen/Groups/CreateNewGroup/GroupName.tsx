@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import colors from "../../../config/colors";
-import MyInput from "../../Atoms/MyInput";
+import colors from "../../../../config/colors";
+import MyInput from "../../../Atoms/MyInput";
 
 type GroupNameProps = {
   groupName: string;
