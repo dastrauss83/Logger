@@ -25,6 +25,7 @@ import * as Updates from "expo-updates";
 import LeaderBoardsNotSignedIn from "./App/Pages/LeaderBoardsNotSignedIn";
 import OtherUserLogs from "./App/Components/Home Screen/OtherUserLogs";
 import AllGroups from "./App/Pages/AllGroups";
+import MyGroups from "./App/Pages/MyGroups";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -138,6 +139,7 @@ export default function App() {
                 <Stack.Screen name="LeaderBoards" component={LeaderBoards} />
                 <Stack.Screen name="OtherUserLogs" component={OtherUserLogs} />
                 <Stack.Screen name="AllGroups" component={AllGroups} />
+                <Stack.Screen name="MyGroups" component={MyGroups} />
               </>
             )}
           </Stack.Navigator>

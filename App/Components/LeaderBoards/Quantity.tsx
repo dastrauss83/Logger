@@ -49,9 +49,10 @@ const Quantity = () => {
           alignItems: "center",
         }}
       >
-        {board.map((array: any, index: number) => (
-          <Board array={array} key={index} />
-        ))}
+        {board &&
+          board.map((array: any, index: number) => (
+            <Board array={array} key={index} />
+          ))}
       </ScrollView>
     </SafeAreaView>
   );
