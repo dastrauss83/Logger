@@ -20,7 +20,7 @@ const Board = ({ array }: BoardProps) => {
             currentUser.uid === array[2] && { color: colors.third },
           ]}
         >
-          {(array[3] === 0 || array[3] === 1 || array[3] === 2) && (
+          {array[3] === 0 || array[3] === 1 || array[3] === 2 ? (
             <Icon
               name="trophy"
               size={20}
@@ -30,12 +30,14 @@ const Board = ({ array }: BoardProps) => {
                   : array[3] === 1
                   ? "silver"
                   : array[3] === 2
-                  ? "bronze"
+                  ? "brown"
                   : "blue"
               }
             />
+          ) : (
+            `${array[3]}.`
           )}
-          {array[0]}
+          {` ${array[0]}`}
         </Text>
       </View>
       <View style={styles.headerCategory}>

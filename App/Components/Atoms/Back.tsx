@@ -1,15 +1,16 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Button, StyleSheet, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../config/colors";
 
 type BackProps = {
-  navigation: any;
   style?: any;
   color?: string;
 };
 
-const Back = ({ navigation, style, color }: BackProps) => {
+const Back = ({ style, color }: BackProps) => {
+  const navigation = useNavigation();
   return (
     <View style={[styles.container, style]}>
       <Icon

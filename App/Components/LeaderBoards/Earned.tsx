@@ -29,7 +29,9 @@ const Earned = () => {
           doc.id,
         ];
       });
-      tempBoard.sort();
+      tempBoard.sort((a, b) => {
+        return b[1] - a[1];
+      });
       const refinedBoard = tempBoard.map((array: any, index: number) => {
         return [array[0], refinedEarned(array[1]), array[2], index];
       });

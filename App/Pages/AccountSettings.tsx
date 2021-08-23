@@ -8,10 +8,14 @@ import ChangeRate from "../Components/AccountSettings/ChangeRate";
 import DeleteAccount from "../Components/AccountSettings/DeleteAccount";
 import Back from "../Components/Atoms/Back";
 
-const AccountSettings = ({ setCurrentUser, navigation }: any) => {
+type AccountSettingsProps = {
+  setCurrentUser: (e: any) => void;
+};
+
+const AccountSettings = ({ setCurrentUser }: AccountSettingsProps) => {
   return (
     <SafeAreaView style={styles.background}>
-      <Back navigation={navigation} />
+      <Back />
       <ScrollView style={styles.buttonsContainer}>
         <ChangeRate />
         <ChangeUsername setCurrentUser={setCurrentUser} />

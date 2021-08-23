@@ -9,12 +9,12 @@ import colors from "../config/colors";
 
 export type LeaderBoards = "$ Earned" | "Quantity" | "Time";
 
-const LeaderBoards = ({ navigation }: any) => {
+const LeaderBoards = () => {
   const [board, setBoard] = useState<LeaderBoards>("Time");
 
   return (
     <SafeAreaView style={styles.background}>
-      <Back navigation={navigation} />
+      <Back />
       <View style={styles.topButtons}>
         <Button
           onPress={() => setBoard("Time")}

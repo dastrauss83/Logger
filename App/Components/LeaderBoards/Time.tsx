@@ -30,7 +30,9 @@ const Time = () => {
       const tempBoard = res.docs.map((doc) => {
         return [doc.data().customUserName, totalTime(doc.data().logs), doc.id];
       });
-      tempBoard.sort();
+      tempBoard.sort((a, b) => {
+        return b[1] - a[1];
+      });
       const sortedBoard = tempBoard.map((array: any, index: number) => {
         return [array[0], refinedTime(array[1]), array[2], index];
       });

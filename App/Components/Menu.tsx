@@ -16,8 +16,6 @@ import MyButton from "./Atoms/MyButton";
 const Menu = ({ currentUser, setCurrentUser }: any) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  useEffect(() => {}, [currentUser]);
-
   const logout = () => {
     firebase.auth().signOut();
     setCurrentUser({ customUserName: "noUser", uid: "" });

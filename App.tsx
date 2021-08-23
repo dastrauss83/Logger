@@ -23,6 +23,7 @@ import AccountSettings from "./App/Pages/AccountSettings";
 import LeaderBoards from "./App/Pages/LeaderBoards";
 import * as Updates from "expo-updates";
 import LeaderBoardsNotSignedIn from "./App/Pages/LeaderBoardsNotSignedIn";
+import Back from "./App/Components/Atoms/Back";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -62,8 +63,8 @@ export default function App() {
         } else {
           value = JSON.parse(jsonValue);
         }
+        setCurrentUser(value);
       }
-      setCurrentUser(value);
     };
     getUser();
   }, []);

@@ -17,11 +17,15 @@ const Quantity = () => {
             doc.data().logs.length === 1 ? "Log" : "Logs"
           }`,
           doc.id,
+          doc.data().logs.length,
         ];
       });
-      tempBoard.sort();
+      tempBoard.sort((a, b) => {
+        return b[3] - a[3];
+      });
+      console.log(tempBoard);
       const refinedBoard = tempBoard.map((array: any, index: number) => {
-        return [...array, index];
+        return [array[0], array[1], array[2], index];
       });
       setBoard(refinedBoard);
     };

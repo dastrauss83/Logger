@@ -7,7 +7,7 @@ import Back from "../Atoms/Back";
 import LogNewLog from "./LogNewLog";
 import LogCard from "./MyLogs/LogCard";
 
-const MyLogs = ({ navigation }: any) => {
+const MyLogs = () => {
   const [userLogs, setUserLogs] = useState<any>(["poo"]);
   const [refresh, setRefresh] = useState<boolean>(false);
   const { currentUser } = useUserContext();
@@ -30,7 +30,7 @@ const MyLogs = ({ navigation }: any) => {
 
   return (
     <SafeAreaView>
-      <Back navigation={navigation} />
+      <Back />
       {userLogs.length < 1 ? (
         <View style={styles.screen}>
           <Text

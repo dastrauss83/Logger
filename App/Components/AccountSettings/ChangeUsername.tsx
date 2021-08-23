@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, View } from "react-native";
+import { Alert, Modal, StyleSheet, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { firebaseUserCollection, storeCurrentUser } from "../../../App";
 import colors from "../../config/colors";

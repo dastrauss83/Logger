@@ -9,7 +9,7 @@ import Back from "../Atoms/Back";
 import MyButton from "../Atoms/MyButton";
 import MyInput from "../Atoms/MyInput";
 
-const LogIn = ({ navigation }: any) => {
+const LogIn = () => {
   const [email, onChangeEmail] = useState<string>("");
   const [password, onChangePassword] = useState<string>("");
 
@@ -57,7 +57,7 @@ const LogIn = ({ navigation }: any) => {
       contentContainerStyle={styles.screenContent}
       keyboardShouldPersistTaps="handled"
     >
-      <Back navigation={navigation} style={{ top: 5 }} />
+      <Back style={{ top: 5 }} />
       <Text style={{ top: 35, fontSize: 30, color: colors.second }}>
         Log In to an existing account
       </Text>

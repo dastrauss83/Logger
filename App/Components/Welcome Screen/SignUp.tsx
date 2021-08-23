@@ -19,7 +19,7 @@ import Back from "../Atoms/Back";
 import MyButton from "../Atoms/MyButton";
 import MyInput from "../Atoms/MyInput";
 
-const SignUp = ({ navigation }: any) => {
+const SignUp = () => {
   const [userName, onChangeUserName] = useState<string>("");
   const [email, onChangeEmail] = useState<string>("");
   const [password, onChangePassword] = useState<string>("");
@@ -65,7 +65,7 @@ const SignUp = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={{ backgroundColor: colors.second }}>
-      <Back navigation={navigation} color={colors.first} />
+      <Back color={colors.first} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView
           style={styles.screen}
