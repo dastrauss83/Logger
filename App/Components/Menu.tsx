@@ -1,5 +1,6 @@
+import { useNavigation } from "@react-navigation/native";
 import firebase from "firebase";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -9,12 +10,14 @@ import {
   Modal,
 } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
+import IconFeather from "react-native-vector-icons/Feather";
 import { storeCurrentUser } from "../../App";
 import colors from "../config/colors";
 import MyButton from "./Atoms/MyButton";
 
 const Menu = ({ currentUser, setCurrentUser }: any) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const navigation = useNavigation<any>();
 
   const logout = () => {
     firebase.auth().signOut();
@@ -41,6 +44,23 @@ const Menu = ({ currentUser, setCurrentUser }: any) => {
               icon={
                 <Icon
                   name="logout"
+                  size={25}
+                  color={colors.first}
+                  style={{ marginRight: 10 }}
+                />
+              }
+            />
+            <MyButton
+              onPress={() => {
+                navigation.navigate("AccountSettings");
+                setShowModal(false);
+              }}
+              containerColor={colors.second}
+              textColor={colors.first}
+              text={"Account Settings"}
+              icon={
+                <IconFeather
+                  name="settings"
                   size={25}
                   color={colors.first}
                   style={{ marginRight: 10 }}
