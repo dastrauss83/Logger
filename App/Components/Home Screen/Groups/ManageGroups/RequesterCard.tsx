@@ -1,26 +1,93 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/Foundation";
 import IconAnt from "react-native-vector-icons/AntDesign";
 import colors from "../../../../config/colors";
 import MyButton from "../../../Atoms/MyButton";
+import { firebaseGroupCollection } from "../../../../../App";
+import { group } from "../../../../Pages/AllGroups";
 
 type RequesterCardProps = {
-  requester: string;
+  requesterID: string;
+  requestersID: string[];
+  requestersCustomUserName: string[];
+  group: group;
+  refresh: boolean;
+  setRefresh: (e: boolean) => void;
+  refresh2: boolean;
+  setRefresh2: (e: boolean) => void;
 };
 
-const RequesterCard = ({ requester }: RequesterCardProps) => {
+const RequesterCard = ({
+  requesterID,
+  requestersID,
+  requestersCustomUserName,
+  group,
+  refresh,
+  setRefresh,
+  refresh2,
+  setRefresh2,
+}: RequesterCardProps) => {
+  const requesterCustomUserName =
+    requestersCustomUserName[requestersID.indexOf(requesterID)];
+
+  const removeUserFromRequested = async () => {
+    const userIndex = group.requestersCustomUserName.indexOf(
+      requesterCustomUserName
+    );
+    const tempRequestersID = [...group.requestersID];
+    tempRequestersID.splice(userIndex, 1);
+    const tempRequestersCustomUserName = [...group.requestersCustomUserName];
+    tempRequestersCustomUserName.splice(userIndex, 1);
+    await firebaseGroupCollection.doc(group.id).update({
+      requestersID: tempRequestersID,
+      requestersCustomUserName: tempRequestersCustomUserName,
+    });
+  };
+
+  const handleReject = () => {
+    Alert.alert(
+      "Are You Sure?",
+      `Are you sure you want to reject ${requesterCustomUserName}?`,
+      [
+        { text: "Cancel" },
+        {
+          text: "Yes",
+          onPress: async () => {
+            await removeUserFromRequested();
+            setRefresh(!refresh);
+            setRefresh2(!refresh2);
+          },
+        },
+      ]
+    );
+  };
+
+  const handleAccept = async () => {
+    const tempUsersID = [...group.usersID];
+    tempUsersID.push(requesterID);
+    const tempUsersCustomUserName = [...group.usersCustomUserName];
+    tempUsersCustomUserName.push(requesterCustomUserName);
+    await firebaseGroupCollection.doc(group.id).update({
+      usersID: tempUsersID,
+      usersCustomUserName: tempUsersCustomUserName,
+    });
+    await removeUserFromRequested();
+    setRefresh(!refresh);
+    setRefresh2(!refresh2);
+  };
+
   return (
     <View style={styles.requesterCard}>
       <Text style={[styles.bottomText, { marginBottom: 0, fontSize: 25 }]}>
-        {requester}
+        {requesterCustomUserName}
       </Text>
       <View style={styles.buttonContainer}>
         <MyButton
           containerColor={"red"}
           textColor={colors.first}
           text={""}
-          onPress={() => console.log("delete")}
+          onPress={handleReject}
           style={styles.button}
           icon={<Icon name="x" size={25} color={colors.first} />}
         />
@@ -28,7 +95,7 @@ const RequesterCard = ({ requester }: RequesterCardProps) => {
           containerColor={"green"}
           textColor={colors.first}
           text={""}
-          onPress={() => console.log("add")}
+          onPress={handleAccept}
           style={styles.button}
           icon={<IconAnt name="pluscircle" size={25} color={colors.first} />}
         />

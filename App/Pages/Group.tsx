@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
+import { firebaseGroupCollection } from "../../App";
 import Back from "../Components/Atoms/Back";
 import MyButton from "../Components/Atoms/MyButton";
 import Earned from "../Components/LeaderBoards/Earned";
@@ -12,16 +13,38 @@ import { group } from "./AllGroups";
 import { LeaderBoards } from "./LeaderBoards";
 
 const Group = (props: any) => {
-  const group: group = props.route.params.group;
-  const [board, setBoard] = useState<LeaderBoards>("Time");
+  const [group, setGroup] = useState<group>();
+  const [board, setBoard] = useState<LeaderBoards>();
+  const [refresh, setRefresh] = useState<boolean>(false);
   const { currentUser } = useUserContext();
   const navigation = useNavigation<any>();
+
+  const getGroup = async () => {
+    const tempGroup: any = (
+      await firebaseGroupCollection.doc(props.route.params.group.id).get()
+    ).data();
+    setGroup(tempGroup);
+  };
+
+  useEffect(() => {
+    getGroup();
+  }, []);
+
+  useEffect(() => {
+    getGroup();
+  }, [refresh]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setBoard("Time");
+    }, 100);
+  }, []);
   return (
     <SafeAreaView style={styles.background}>
       <Back />
       <View style={styles.topTextWrapper}>
-        <Text style={styles.topText}>{group.name}</Text>
-        {group.adminID === currentUser.uid && (
+        <Text style={styles.topText}>{group && group.name}</Text>
+        {group && group.adminID === currentUser.uid && (
           <>
             <MyButton
               containerColor={colors.second}
@@ -30,6 +53,8 @@ const Group = (props: any) => {
               onPress={() =>
                 navigation.navigate("ManageGroup", {
                   group: group,
+                  refresh: refresh,
+                  setRefresh: setRefresh,
                 })
               }
               style={{ marginTop: 0, width: "60%" }}

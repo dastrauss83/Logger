@@ -2,24 +2,26 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { firebaseGroupCollection } from "../../App";
 import Back from "../Components/Atoms/Back";
-import MyButton from "../Components/Atoms/MyButton";
 import colors from "../config/colors";
-import { group } from "./AllGroups";
-import Icon from "react-native-vector-icons/Foundation";
-import IconAnt from "react-native-vector-icons/AntDesign";
 import RequesterCard from "../Components/Home Screen/Groups/ManageGroups/RequesterCard";
 
 const ManageGroup = (props: any) => {
-  const group: group = props.route.params.group;
-  const [requesters, setRequesters] = useState<any>([]);
-  const [refresh, setRefresh] = useState<boolean>(false);
+  const { group, refresh, setRefresh } = props.route.params;
+
+  const [requestersCustomUserName, setRequestersCustomUserName] = useState<
+    string[]
+  >([]);
+  const [requestersID, setRequestersID] = useState<string[]>([]);
+  const [refresh2, setRefresh2] = useState<boolean>(false);
 
   const getRequesters = async () => {
     const response: any = (
       await firebaseGroupCollection.doc(group.id).get()
     ).data();
-    const tempRequesters = response.requestersCustomUserName;
-    setRequesters(tempRequesters);
+    const tempRequestersCustomUserName = response.requestersCustomUserName;
+    setRequestersCustomUserName(tempRequestersCustomUserName);
+    const tempRequestersID = response.requestersID;
+    setRequestersID(tempRequestersID);
   };
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const ManageGroup = (props: any) => {
 
   useEffect(() => {
     getRequesters();
-  }, [refresh]);
+  }, [refresh2]);
 
   return (
     <SafeAreaView style={styles.background}>
@@ -46,11 +48,26 @@ const ManageGroup = (props: any) => {
           alignItems: "center",
         }}
       >
-        {requesters !== [] &&
-          requesters.length > 0 &&
-          requesters.map((requester: string) => {
-            return <RequesterCard key={requester} requester={requester} />;
+        {requestersID !== [] &&
+          requestersID.length > 0 &&
+          requestersID.map((requesterID: string) => {
+            return (
+              <RequesterCard
+                key={requesterID}
+                requesterID={requesterID}
+                requestersID={requestersID}
+                requestersCustomUserName={requestersCustomUserName}
+                group={group}
+                refresh={refresh}
+                setRefresh={setRefresh}
+                refresh2={refresh2}
+                setRefresh2={setRefresh2}
+              />
+            );
           })}
+        {(requestersID === [] || requestersID.length === 0) && (
+          <Text style={styles.noRequestedText}>No join requests</Text>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -83,5 +100,10 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "100%",
+  },
+  noRequestedText: {
+    color: colors.second,
+    fontSize: 30,
+    marginTop: 100,
   },
 });
