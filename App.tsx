@@ -22,7 +22,6 @@ import MyLogs from "./App/Components/Home Screen/MyLogs";
 import AccountSettings from "./App/Pages/AccountSettings";
 import LeaderBoards from "./App/Pages/LeaderBoards";
 import * as Updates from "expo-updates";
-import LeaderBoardsNotSignedIn from "./App/Pages/LeaderBoardsNotSignedIn";
 import OtherUserLogs from "./App/Components/Home Screen/OtherUserLogs";
 import AllGroups from "./App/Pages/AllGroups";
 import MyGroups from "./App/Pages/MyGroups";
@@ -125,10 +124,6 @@ export default function App() {
               <>
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
                 <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen
-                  name="LeaderBoardsNotSignedIn"
-                  component={LeaderBoardsNotSignedIn}
-                />
               </>
             ) : (
               <>
@@ -137,13 +132,13 @@ export default function App() {
                 <Stack.Screen name="AccountSettings">
                   {() => <AccountSettings setCurrentUser={setCurrentUser} />}
                 </Stack.Screen>
-                <Stack.Screen name="LeaderBoards" component={LeaderBoards} />
                 <Stack.Screen name="OtherUserLogs" component={OtherUserLogs} />
                 <Stack.Screen name="AllGroups" component={AllGroups} />
                 <Stack.Screen name="MyGroups" component={MyGroups} />
                 <Stack.Screen name="Group" component={Group} />
               </>
             )}
+            <Stack.Screen name="LeaderBoards" component={LeaderBoards} />
           </Stack.Navigator>
         </UserContext.Provider>
       </NavigationContainer>

@@ -29,6 +29,7 @@ const Board = ({ array }: BoardProps) => {
       <TouchableOpacity
         style={[styles.headerCategory, styles.userCateogry]}
         onPress={handleUserPress}
+        disabled={currentUser.customUserName === "noUser"}
       >
         <Text
           style={[
