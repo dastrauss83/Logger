@@ -7,14 +7,14 @@ import { group } from "./AllGroups";
 
 const ManageGroup = (props: any) => {
   const group: group = props.route.params.group;
-  const [requesters, setRequesters] = useState();
+  const [requesters, setRequesters] = useState([]);
   const [refresh, setRefresh] = useState<boolean>(false);
 
   const getRequesters = async () => {
     const response: any = (
       await firebaseGroupCollection.doc(group.id).get()
     ).data();
-    const tempRequesters = response.requestedsID;
+    const tempRequesters = response.requestersCustomUserName;
     setRequesters(tempRequesters);
   };
 
@@ -36,7 +36,7 @@ const ManageGroup = (props: any) => {
         </Text>
       </View>
       <ScrollView style={styles.container}>
-        {requesters &&
+        {requesters.length > 0 &&
           requesters.map((requester: string) => {
             return <Text>{requester}</Text>;
           })}

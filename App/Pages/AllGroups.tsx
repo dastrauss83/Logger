@@ -12,7 +12,8 @@ export type group = {
   name: string;
   usersID: string[];
   usersCustomUserName: string[];
-  requestedsID: string[];
+  requestersID: string[];
+  requestersCustomUserName: string[];
   id: string;
 };
 

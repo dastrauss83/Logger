@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import IconAnt from "react-native-vector-icons/AntDesign";
 import IconMaterial from "react-native-vector-icons/MaterialIcons";
@@ -57,10 +57,13 @@ const InteractWithGroup = ({
   };
 
   const handleJoin = async () => {
-    const tempRequestedsID = [...group.requestedsID];
-    tempRequestedsID.push(currentUser.uid);
+    const tempRequestersID = [...group.requestersID];
+    tempRequestersID.push(currentUser.uid);
+    const tempRequestersCustomUserName = [...group.requestersCustomUserName];
+    tempRequestersCustomUserName.push(currentUser.uid);
     await firebaseGroupCollection.doc(group.id).update({
-      requestedsID: tempRequestedsID,
+      requestersID: tempRequestersID,
+      requestersCustomUserName: tempRequestersCustomUserName,
     });
     Alert.alert(
       "Request Received",
@@ -81,8 +84,8 @@ const InteractWithGroup = ({
       {
         text: "Yes",
         onPress: async () => {
-          const userIndex = group.requestedsID.indexOf(currentUser.uid);
-          const tempRequestedsID = [...group.requestedsID];
+          const userIndex = group.requestersID.indexOf(currentUser.uid);
+          const tempRequestedsID = [...group.requestersID];
           tempRequestedsID.splice(userIndex, 1);
           await firebaseGroupCollection.doc(group.id).update({
             requestedsID: tempRequestedsID,
@@ -134,7 +137,7 @@ const InteractWithGroup = ({
 
   if (
     !group.usersID.includes(currentUser.uid) &&
-    !group.requestedsID.includes(currentUser.uid)
+    !group.requestersID.includes(currentUser.uid)
   ) {
     return (
       <MyButton
@@ -154,7 +157,7 @@ const InteractWithGroup = ({
     );
   }
 
-  if (group.requestedsID.includes(currentUser.uid)) {
+  if (group.requestersID.includes(currentUser.uid)) {
     return (
       <MyButton
         containerColor={colors.third}
