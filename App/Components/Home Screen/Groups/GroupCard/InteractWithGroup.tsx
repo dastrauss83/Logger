@@ -60,7 +60,7 @@ const InteractWithGroup = ({
     const tempRequestersID = [...group.requestersID];
     tempRequestersID.push(currentUser.uid);
     const tempRequestersCustomUserName = [...group.requestersCustomUserName];
-    tempRequestersCustomUserName.push(currentUser.uid);
+    tempRequestersCustomUserName.push(currentUser.customUserName);
     await firebaseGroupCollection.doc(group.id).update({
       requestersID: tempRequestersID,
       requestersCustomUserName: tempRequestersCustomUserName,
@@ -85,10 +85,15 @@ const InteractWithGroup = ({
         text: "Yes",
         onPress: async () => {
           const userIndex = group.requestersID.indexOf(currentUser.uid);
-          const tempRequestedsID = [...group.requestersID];
-          tempRequestedsID.splice(userIndex, 1);
+          const tempRequestersID = [...group.requestersID];
+          tempRequestersID.splice(userIndex, 1);
+          const tempRequestersCustomUserName = [
+            ...group.requestersCustomUserName,
+          ];
+          tempRequestersCustomUserName.splice(userIndex, 1);
           await firebaseGroupCollection.doc(group.id).update({
-            requestedsID: tempRequestedsID,
+            requestersID: tempRequestersID,
+            requestersCustomUserName: tempRequestersCustomUserName,
           });
           setRefresh && setRefresh(!refresh);
           setCardModal(false);
@@ -136,8 +141,8 @@ const InteractWithGroup = ({
   }
 
   if (
-    !group.usersID.includes(currentUser.uid) &&
-    !group.requestersID.includes(currentUser.uid)
+    !group.usersID?.includes(currentUser.uid) &&
+    !group.requestersID?.includes(currentUser.uid)
   ) {
     return (
       <MyButton
@@ -157,7 +162,7 @@ const InteractWithGroup = ({
     );
   }
 
-  if (group.requestersID.includes(currentUser.uid)) {
+  if (group.requestersID?.includes(currentUser.uid)) {
     return (
       <MyButton
         containerColor={colors.third}

@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { firebaseGroupCollection } from "../../App";
 import Back from "../Components/Atoms/Back";
+import MyButton from "../Components/Atoms/MyButton";
 import colors from "../config/colors";
 import { group } from "./AllGroups";
+import Icon from "react-native-vector-icons/Foundation";
+import IconAnt from "react-native-vector-icons/AntDesign";
+import RequesterCard from "../Components/Home Screen/Groups/ManageGroups/RequesterCard";
 
 const ManageGroup = (props: any) => {
   const group: group = props.route.params.group;
-  const [requesters, setRequesters] = useState([]);
+  const [requesters, setRequesters] = useState<any>([]);
   const [refresh, setRefresh] = useState<boolean>(false);
 
   const getRequesters = async () => {
@@ -35,10 +39,17 @@ const ManageGroup = (props: any) => {
           Reject or Accept all group requests
         </Text>
       </View>
-      <ScrollView style={styles.container}>
-        {requesters.length > 0 &&
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={{
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {requesters !== [] &&
+          requesters.length > 0 &&
           requesters.map((requester: string) => {
-            return <Text>{requester}</Text>;
+            return <RequesterCard key={requester} requester={requester} />;
           })}
       </ScrollView>
     </SafeAreaView>

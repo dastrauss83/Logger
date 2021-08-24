@@ -32,7 +32,8 @@ const FinalButtons = ({
         name: groupName,
         usersID: [currentUser.uid],
         usersCustomUserName: [currentUser.customUserName],
-        requestedsID: [],
+        requestersID: [],
+        requestersCustomUserName: [],
       })
       .then(async (docRef) => {
         await firebaseGroupCollection.doc(docRef.id).update({

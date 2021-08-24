@@ -35,7 +35,7 @@ const Group = (props: any) => {
               style={{ marginTop: 0, width: "60%" }}
             />
             <View style={styles.badge}>
-              <Text style={styles.badgeText}>{group.requestersID.length}</Text>
+              <Text style={styles.badgeText}>{group.requestersID?.length}</Text>
             </View>
           </>
         )}
