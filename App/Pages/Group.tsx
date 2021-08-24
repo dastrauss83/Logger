@@ -32,17 +32,15 @@ const Group = ({
 
   useEffect(() => {
     getGroup();
+    setTimeout(() => {
+      setBoard("Time");
+    }, 100);
   }, []);
 
   useEffect(() => {
     getGroup();
   }, [refresh]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setBoard("Time");
-    }, 100);
-  }, []);
   return (
     <SafeAreaView style={styles.background}>
       <Back />

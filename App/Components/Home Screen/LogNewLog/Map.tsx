@@ -63,7 +63,10 @@ const Map = ({
             <Marker
               draggable
               coordinate={coordinate}
-              onDragEnd={(e: any) => setCoordinate(e.nativeEvent.coordinate)}
+              onDragEnd={(e: any) => {
+                setCoordinate(e.nativeEvent.coordinate);
+                setRegion(null);
+              }}
             />
           </MapView>
           <View style={styles.buttonsContainer}>
