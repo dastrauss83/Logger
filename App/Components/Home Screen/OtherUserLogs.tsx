@@ -7,10 +7,12 @@ import colors from "../../config/colors";
 import Back from "../Atoms/Back";
 import LogCard from "./MyLogs/LogCard";
 
-const OtherUserLogs = (props: any) => {
+const OtherUserLogs = ({
+  route: {
+    params: { userID, customUserName },
+  },
+}: any) => {
   const [userLogs, setUserLogs] = useState<any>(["poo"]);
-  const userID = props.route.params.userID;
-  const customUserName = props.route.params.customUserName;
 
   const getUserLogs = async () => {
     const response: any = (

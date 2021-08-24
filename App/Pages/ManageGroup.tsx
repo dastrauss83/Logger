@@ -5,9 +5,11 @@ import Back from "../Components/Atoms/Back";
 import colors from "../config/colors";
 import RequesterCard from "../Components/Home Screen/Groups/ManageGroups/RequesterCard";
 
-const ManageGroup = (props: any) => {
-  const { group, refresh, setRefresh } = props.route.params;
-
+const ManageGroup = ({
+  route: {
+    params: { group, refresh, setRefresh },
+  },
+}: any) => {
   const [requestersCustomUserName, setRequestersCustomUserName] = useState<
     string[]
   >([]);

@@ -12,7 +12,13 @@ import { useUserContext } from "../UserContext";
 import { group } from "./AllGroups";
 import { LeaderBoards } from "./LeaderBoards";
 
-const Group = (props: any) => {
+const Group = ({
+  route: {
+    params: {
+      group: { id },
+    },
+  },
+}: any) => {
   const [group, setGroup] = useState<group>();
   const [board, setBoard] = useState<LeaderBoards>();
   const [refresh, setRefresh] = useState<boolean>(false);
@@ -20,9 +26,7 @@ const Group = (props: any) => {
   const navigation = useNavigation<any>();
 
   const getGroup = async () => {
-    const tempGroup: any = (
-      await firebaseGroupCollection.doc(props.route.params.group.id).get()
-    ).data();
+    const tempGroup: any = (await firebaseGroupCollection.doc(id).get()).data();
     setGroup(tempGroup);
   };
 
