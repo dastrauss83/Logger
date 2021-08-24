@@ -7,7 +7,7 @@ import MyButton from "../Components/Atoms/MyButton";
 import CreateNewGroup from "../Components/Home Screen/Groups/CreateNewGroup";
 import colors from "../config/colors";
 import { useUserContext } from "../UserContext";
-import { group } from "./AllGroups";
+import { group, userInfo } from "./AllGroups";
 
 const MyGroups = () => {
   const [groups, setGroups] = useState<any>();
@@ -20,7 +20,11 @@ const MyGroups = () => {
     const tempGroups = res.docs
       .map((doc) => doc.data())
       .filter((group) => {
-        return group.usersID.includes(currentUser.uid);
+        return group.users
+          ?.map((user: userInfo) => {
+            return user.uid;
+          })
+          .includes(currentUser.uid);
       });
     if (tempGroups[0] === undefined) {
       return;

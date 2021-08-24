@@ -4,26 +4,22 @@ import { firebaseGroupCollection } from "../../App";
 import Back from "../Components/Atoms/Back";
 import colors from "../config/colors";
 import RequesterCard from "../Components/Home Screen/Groups/ManageGroups/RequesterCard";
+import { userInfo } from "./AllGroups";
 
 const ManageGroup = ({
   route: {
     params: { group, refresh, setRefresh },
   },
 }: any) => {
-  const [requestersCustomUserName, setRequestersCustomUserName] = useState<
-    string[]
-  >([]);
-  const [requestersID, setRequestersID] = useState<string[]>([]);
+  const [requesters, setRequesters] = useState<userInfo[]>();
   const [refresh2, setRefresh2] = useState<boolean>(false);
 
   const getRequesters = async () => {
     const response: any = (
       await firebaseGroupCollection.doc(group.id).get()
     ).data();
-    const tempRequestersCustomUserName = response.requestersCustomUserName;
-    setRequestersCustomUserName(tempRequestersCustomUserName);
-    const tempRequestersID = response.requestersID;
-    setRequestersID(tempRequestersID);
+    const tempRequesters = response.requesters;
+    setRequesters(tempRequesters);
   };
 
   useEffect(() => {
@@ -50,15 +46,13 @@ const ManageGroup = ({
           alignItems: "center",
         }}
       >
-        {requestersID !== [] &&
-          requestersID.length > 0 &&
-          requestersID.map((requesterID: string) => {
+        {requesters !== [] &&
+          requesters?.map((requester: userInfo) => {
             return (
               <RequesterCard
-                key={requesterID}
-                requesterID={requesterID}
-                requestersID={requestersID}
-                requestersCustomUserName={requestersCustomUserName}
+                key={requester.uid}
+                requester={requester}
+                requesters={requesters}
                 group={group}
                 refresh={refresh}
                 setRefresh={setRefresh}
@@ -67,7 +61,7 @@ const ManageGroup = ({
               />
             );
           })}
-        {(requestersID === [] || requestersID.length === 0) && (
+        {(requesters === [] || requesters?.length === 0) && (
           <Text style={styles.noRequestedText}>No join requests</Text>
         )}
       </ScrollView>

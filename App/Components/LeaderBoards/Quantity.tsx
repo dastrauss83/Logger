@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { firebaseUserCollection } from "../../../App";
 import colors from "../../config/colors";
-import { group } from "../../Pages/AllGroups";
+import { group, userInfo } from "../../Pages/AllGroups";
 import Board from "./Board";
 
 type QuantityProps = {
@@ -17,7 +17,13 @@ const Quantity = ({ group }: QuantityProps) => {
       const res = await firebaseUserCollection.get();
       const tempBoard = res.docs
         .filter((doc) => {
-          return group ? group.usersID.includes(doc.data().uid) : true;
+          return group
+            ? group.users
+                ?.map((user: userInfo) => {
+                  return user.uid;
+                })
+                .includes(doc.data().uid)
+            : true;
         })
         .map((doc) => {
           return [

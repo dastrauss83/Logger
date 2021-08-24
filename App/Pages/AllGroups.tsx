@@ -6,14 +6,15 @@ import CreateNewGroup from "../Components/Home Screen/Groups/CreateNewGroup";
 import GroupCard from "../Components/Home Screen/Groups/GroupCard";
 import colors from "../config/colors";
 
+export type userInfo = {
+  uid: string;
+  customUserName: string;
+};
 export type group = {
-  adminID: string;
-  adminCustomUserName: string;
+  admin: userInfo;
   name: string;
-  usersID: string[];
-  usersCustomUserName: string[];
-  requestersID: string[];
-  requestersCustomUserName: string[];
+  users: userInfo[];
+  requesters: userInfo[];
   id: string;
 };
 

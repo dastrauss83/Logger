@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Feather";
 import IconAnt from "react-native-vector-icons/AntDesign";
 import IconMaterial from "react-native-vector-icons/MaterialIcons";
 import colors from "../../../../config/colors";
-import { group } from "../../../../Pages/AllGroups";
+import { group, userInfo } from "../../../../Pages/AllGroups";
 import { useUserContext } from "../../../../UserContext";
 import MyButton from "../../../Atoms/MyButton";
 import { firebaseGroupCollection } from "../../../../../App";
@@ -43,27 +43,28 @@ const InteractWithGroup = ({
   };
 
   const handleLeave = async () => {
-    const userIndex = group.usersID.indexOf(currentUser.uid);
-    const tempUsersID = [...group.usersID];
-    tempUsersID.splice(userIndex, 1);
-    const tempUsersCustomUserName = [...group.usersCustomUserName];
-    tempUsersCustomUserName.splice(userIndex, 1);
+    const userIndex = group.users
+      .map((user: userInfo) => {
+        return user.uid;
+      })
+      .indexOf(currentUser.uid);
+    const tempUsers = [...group.users];
+    tempUsers.splice(userIndex, 1);
     await firebaseGroupCollection.doc(group.id).update({
-      usersID: tempUsersID,
-      usersCustomUserName: tempUsersCustomUserName,
+      users: tempUsers,
     });
     setCardModal(false);
     setRefresh && setRefresh(!refresh);
   };
 
   const handleJoin = async () => {
-    const tempRequestersID = [...group.requestersID];
-    tempRequestersID.push(currentUser.uid);
-    const tempRequestersCustomUserName = [...group.requestersCustomUserName];
-    tempRequestersCustomUserName.push(currentUser.customUserName);
+    const tempRequesters = [...group.requesters];
+    tempRequesters.push({
+      uid: currentUser.uid,
+      customUserName: currentUser.customUserName,
+    });
     await firebaseGroupCollection.doc(group.id).update({
-      requestersID: tempRequestersID,
-      requestersCustomUserName: tempRequestersCustomUserName,
+      requesters: tempRequesters,
     });
     Alert.alert(
       "Request Received",
@@ -84,16 +85,15 @@ const InteractWithGroup = ({
       {
         text: "Yes",
         onPress: async () => {
-          const userIndex = group.requestersID.indexOf(currentUser.uid);
-          const tempRequestersID = [...group.requestersID];
-          tempRequestersID.splice(userIndex, 1);
-          const tempRequestersCustomUserName = [
-            ...group.requestersCustomUserName,
-          ];
-          tempRequestersCustomUserName.splice(userIndex, 1);
+          const userIndex = group.users
+            .map((user: userInfo) => {
+              return user.uid;
+            })
+            .indexOf(currentUser.uid);
+          const tempRequesters = [...group.requesters];
+          tempRequesters.splice(userIndex, 1);
           await firebaseGroupCollection.doc(group.id).update({
-            requestersID: tempRequestersID,
-            requestersCustomUserName: tempRequestersCustomUserName,
+            requesters: tempRequesters,
           });
           setRefresh && setRefresh(!refresh);
           setCardModal(false);
@@ -102,7 +102,7 @@ const InteractWithGroup = ({
     ]);
   };
 
-  if (group.adminID === currentUser.uid) {
+  if (group.admin?.uid === currentUser.uid) {
     return (
       <MyButton
         containerColor={"red"}
@@ -121,7 +121,13 @@ const InteractWithGroup = ({
     );
   }
 
-  if (group.usersID.includes(currentUser.uid)) {
+  if (
+    group.users
+      .map((user: userInfo) => {
+        return user.uid;
+      })
+      .includes(currentUser.uid)
+  ) {
     return (
       <MyButton
         containerColor={"red"}
@@ -141,8 +147,16 @@ const InteractWithGroup = ({
   }
 
   if (
-    !group.usersID?.includes(currentUser.uid) &&
-    !group.requestersID?.includes(currentUser.uid)
+    !group.users
+      ?.map((user: userInfo) => {
+        return user.uid;
+      })
+      .includes(currentUser.uid) &&
+    !group.requesters
+      ?.map((user: userInfo) => {
+        return user.uid;
+      })
+      .includes(currentUser.uid)
   ) {
     return (
       <MyButton
@@ -162,7 +176,13 @@ const InteractWithGroup = ({
     );
   }
 
-  if (group.requestersID?.includes(currentUser.uid)) {
+  if (
+    group.requesters
+      ?.map((user: userInfo) => {
+        return user.uid;
+      })
+      .includes(currentUser.uid)
+  ) {
     return (
       <MyButton
         containerColor={colors.third}

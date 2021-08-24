@@ -27,13 +27,18 @@ const FinalButtons = ({
   const handleSubmit = async () => {
     await firebaseGroupCollection
       .add({
-        adminID: currentUser.uid,
-        adminCustomUserName: currentUser.customUserName,
+        admin: {
+          uid: currentUser.uid,
+          customUserName: currentUser.customUserName,
+        },
         name: groupName,
-        usersID: [currentUser.uid],
-        usersCustomUserName: [currentUser.customUserName],
-        requestersID: [],
-        requestersCustomUserName: [],
+        users: [
+          {
+            uid: currentUser.uid,
+            customUserName: currentUser.customUserName,
+          },
+        ],
+        requesters: [],
       })
       .then(async (docRef) => {
         await firebaseGroupCollection.doc(docRef.id).update({

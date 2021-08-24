@@ -34,11 +34,14 @@ const Group = ({
     getGroup();
     setTimeout(() => {
       setBoard("Time");
-    }, 100);
+    }, 500);
   }, []);
 
   useEffect(() => {
     getGroup();
+    setTimeout(() => {
+      setBoard("Time");
+    }, 500);
   }, [refresh]);
 
   return (
@@ -46,7 +49,7 @@ const Group = ({
       <Back />
       <View style={styles.topTextWrapper}>
         <Text style={styles.topText}>{group && group.name}</Text>
-        {group && group.adminID === currentUser.uid && (
+        {group && group.admin?.uid === currentUser.uid && (
           <>
             <MyButton
               containerColor={colors.second}
@@ -62,7 +65,7 @@ const Group = ({
               style={{ marginTop: 0, width: "60%" }}
             />
             <View style={styles.badge}>
-              <Text style={styles.badgeText}>{group.requestersID?.length}</Text>
+              <Text style={styles.badgeText}>{group.requesters?.length}</Text>
             </View>
           </>
         )}

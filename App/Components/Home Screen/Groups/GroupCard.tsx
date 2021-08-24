@@ -3,7 +3,7 @@ import { StyleSheet, Modal, ScrollView, View, Text } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import IconMaterial from "react-native-vector-icons/MaterialIcons";
 import colors from "../../../config/colors";
-import { group } from "../../../Pages/AllGroups";
+import { group, userInfo } from "../../../Pages/AllGroups";
 import MyButton from "../../Atoms/MyButton";
 import InteractWithGroup from "./GroupCard/InteractWithGroup";
 
@@ -55,14 +55,14 @@ const GroupCard = ({ group, refresh, setRefresh }: GroupCardProps) => {
                       width: "80%",
                     }}
                   >
-                    {group.adminCustomUserName}
+                    {group.admin?.customUserName}
                   </Text>
                 </View>
               </View>
               <View style={styles.wrapper}>
                 <View style={styles.admin}>
                   <Text style={styles.title}>Group Members:</Text>
-                  {group.usersCustomUserName.map((name: string) => {
+                  {group.users?.map((user: userInfo) => {
                     return (
                       <Text
                         style={{
@@ -71,15 +71,14 @@ const GroupCard = ({ group, refresh, setRefresh }: GroupCardProps) => {
                           color: colors.second,
                           width: "80%",
                         }}
-                        key={name}
+                        key={user.uid}
                       >
-                        {name}
+                        {user.customUserName}
                       </Text>
                     );
                   })}
                 </View>
               </View>
-
               <MyButton
                 onPress={() => setCardModal(false)}
                 containerColor={colors.third}
