@@ -2,24 +2,33 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { firebaseUserCollection } from "../../../App";
 import colors from "../../config/colors";
+import { group } from "../../Pages/AllGroups";
 import Board from "./Board";
 
-const Quantity = () => {
+type QuantityProps = {
+  group?: group;
+};
+
+const Quantity = ({ group }: QuantityProps) => {
   const [board, setBoard] = useState<any>([]);
 
   useEffect(() => {
     const getBoard = async () => {
       const res = await firebaseUserCollection.get();
-      const tempBoard = res.docs.map((doc) => {
-        return [
-          doc.data().customUserName,
-          `${doc.data().logs.length} ${
-            doc.data().logs.length === 1 ? "Log" : "Logs"
-          }`,
-          doc.id,
-          doc.data().logs.length,
-        ];
-      });
+      const tempBoard = res.docs
+        .filter((doc) => {
+          return group ? group.usersID.includes(doc.data().uid) : true;
+        })
+        .map((doc) => {
+          return [
+            doc.data().customUserName,
+            `${doc.data().logs.length} ${
+              doc.data().logs.length === 1 ? "Log" : "Logs"
+            }`,
+            doc.id,
+            doc.data().logs.length,
+          ];
+        });
       tempBoard.sort((a, b) => {
         return b[3] - a[3];
       });

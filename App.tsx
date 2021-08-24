@@ -26,6 +26,7 @@ import OtherUserLogs from "./App/Components/Home Screen/OtherUserLogs";
 import AllGroups from "./App/Pages/AllGroups";
 import MyGroups from "./App/Pages/MyGroups";
 import Group from "./App/Pages/Group";
+import ManageGroup from "./App/Pages/ManageGroup";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -136,6 +137,7 @@ export default function App() {
                 <Stack.Screen name="AllGroups" component={AllGroups} />
                 <Stack.Screen name="MyGroups" component={MyGroups} />
                 <Stack.Screen name="Group" component={Group} />
+                <Stack.Screen name="ManageGroup" component={ManageGroup} />
               </>
             )}
             <Stack.Screen name="LeaderBoards" component={LeaderBoards} />

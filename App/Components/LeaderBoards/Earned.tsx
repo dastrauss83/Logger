@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { firebaseUserCollection } from "../../../App";
 import colors from "../../config/colors";
+import { group } from "../../Pages/AllGroups";
 import Board from "./Board";
 
-const Earned = () => {
+type EarnedProps = {
+  group?: group;
+};
+
+const Earned = ({ group }: EarnedProps) => {
   const [board, setBoard] = useState<any>([]);
 
   const totalEarned = (logs: any) => {
@@ -22,13 +27,17 @@ const Earned = () => {
   useEffect(() => {
     const getBoard = async () => {
       const res = await firebaseUserCollection.get();
-      const tempBoard = res.docs.map((doc) => {
-        return [
-          doc.data().customUserName,
-          totalEarned(doc.data().logs),
-          doc.id,
-        ];
-      });
+      const tempBoard = res.docs
+        .filter((doc) => {
+          return group ? group.usersID.includes(doc.data().uid) : true;
+        })
+        .map((doc) => {
+          return [
+            doc.data().customUserName,
+            totalEarned(doc.data().logs),
+            doc.id,
+          ];
+        });
       tempBoard.sort((a, b) => {
         return b[1] - a[1];
       });

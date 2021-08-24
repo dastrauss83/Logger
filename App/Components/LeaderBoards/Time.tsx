@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { firebaseUserCollection } from "../../../App";
 import colors from "../../config/colors";
+import { group } from "../../Pages/AllGroups";
 import Board from "./Board";
 
-const Time = () => {
+type TimeProps = {
+  group?: group;
+};
+
+const Time = ({ group }: TimeProps) => {
   const [board, setBoard] = useState<any>([]);
 
   const totalTime = (logs: any) => {
@@ -27,9 +32,17 @@ const Time = () => {
   useEffect(() => {
     const getBoard = async () => {
       const res = await firebaseUserCollection.get();
-      const tempBoard = res.docs.map((doc) => {
-        return [doc.data().customUserName, totalTime(doc.data().logs), doc.id];
-      });
+      const tempBoard = res.docs
+        .filter((doc) => {
+          return group ? group.usersID.includes(doc.data().uid) : true;
+        })
+        .map((doc) => {
+          return [
+            doc.data().customUserName,
+            totalTime(doc.data().logs),
+            doc.id,
+          ];
+        });
       tempBoard.sort((a, b) => {
         return b[1] - a[1];
       });
