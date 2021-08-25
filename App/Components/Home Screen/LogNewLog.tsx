@@ -58,7 +58,7 @@ const LogNewLog = ({ setRefresh, refresh, style }: LogNewLogProp) => {
                 setSeconds={setSeconds}
               />
               <Rate rate={rate} setRate={setRate} />
-              <Picture picture={picture} setPicture={setPicture} />
+              {/* <Picture picture={picture} setPicture={setPicture} /> */}
               <Map
                 location={location}
                 setLocation={setLocation}
