@@ -2,7 +2,7 @@
   "expo": {
     "name": "Logger - Poop Competitively",
     "slug": "Logger",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./App/Assets/icon.png",
     "splash": {
