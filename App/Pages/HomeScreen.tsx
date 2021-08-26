@@ -20,7 +20,7 @@ const HomeScreen = ({ navigation }: any) => {
               name="leaderboard"
               size={25}
               color={colors.first}
-              style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 20, top: 23 }}
             />
           }
           onPress={() => navigation.navigate("LeaderBoards")}
@@ -36,7 +36,7 @@ const HomeScreen = ({ navigation }: any) => {
               name="poop"
               size={25}
               color={colors.first}
-              style={{ marginRight: 10 }}
+              style={{ position: "absolute", left: 20, top: 23 }}
             />
           }
         />
@@ -50,7 +50,7 @@ const HomeScreen = ({ navigation }: any) => {
               name="group"
               size={25}
               color={colors.first}
-              style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 20, top: 23 }}
             />
           }
         />
@@ -64,7 +64,7 @@ const HomeScreen = ({ navigation }: any) => {
               name="groups"
               size={25}
               color={colors.first}
-              style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 20, top: 23 }}
             />
           }
         /> */}
@@ -78,7 +78,7 @@ const HomeScreen = ({ navigation }: any) => {
               name="settings"
               size={25}
               color={colors.first}
-              style={{ marginRight: 10 }}
+              style={{ position: "absolute", left: 20, top: 23 }}
             />
           }
         />

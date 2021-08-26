@@ -38,7 +38,7 @@ const ChangePassword = () => {
             name="user"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 20, top: 23 }}
           />
         }
       />

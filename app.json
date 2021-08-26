@@ -2,7 +2,7 @@
   "expo": {
     "name": "Logger",
     "slug": "Logger",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./App/Assets/icon.png",
     "splash": {

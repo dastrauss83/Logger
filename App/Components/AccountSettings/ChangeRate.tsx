@@ -33,7 +33,7 @@ const ChangeRate = () => {
             name="dollar"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 22, top: 23 }}
           />
         }
       />

@@ -42,7 +42,7 @@ const LogNewLog = ({ setRefresh, refresh, style }: LogNewLogProp) => {
             name="pluscircleo"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 20, top: 23 }}
           />
         }
       />

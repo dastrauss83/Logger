@@ -41,12 +41,13 @@ const Menu = ({ currentUser, setCurrentUser }: any) => {
               containerColor={colors.second}
               textColor={colors.first}
               text={"Log Out"}
+              style={{ width: "88%" }}
               icon={
                 <Icon
                   name="logout"
                   size={25}
                   color={colors.first}
-                  style={{ marginRight: 10 }}
+                  style={{ position: "absolute", left: 20, top: 23 }}
                 />
               }
             />
@@ -58,12 +59,13 @@ const Menu = ({ currentUser, setCurrentUser }: any) => {
               containerColor={colors.second}
               textColor={colors.first}
               text={"Account Settings"}
+              style={{ width: "88%" }}
               icon={
                 <IconFeather
                   name="settings"
                   size={25}
                   color={colors.first}
-                  style={{ marginRight: 10 }}
+                  style={{ position: "absolute", left: 20, top: 23 }}
                 />
               }
             />
@@ -72,13 +74,13 @@ const Menu = ({ currentUser, setCurrentUser }: any) => {
               containerColor={colors.third}
               textColor={colors.first}
               text={"Close Menu"}
-              style={{ marginBottom: 0 }}
+              style={{ width: "88%" }}
               icon={
                 <Icon
                   name="back"
                   size={25}
                   color={colors.first}
-                  style={{ marginRight: 10 }}
+                  style={{ position: "absolute", left: 20, top: 23 }}
                 />
               }
             />
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
   modalView: {
     paddingTop: 30,
     paddingBottom: 30,
-    width: "80%",
+    width: "91%",
     backgroundColor: colors.first,
     borderRadius: 20,
     alignItems: "center",
