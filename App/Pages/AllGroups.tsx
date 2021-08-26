@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, SafeAreaView, ScrollView, Text } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import { firebaseGroupCollection } from "../../App";
 import Back from "../Components/Atoms/Back";
 import CreateNewGroup from "../Components/Home Screen/Groups/CreateNewGroup";
@@ -21,13 +28,18 @@ export type group = {
 const AllGroups = () => {
   const [groups, setGroups] = useState<any>();
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getGroups = async () => {
+    setLoading(true);
     const res = await firebaseGroupCollection.get();
     const tempGroups = res.docs.map((doc) => {
       return doc.data();
     });
     setGroups(tempGroups);
+    setInterval(() => {
+      setLoading(false);
+    }, 500);
   };
   useEffect(() => {
     getGroups();
@@ -35,6 +47,13 @@ const AllGroups = () => {
   useEffect(() => {
     getGroups();
   }, [refresh]);
+
+  if (loading)
+    return (
+      <View style={styles.background}>
+        <ActivityIndicator size="large" color={colors.second} />
+      </View>
+    );
 
   return (
     <SafeAreaView style={styles.background}>

@@ -82,7 +82,7 @@ export default function App() {
           await new Promise((resolve) =>
             Alert.alert(
               "Required update",
-              "your app will briefly restart",
+              "Your app will briefly restart",
               [{ text: "OK", onPress: () => resolve(true) }],
               { cancelable: false }
             )
@@ -134,13 +134,13 @@ export default function App() {
                   {() => <AccountSettings setCurrentUser={setCurrentUser} />}
                 </Stack.Screen>
                 <Stack.Screen name="OtherUserLogs" component={OtherUserLogs} />
-                {/* <Stack.Screen name="AllGroups" component={AllGroups} />
+                <Stack.Screen name="AllGroups" component={AllGroups} />
                 <Stack.Screen name="MyGroups" component={MyGroups} />
                 <Stack.Screen name="Group" component={Group} />
-                <Stack.Screen name="ManageGroup" component={ManageGroup} /> */}
+                <Stack.Screen name="ManageGroup" component={ManageGroup} />
               </>
             )}
-            {/* <Stack.Screen name="LeaderBoards" component={LeaderBoards} /> */}
+            <Stack.Screen name="LeaderBoards" component={LeaderBoards} />
           </Stack.Navigator>
         </UserContext.Provider>
       </NavigationContainer>

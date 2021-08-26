@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { firebaseUserCollection } from "../../../App";
 import colors from "../../config/colors";
 import { group, userInfo } from "../../Pages/AllGroups";
@@ -11,6 +18,7 @@ type EarnedProps = {
 
 const Earned = ({ group }: EarnedProps) => {
   const [board, setBoard] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const totalEarned = (logs: any) => {
     let earned = 0;
@@ -26,6 +34,7 @@ const Earned = ({ group }: EarnedProps) => {
 
   useEffect(() => {
     const getBoard = async () => {
+      setLoading(true);
       const res = await firebaseUserCollection.get();
       const tempBoard = res.docs
         .filter((doc) => {
@@ -51,9 +60,19 @@ const Earned = ({ group }: EarnedProps) => {
         return [array[0], refinedEarned(array[1]), array[2], index];
       });
       setBoard(refinedBoard);
+      setInterval(() => {
+        setLoading(false);
+      }, 500);
     };
     getBoard();
   }, []);
+
+  if (loading)
+    return (
+      <View style={styles.background}>
+        <ActivityIndicator size="large" color={colors.second} />
+      </View>
+    );
 
   return (
     <SafeAreaView style={styles.background}>

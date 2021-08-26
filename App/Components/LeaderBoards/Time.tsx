@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { firebaseUserCollection } from "../../../App";
 import colors from "../../config/colors";
 import { group, userInfo } from "../../Pages/AllGroups";
@@ -11,6 +18,7 @@ type TimeProps = {
 
 const Time = ({ group }: TimeProps) => {
   const [board, setBoard] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const totalTime = (logs: any) => {
     let time = 0;
@@ -31,6 +39,7 @@ const Time = ({ group }: TimeProps) => {
 
   useEffect(() => {
     const getBoard = async () => {
+      setLoading(true);
       const res = await firebaseUserCollection.get();
       const tempBoard = res.docs
         .filter((doc) => {
@@ -56,9 +65,20 @@ const Time = ({ group }: TimeProps) => {
         return [array[0], refinedTime(array[1]), array[2], index];
       });
       setBoard(sortedBoard);
+      setInterval(() => {
+        setLoading(false);
+      }, 500);
     };
     getBoard();
   }, []);
+
+  if (loading)
+    return (
+      <View style={styles.background}>
+        <ActivityIndicator size="large" color={colors.second} />
+      </View>
+    );
+
   return (
     <SafeAreaView style={styles.background}>
       <Text style={styles.topText}>All Time Leaders by Time</Text>

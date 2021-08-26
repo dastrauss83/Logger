@@ -1,6 +1,13 @@
 import firebase from "firebase";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import colors from "../../config/colors";
 import { useUserContext } from "../../UserContext";
 import Back from "../Atoms/Back";
@@ -10,14 +17,19 @@ import LogCard from "./MyLogs/LogCard";
 const MyLogs = () => {
   const [userLogs, setUserLogs] = useState<any>(["poo"]);
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const { currentUser } = useUserContext();
 
   const getUserLogs = async () => {
+    setLoading(true);
     const response: any = (
       await firebase.firestore().collection("users").doc(currentUser.uid).get()
     ).data();
     const tempUserLogs = response.logs;
     setUserLogs(tempUserLogs);
+    setInterval(() => {
+      setLoading(false);
+    }, 500);
   };
 
   useEffect(() => {
@@ -27,6 +39,13 @@ const MyLogs = () => {
   useEffect(() => {
     getUserLogs();
   }, [refresh]);
+
+  if (loading)
+    return (
+      <View style={styles.screen}>
+        <ActivityIndicator size="large" color={colors.second} />
+      </View>
+    );
 
   return (
     <SafeAreaView>

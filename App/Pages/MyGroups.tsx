@@ -1,6 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, SafeAreaView, ScrollView, Text } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import { firebaseGroupCollection } from "../../App";
 import Back from "../Components/Atoms/Back";
 import MyButton from "../Components/Atoms/MyButton";
@@ -12,10 +19,12 @@ import { group, userInfo } from "./AllGroups";
 const MyGroups = () => {
   const [groups, setGroups] = useState<any>();
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const { currentUser } = useUserContext();
   const navigation = useNavigation<any>();
 
   const getGroups = async () => {
+    setLoading(true);
     const res = await firebaseGroupCollection.get();
     const tempGroups = res.docs
       .map((doc) => doc.data())
@@ -30,6 +39,9 @@ const MyGroups = () => {
       return;
     }
     setGroups(tempGroups);
+    setInterval(() => {
+      setLoading(false);
+    }, 500);
   };
   useEffect(() => {
     getGroups();
@@ -38,6 +50,13 @@ const MyGroups = () => {
   useEffect(() => {
     getGroups();
   }, [refresh]);
+
+  if (loading)
+    return (
+      <View style={styles.background}>
+        <ActivityIndicator size="large" color={colors.second} />
+      </View>
+    );
 
   return (
     <SafeAreaView style={styles.background}>

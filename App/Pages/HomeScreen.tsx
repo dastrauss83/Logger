@@ -20,7 +20,7 @@ const HomeScreen = ({ navigation }: any) => {
               name="leaderboard"
               size={25}
               color={colors.first}
-            style={{ position: "absolute", left: 20, top: 23 }}
+              style={{ position: "absolute", left: 20, top: 23 }}
             />
           }
           onPress={() => navigation.navigate("LeaderBoards")}
