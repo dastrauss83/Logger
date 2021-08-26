@@ -51,6 +51,7 @@ const AllGroups = () => {
   if (loading)
     return (
       <View style={styles.background}>
+        <Back />
         <ActivityIndicator size="large" color={colors.second} />
       </View>
     );

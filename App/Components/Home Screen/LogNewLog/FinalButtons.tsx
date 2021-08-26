@@ -175,10 +175,14 @@ const FinalButtons = ({
             name="upload"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 10, top: 23 }}
           />
         }
-        style={{ width: "60%", marginBottom: 0 }}
+        style={{
+          width: "60%",
+          marginBottom: 0,
+          paddingLeft: 5,
+        }}
       />
     </View>
   );

@@ -109,12 +109,13 @@ const InteractWithGroup = ({
         textColor={colors.first}
         text={"Delete Group"}
         onPress={handleDelete}
+        style={{ width: "88%" }}
         icon={
           <IconMaterial
             name="delete"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 20, top: 23 }}
           />
         }
       />
@@ -134,12 +135,13 @@ const InteractWithGroup = ({
         textColor={colors.first}
         text={"Leave Group"}
         onPress={handleLeave}
+        style={{ width: "88%" }}
         icon={
           <IconAnt
             name="back"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 20, top: 23 }}
           />
         }
       />
@@ -164,12 +166,13 @@ const InteractWithGroup = ({
         textColor={colors.first}
         text={"Join Group"}
         onPress={handleJoin}
+        style={{ width: "88%" }}
         icon={
           <IconAnt
             name="pluscircleo"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 20, top: 23 }}
           />
         }
       />
@@ -189,12 +192,13 @@ const InteractWithGroup = ({
         textColor={colors.first}
         text={"Pending Approval..."}
         onPress={handleCancelRequest}
+        style={{ width: "88%" }}
         icon={
           <Icon
             name="clock"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 20, top: 23 }}
           />
         }
       />

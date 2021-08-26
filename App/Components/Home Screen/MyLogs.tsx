@@ -43,6 +43,7 @@ const MyLogs = () => {
   if (loading)
     return (
       <View style={styles.screen}>
+        <Back />
         <ActivityIndicator size="large" color={colors.second} />
       </View>
     );

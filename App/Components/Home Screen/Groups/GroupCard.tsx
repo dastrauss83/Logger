@@ -28,7 +28,7 @@ const GroupCard = ({ group, refresh, setRefresh }: GroupCardProps) => {
             name="groups"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 20, top: 23 }}
           />
         }
       />
@@ -84,12 +84,13 @@ const GroupCard = ({ group, refresh, setRefresh }: GroupCardProps) => {
                 containerColor={colors.third}
                 textColor={colors.first}
                 text={"Close"}
+                style={{ width: "88%" }}
                 icon={
                   <Icon
                     name="back"
                     size={25}
                     color={colors.first}
-                    style={{ marginRight: 10 }}
+                    style={{ position: "absolute", left: 20, top: 23 }}
                   />
                 }
               />
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     height: "75%",
   },
   modalView: {
-    width: "90%",
+    width: "91%",
     height: "75%",
     backgroundColor: colors.first,
     borderRadius: 20,

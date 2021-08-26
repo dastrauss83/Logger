@@ -28,7 +28,7 @@ const CreateNewGroup = ({ refresh, setRefresh }: CreateNewGroupProps) => {
             name="pluscircleo"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 20, top: 23 }}
           />
         }
       />
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     height: "50%",
   },
   modalView: {
-    width: "90%",
+    width: "91%",
     height: "50%",
     backgroundColor: colors.first,
     borderRadius: 20,

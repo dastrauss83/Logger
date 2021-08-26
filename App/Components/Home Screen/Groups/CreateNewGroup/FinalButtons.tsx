@@ -65,7 +65,7 @@ const FinalButtons = ({
             name="back"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ width: "30%", marginBottom: 0 }}
           />
         }
         style={{ width: "30%", marginBottom: 0 }}
@@ -80,10 +80,10 @@ const FinalButtons = ({
             name="upload"
             size={25}
             color={colors.first}
-            style={{ marginRight: 10 }}
+            style={{ position: "absolute", left: 10, top: 23 }}
           />
         }
-        style={{ width: "60%", marginBottom: 0 }}
+        style={{ width: "60%", marginBottom: 0, paddingLeft: 5 }}
       />
     </View>
   );

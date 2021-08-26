@@ -83,10 +83,10 @@ const MyLogsExpandView = ({
                   name="back"
                   size={25}
                   color={colors.first}
-                  style={{ marginRight: 10 }}
+                  style={{ position: "absolute", left: 20, top: 23 }}
                 />
               }
-              style={{ marginBottom: 0 }}
+              style={{ marginBottom: 0, width: "88%" }}
             />
           </ScrollView>
         </View>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   modalView: {
     padding: 15,
     height: "85%",
-    width: "90%",
+    width: "91%",
     backgroundColor: colors.first,
     borderRadius: 20,
     shadowColor: "#000",

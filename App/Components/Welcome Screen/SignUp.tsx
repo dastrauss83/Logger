@@ -108,7 +108,7 @@ const SignUp = () => {
                   name="adduser"
                   size={25}
                   color={colors.first}
-                  style={{ marginRight: 10 }}
+                  style={{ position: "absolute", left: 20, top: 23 }}
                 />
               }
               containerColor={colors.third}

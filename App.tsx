@@ -27,6 +27,7 @@ import AllGroups from "./App/Pages/AllGroups";
 import MyGroups from "./App/Pages/MyGroups";
 import Group from "./App/Pages/Group";
 import ManageGroup from "./App/Pages/ManageGroup";
+import LeaderBoardsNotSignedIn from "./App/Pages/LeaderBoardsNotSignedIn";
 
 var firebaseConfig = {
   apiKey: "AIzaSyA6X4nIVhuhyLy4Vr0ZYXiZT3ISwcMKOFQ",
@@ -125,6 +126,10 @@ export default function App() {
               <>
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
                 <Stack.Screen name="SignUp" component={SignUp} />
+                <Stack.Screen
+                  name="LeaderBoardsNotSignedIn"
+                  component={LeaderBoardsNotSignedIn}
+                />
               </>
             ) : (
               <>
@@ -133,6 +138,7 @@ export default function App() {
                 <Stack.Screen name="AccountSettings">
                   {() => <AccountSettings setCurrentUser={setCurrentUser} />}
                 </Stack.Screen>
+                <Stack.Screen name="LeaderBoards" component={LeaderBoards} />
                 <Stack.Screen name="OtherUserLogs" component={OtherUserLogs} />
                 <Stack.Screen name="AllGroups" component={AllGroups} />
                 <Stack.Screen name="MyGroups" component={MyGroups} />
@@ -140,7 +146,6 @@ export default function App() {
                 <Stack.Screen name="ManageGroup" component={ManageGroup} />
               </>
             )}
-            <Stack.Screen name="LeaderBoards" component={LeaderBoards} />
           </Stack.Navigator>
         </UserContext.Provider>
       </NavigationContainer>

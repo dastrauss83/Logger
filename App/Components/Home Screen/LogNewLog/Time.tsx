@@ -147,13 +147,13 @@ const Time = ({ minutes, seconds, setMinutes, setSeconds }: TimeProps) => {
           containerColor={activeCounter ? "red" : colors.second}
           textColor={colors.first}
           text={activeCounter ? "Stop Timer" : "Start Timer"}
-          style={{ width: "60%" }}
+          style={{ width: "60%", paddingLeft: 10 }}
           icon={
             <Icon
               name="ios-timer-outline"
               size={25}
               color={colors.first}
-              style={{ marginRight: 10 }}
+              style={{ position: "absolute", left: 10, top: 23 }}
             />
           }
         />

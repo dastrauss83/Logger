@@ -90,13 +90,13 @@ const Map = ({
               textColor={colors.first}
               text={"Current Location"}
               onPress={handleGetCoordinates}
-              style={{ width: "60%" }}
+              style={{ width: "60%", paddingLeft: 25 }}
               icon={
                 <Icon
                   name="location-pin"
                   size={25}
                   color={colors.first}
-                  style={{ marginRight: 10 }}
+                  style={{ position: "absolute", left: 10, top: 23 }}
                 />
               }
             />

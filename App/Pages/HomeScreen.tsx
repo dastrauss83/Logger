@@ -50,7 +50,7 @@ const HomeScreen = ({ navigation }: any) => {
               name="group"
               size={25}
               color={colors.first}
-            style={{ position: "absolute", left: 20, top: 23 }}
+              style={{ position: "absolute", left: 20, top: 23 }}
             />
           }
         />
@@ -64,7 +64,7 @@ const HomeScreen = ({ navigation }: any) => {
               name="groups"
               size={25}
               color={colors.first}
-            style={{ position: "absolute", left: 20, top: 23 }}
+              style={{ position: "absolute", left: 20, top: 23 }}
             />
           }
         /> */}

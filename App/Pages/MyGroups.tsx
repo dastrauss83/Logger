@@ -36,6 +36,9 @@ const MyGroups = () => {
           .includes(currentUser.uid);
       });
     if (tempGroups[0] === undefined) {
+      setInterval(() => {
+        setLoading(false);
+      }, 500);
       return;
     }
     setGroups(tempGroups);
@@ -54,6 +57,7 @@ const MyGroups = () => {
   if (loading)
     return (
       <View style={styles.background}>
+        <Back />
         <ActivityIndicator size="large" color={colors.second} />
       </View>
     );

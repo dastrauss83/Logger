@@ -63,19 +63,24 @@ const ChangeUsername = ({ setCurrentUser }: any) => {
               placeholder={"New User Name"}
               value={newUsername}
               onChangeText={setNewUsername}
-              style={{ backgroundColor: colors.second, color: colors.first }}
+              style={{
+                backgroundColor: colors.second,
+                color: colors.first,
+                width: "88%",
+              }}
             />
             <MyButton
               onPress={handleChangeUsername}
               containerColor={colors.second}
               textColor={colors.first}
               text={"Change"}
+              style={{ width: "88%" }}
               icon={
                 <Icon
                   name="user"
                   size={25}
                   color={colors.first}
-                  style={{ marginRight: 10 }}
+                  style={{ position: "absolute", left: 20, top: 23 }}
                 />
               }
             />
@@ -84,13 +89,13 @@ const ChangeUsername = ({ setCurrentUser }: any) => {
               containerColor={colors.third}
               textColor={colors.first}
               text={"Close Menu"}
-              style={{ marginBottom: 0 }}
+              style={{ width: "88%" }}
               icon={
                 <Icon
                   name="back"
                   size={25}
                   color={colors.first}
-                  style={{ marginRight: 10 }}
+                  style={{ position: "absolute", left: 20, top: 23 }}
                 />
               }
             />
@@ -112,7 +117,7 @@ const styles = StyleSheet.create({
   modalView: {
     paddingTop: 30,
     paddingBottom: 30,
-    width: "80%",
+    width: "91%",
     backgroundColor: colors.first,
     borderRadius: 20,
     alignItems: "center",
