@@ -14,7 +14,7 @@ const PromptText = () => {
             width: "80%",
           }}
         >
-          Enter the Time, Value, and even the Location of your new Log!
+          Enter the Time, Value, etc. of your new Log!
         </Text>
       </View>
     </View>
