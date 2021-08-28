@@ -11,7 +11,7 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.background}>
       <ScrollView style={styles.buttonsContainer}>
-        {/* <MyButton
+        <MyButton
           containerColor={colors.third}
           textColor={colors.first}
           text={"Leader Boards"}
@@ -24,7 +24,7 @@ const HomeScreen = ({ navigation }: any) => {
             />
           }
           onPress={() => navigation.navigate("LeaderBoards")}
-        /> */}
+        />
         <LogNewLog />
         <MyButton
           onPress={() => navigation.navigate("MyLogs")}
@@ -40,7 +40,7 @@ const HomeScreen = ({ navigation }: any) => {
             />
           }
         />
-        {/* <MyButton
+        <MyButton
           onPress={() => navigation.navigate("MyGroups")}
           containerColor={colors.second}
           textColor={colors.first}
@@ -67,7 +67,7 @@ const HomeScreen = ({ navigation }: any) => {
               style={{ position: "absolute", left: 20, top: 23 }}
             />
           }
-        /> */}
+        />
         <MyButton
           onPress={() => navigation.navigate("AccountSettings")}
           containerColor={colors.third}

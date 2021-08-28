@@ -30,7 +30,7 @@ export const WelcomeScreen = ({ navigation }: any) => {
               />
             </View>
             <View style={{ width: "100%" }}>
-              {/* <MyButton
+              <MyButton
                 containerColor={colors.third}
                 textColor={colors.first}
                 text={"Leader Boards"}
@@ -39,11 +39,11 @@ export const WelcomeScreen = ({ navigation }: any) => {
                     name="leaderboard"
                     size={25}
                     color={colors.first}
-                    style={{ marginRight: 10 }}
+                    style={{ position: "absolute", left: 20, top: 23 }}
                   />
                 }
                 onPress={() => navigation.navigate("LeaderBoardsNotSignedIn")}
-              /> */}
+              />
             </View>
           </View>
         </TouchableWithoutFeedback>
