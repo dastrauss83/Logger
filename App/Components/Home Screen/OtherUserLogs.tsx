@@ -1,7 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import firebase from "firebase";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { useNavigationParam } from "react-navigation-hooks";
 import colors from "../../config/colors";
 import Back from "../Atoms/Back";
@@ -13,18 +20,31 @@ const OtherUserLogs = ({
   },
 }: any) => {
   const [userLogs, setUserLogs] = useState<any>(["poo"]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getUserLogs = async () => {
+    setLoading(true);
     const response: any = (
       await firebase.firestore().collection("users").doc(userID).get()
     ).data();
     const tempUserLogs = response.logs;
     setUserLogs(tempUserLogs);
+    setInterval(() => {
+      setLoading(false);
+    }, 500);
   };
 
   useEffect(() => {
     getUserLogs();
   }, []);
+
+  if (loading)
+    return (
+      <View style={styles.screen}>
+        <Back />
+        <ActivityIndicator size="large" color={colors.second} />
+      </View>
+    );
 
   return (
     <SafeAreaView>
