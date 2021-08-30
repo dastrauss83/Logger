@@ -40,7 +40,7 @@ const Board = ({ array }: BoardProps) => {
           {array[3] === 0 || array[3] === 1 || array[3] === 2 ? (
             <Icon
               name="trophy"
-              size={20}
+              size={18}
               color={
                 array[3] === 0
                   ? "gold"
@@ -52,7 +52,7 @@ const Board = ({ array }: BoardProps) => {
               }
             />
           ) : (
-            `${array[3]}.`
+            `${array[3] + 1}.`
           )}
           {` ${array[0]}`}
         </Text>
@@ -75,7 +75,7 @@ export default Board;
 
 const styles = StyleSheet.create({
   header: {
-    width: "90%",
+    width: "98%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 18,
     color: colors.second,
     marginLeft: 7,
     marginBottom: 5,
