@@ -40,7 +40,7 @@ const Board = ({ array }: BoardProps) => {
           {array[3] === 0 || array[3] === 1 || array[3] === 2 ? (
             <Icon
               name="trophy"
-              size={18}
+              size={17}
               color={
                 array[3] === 0
                   ? "gold"
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
   },
   headerText: {
-    fontSize: 18,
+    fontSize: 17,
     color: colors.second,
     marginLeft: 7,
     marginBottom: 5,
