@@ -75,7 +75,7 @@ export default Board;
 
 const styles = StyleSheet.create({
   header: {
-    width: "98%",
+    width: "99%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
