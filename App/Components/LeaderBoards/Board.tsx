@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     width: "99%",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
   },
   headerCategory: {
     width: "50%",
